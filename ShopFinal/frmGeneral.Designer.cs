@@ -1,7 +1,7 @@
 ﻿
 namespace ShopFinal
 {
-    partial class Form1
+    partial class frmGeneral
     {
         /// <summary>
         /// Required designer variable.
@@ -29,13 +29,32 @@ namespace ShopFinal
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.lstProducts = new System.Windows.Forms.ListBox();
+            this.SuspendLayout();
+            // 
+            // lstProducts
+            // 
+            this.lstProducts.FormattingEnabled = true;
+            this.lstProducts.Location = new System.Drawing.Point(71, 66);
+            this.lstProducts.Name = "lstProducts";
+            this.lstProducts.Size = new System.Drawing.Size(91, 212);
+            this.lstProducts.TabIndex = 0;
+            // 
+            // frmGeneral
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "Form1";
+            this.Controls.Add(this.lstProducts);
+            this.Name = "frmGeneral";
+            this.Text = "Shop Management";
+            this.ResumeLayout(false);
+
         }
 
         #endregion
+
+        private System.Windows.Forms.ListBox lstProducts;
     }
 }
 
