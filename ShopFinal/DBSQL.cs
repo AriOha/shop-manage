@@ -132,3 +132,39 @@ namespace ShopFinal
             }
             return products;
         }
+
+        ////####################Suppliers####################
+
+        public Supplier[] GetSuppliersData()
+        {
+            DataSet ds = new DataSet(); //creating dataset to get the result from db into ds tables
+            Supplier[] suppliers = null;
+            string cmdStr = "SELECT id,name,address,phone,email FROM suppliers";
+
+            using (MySqlCommand command = new MySqlCommand(cmdStr)) //free the MySqlCommand after finishing the query
+            {
+                ds = GetMultipleQuery(command); //returns data of cities
+            }
+            
+            DataTable dt = new DataTable(); // Creating data table to be as reference to ds to get the result table from the query
+            try
+            {
+                dt = ds.Tables[0];
+            }
+            catch { }
+            if (dt.Rows.Count > 0) // if received data from the database
+            {
+                suppliers = new Supplier[dt.Rows.Count];
+                for (int i = 0; i < suppliers.Length; i++)
+                {
+                    suppliers[i] = new Supplier();
+                    suppliers[i].Id = Convert.ToInt64(dt.Rows[i][0]); //city code stored at column 0
+                    suppliers[i].Name = dt.Rows[i][1].ToString();// first name stored at column 1
+                    suppliers[i].Address = dt.Rows[i][2].ToString();// last name stored at column 2
+                    suppliers[i].Phone = dt.Rows[i][3].ToString();// city name stored at column 3
+                    suppliers[i].Email = dt.Rows[i][4].ToString();// user name stored at column 4
+                }
+            }
+            return suppliers;
+        }
+

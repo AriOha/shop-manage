@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ShopFinal
@@ -13,6 +6,9 @@ namespace ShopFinal
     public partial class frmGeneral : Form
     {
         private DBSQL mySQL;
+        Product[] products;
+        Supplier[] suppliers;
+
         public frmGeneral()
         {
             InitializeComponent();
@@ -23,12 +19,13 @@ namespace ShopFinal
             mySQL = DBSQL.Instance;
 
             fillProducts();
+            fillSuppliers();
         }
 
 
         private void fillProducts()
         {
-            Product[] products = mySQL.GetProductsData();
+            products = mySQL.GetProductsData();
             lstProducts.Items.Clear();
 
             for (int i = 0; i < products.Length; i++)
@@ -36,5 +33,30 @@ namespace ShopFinal
 
         }
 
+        private void fillSuppliers()
+        {
+            suppliers = mySQL.GetSuppliersData();
+            cboEditSupp.Items.Clear();
+            cboAddProd.Items.Clear();
+
+            for (int i = 0; i < suppliers.Length; i++)
+            {
+                cboEditSupp.Items.Add(suppliers[i].Name);
+                cboAddProd.Items.Add(suppliers[i].Name);
+
+            }
+        }
+
+
+
+        private void lstProducts_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Product p = products[lstProducts.SelectedIndex];
+            int i = Array.FindIndex(suppliers, supplier => supplier.Id == p.SupplierId);
+            Supplier s = suppliers[i];
+            cboEditSupp.SelectedIndex = cboEditSupp.Items.IndexOf(s.Name);
+            txtEditProd.Text = p.Name;
+
+        }
     }
 }
