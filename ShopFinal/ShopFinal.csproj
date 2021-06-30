@@ -89,6 +89,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Customer.cs" />
     <Compile Include="DBConnection.cs" />
     <Compile Include="DBSQL.cs" />
     <Compile Include="frmGeneral.cs">
@@ -97,6 +98,8 @@
     <Compile Include="frmGeneral.Designer.cs">
       <DependentUpon>frmGeneral.cs</DependentUpon>
     </Compile>
+    <Compile Include="Order.cs" />
+    <Compile Include="OrderProduct.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
