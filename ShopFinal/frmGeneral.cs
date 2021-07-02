@@ -18,48 +18,50 @@ namespace ShopFinal
             DBSQL.UserName = "root";
             DBSQL.Password = "secret";
             mySQL = DBSQL.Instance;
-
+            tabMain.SelectedIndex = 0;
 
         }
 
 
-        private void fillProducts(ListBox list, string key, string value)
+
+        //function get list of objects and insert them to the given ListBox binding key and value
+        private void fillListBox<T>(ListBox destList, IEnumerable<T> sourceArr, string key, string value)
         {
+            foreach (T item in sourceArr)
+                destList.Items.Add(item);
+            destList.ValueMember = value; // The value of the selected item
+            destList.DisplayMember = key; // the value that will displayed at the list(name)
+        }
+        //function get list of objects and insert them to the given ComboBox binding key and value
+        private void fillCboList<T>(ComboBox destList, IEnumerable<T> sourceArr, string key, string value)
+        {
+            foreach (T item in sourceArr)
+                destList.Items.Add(item);
+            destList.ValueMember = value; // the value of the selected item at the list(supplier id)
+            destList.DisplayMember = key;// the value that will displayed at the list(supplier name)
+        }
+
+        private void LoadProductsToList(ListBox destList)
+        {
+            destList.Items.Clear();
             products = mySQL.GetProductsData();
-            list.Items.Clear();
-
-            foreach (Product product in products)
-                list.Items.Add(product);
-            list.ValueMember = value; // The value of the selected item(it's supplier id)
-            list.DisplayMember = key; // the value that will displayed at the list(product name)
-        }
-        private void fillSuppliersLst(ListBox list, string key, string value)
-        {
-            suppliers = mySQL.GetSuppliersData();
-            list.Items.Clear();
-
-            for (int i = 0; i < suppliers.Length; i++)
-                list.Items.Add(suppliers[i]);
-            list.ValueMember = value; // The value of the selected item(it's supplier id)
-            list.DisplayMember = key; // the value that will displayed at the list(product name)
+            fillListBox(destList, products, "Name", "SupplierId");
         }
 
-        private void fillSuppliersCbo(ComboBox list, string key, string value)
+        //get data from db and loading the new data to the selected ListBox
+        private void LoadSuppliersToList(ListBox destList)
         {
-            //Dictionary cboSource = new Dictionary();
+            destList.Items.Clear();
             suppliers = mySQL.GetSuppliersData();
-            //cboEditSupp.Items.Clear();
-            list.Items.Clear();
+            fillListBox(destList, suppliers, "Name", "Id");
+        }
 
-            for (int i = 0; i < suppliers.Length; i++)
-            {
-                //cboEditSupp.Items.Add($"{suppliers[i].Name}({suppliers[i].Id}");
-                //cboEditSupp.Items.Add(suppliers[i]);
-                list.Items.Add(suppliers[i]);
-            }
-            //cboEditSupp.DataSource = new BindingSource(cboSource, null);
-            list.DisplayMember = key;// the value that will displayed at the list(supplier name)
-            list.ValueMember = value; // the value of the selected item at the list(supplier id)
+        //get data from db and loading the new data to the selected ComboBox
+        private void LoadSuppliersToCbo(ComboBox destList)
+        {
+            destList.Items.Clear();
+            suppliers = mySQL.GetSuppliersData();
+            fillCboList(destList, suppliers, "Name", "Id");
         }
 
 
@@ -71,9 +73,6 @@ namespace ShopFinal
             cboEditSupp.SelectedIndex = Array.FindIndex(suppliers, supplier => supplier.Id == selectedProd.SupplierId);
             txtEditProd.Text = selectedProd.Name;
 
-
-
-
         }
 
 
@@ -81,9 +80,9 @@ namespace ShopFinal
         {
             if (tabMain.SelectedIndex == 0)
             {
-                fillProducts(lstProducts, "Name", "SupplierId");
-                fillSuppliersCbo(cboAddProd, "Id", "Name");
-                fillSuppliersCbo(cboEditSupp, "Id", "Name");
+                LoadProductsToList(lstProducts);
+                LoadSuppliersToCbo(cboAddProd);
+                LoadSuppliersToCbo(cboEditSupp);
             }
             else
             if (tabMain.SelectedIndex == 1)
@@ -95,7 +94,7 @@ namespace ShopFinal
                 lstvProducts.View = View.Details;
                 lstvProducts.GridLines = true;
                 lstvProducts.FullRowSelect = true;
-                fillSuppliersLst(lstSuppliers, "Name", "Id");
+                LoadSuppliersToList(lstSuppliers);
             }
         }
 
@@ -112,6 +111,7 @@ namespace ShopFinal
                     lstvProducts.Items.Add(itm);
                 }
             }
+
         }
     }
 }
