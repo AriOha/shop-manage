@@ -111,6 +111,29 @@ namespace ShopFinal
                     lstvProducts.Items.Add(itm);
                 }
             }
+            fillEditSupplier(selectedSupp);
+        }
+
+        private void fillEditSupplier(Supplier supplier)
+        {
+            txtEditSupp.Text = supplier.Name;
+            txtEditAddress.Text = supplier.Address;
+            txtEditPhone.Text = supplier.Phone;
+            txtEditEmail.Text = supplier.Email;
+        }
+
+
+        private void btnEditProd_Click(object sender, EventArgs e)
+        {
+
+            Product edtPrd = new Product();
+            edtPrd.Name = txtEditProd.Text;
+            edtPrd.SupplierId = ((Supplier)cboEditSupp.SelectedItem).Id;
+            edtPrd.Id = ((Product)lstProducts.SelectedItem).Id;
+            if (mySQL.UpdateProduct(edtPrd))
+            {
+                LoadProductsToList(lstProducts);
+            }
 
         }
     }
