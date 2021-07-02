@@ -89,6 +89,23 @@ namespace ShopFinal
             return result;
         }
 
+        public bool UpdateProduct(Product Item)
+        {
+            bool result = false;
+            string cmdStr = "UPDATE `products` SET `name` = @name,`supplierId` = @supplierId WHERE `products`.`id` = @id";
+            using (MySqlCommand command = new MySqlCommand(cmdStr))
+            {
+                if (Item.Id != -1)
+                {
+                    command.Parameters.AddWithValue("@id", Item.Id);
+                    command.Parameters.AddWithValue("@name", Item.Name);
+                    command.Parameters.AddWithValue("@supplierId", Item.SupplierId);
+                    result = base.ExecuteSimpleQuery(command);
+                }
+            }
+            return result;
+        }
+
         public void InsertProduct(Product Item)
         {
             string cmdStr = "INSERT INTO products(name,supplierId) VALUES(@name,@supplierId)";
@@ -100,6 +117,35 @@ namespace ShopFinal
 
                 base.ExecuteSimpleQuery(command);
             }
+
+        }
+
+        public Product GetProductById(int id)
+        {
+            DataSet ds = new DataSet(); //creating dataset to get the result from db into ds tables
+            Product product = null;
+            string cmdStr = "SELECT * FROM products WHERE id=@id";
+
+            using (MySqlCommand command = new MySqlCommand(cmdStr)) //free the MySqlCommand after finishing the query
+            {
+                command.Parameters.AddWithValue("@id", id);
+                ds = GetMultipleQuery(command); //returns data of cities
+            }
+            DataTable dt = new DataTable(); // Creating data table to be as reference to ds to get the result table from the query
+            try
+            {
+                dt = ds.Tables[0];
+            }
+            catch { }
+            if (dt.Rows.Count > 0) // if received data from the database
+            {
+                product = new Product();
+                product = new Product();
+                product.Id = Convert.ToInt64(dt.Rows[0][0]); //product id stored at column 0
+                product.Name = dt.Rows[0][1].ToString();// product name stored at column 2
+                product.SupplierId = Convert.ToInt64(dt.Rows[0][2]); //supplier id stored at column 1
+            }
+            return product;
 
         }
 
