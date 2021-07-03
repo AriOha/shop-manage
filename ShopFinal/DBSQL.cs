@@ -105,8 +105,22 @@ namespace ShopFinal
             }
             return result;
         }
+        public bool DeleteProduct(int id)
+        {
+            bool result = false;
+            string cmdStr = "DELETE FROM `products` WHERE id = @id";
+            using (MySqlCommand command = new MySqlCommand(cmdStr))
+            {
+                if (id != -1)
+                {
+                    command.Parameters.AddWithValue("@id", id);
+                    result = base.ExecuteSimpleQuery(command);
+                }
+            }
+            return result;
+        }
 
-        public void InsertProduct(Product Item)
+        public bool InsertProduct(Product Item)
         {
             string cmdStr = "INSERT INTO products(name,supplierId) VALUES(@name,@supplierId)";
 
@@ -115,8 +129,9 @@ namespace ShopFinal
                 command.Parameters.AddWithValue("@name", Item.Name);
                 command.Parameters.AddWithValue("@supplierId", Item.SupplierId);
 
-                base.ExecuteSimpleQuery(command);
+                return base.ExecuteSimpleQuery(command);
             }
+            //return false
 
         }
 
@@ -141,9 +156,9 @@ namespace ShopFinal
             {
                 product = new Product();
                 product = new Product();
-                product.Id = Convert.ToInt64(dt.Rows[0][0]); //product id stored at column 0
+                product.Id = Convert.ToInt32(dt.Rows[0][0]); //product id stored at column 0
                 product.Name = dt.Rows[0][1].ToString();// product name stored at column 2
-                product.SupplierId = Convert.ToInt64(dt.Rows[0][2]); //supplier id stored at column 1
+                product.SupplierId = Convert.ToInt32(dt.Rows[0][2]); //supplier id stored at column 1
             }
             return product;
 
@@ -171,15 +186,16 @@ namespace ShopFinal
                 for (int i = 0; i < products.Length; i++)
                 {
                     products[i] = new Product();
-                    products[i].Id = Convert.ToInt64(dt.Rows[i][0]); //product id stored at column 0
+                    products[i].Id = Convert.ToInt32(dt.Rows[i][0]); //product id stored at column 0
                     products[i].Name = dt.Rows[i][1].ToString();// product name stored at column 2
-                    products[i].SupplierId = Convert.ToInt64(dt.Rows[i][2]); //supplier id stored at column 1
+                    products[i].SupplierId = Convert.ToInt32(dt.Rows[i][2]); //supplier id stored at column 1
                 }
             }
             return products;
         }
 
         ////####################Suppliers####################
+
 
         public Supplier[] GetSuppliersData()
         {
@@ -191,7 +207,7 @@ namespace ShopFinal
             {
                 ds = GetMultipleQuery(command); //returns data of cities
             }
-            
+
             DataTable dt = new DataTable(); // Creating data table to be as reference to ds to get the result table from the query
             try
             {
@@ -204,7 +220,7 @@ namespace ShopFinal
                 for (int i = 0; i < suppliers.Length; i++)
                 {
                     suppliers[i] = new Supplier();
-                    suppliers[i].Id = Convert.ToInt64(dt.Rows[i][0]); //city code stored at column 0
+                    suppliers[i].Id = Convert.ToInt32(dt.Rows[i][0]); //city code stored at column 0
                     suppliers[i].Name = dt.Rows[i][1].ToString();// first name stored at column 1
                     suppliers[i].Address = dt.Rows[i][2].ToString();// last name stored at column 2
                     suppliers[i].Phone = dt.Rows[i][3].ToString();// city name stored at column 3
