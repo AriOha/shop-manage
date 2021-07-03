@@ -184,22 +184,6 @@ namespace ShopFinal
 
         }
 
-        private void btnEditSupp_Click(object sender, EventArgs e)
-        {
-            Supplier edtSupp = new Supplier(
-                ((Supplier)lstSuppliers.SelectedItem).Id,
-                txtEditSupp.Text,
-                txtEditAddress.Text,
-                txtEditPhone.Text,
-                txtEditEmail.Text
-                );
-
-            if (mySQL.UpdateSupplier(edtSupp))
-            {
-                LoadSuppliersToList(lstSuppliers);
-            }
-        }
-
         private void ucAddSupplier_onSaveButtonClickEvent(object sender, EventArgs e)
         {
             ucAddSupplier.RefreshData();
@@ -221,9 +205,10 @@ namespace ShopFinal
             }
         }
 
-        private void tabSuppliers_Click(object sender, EventArgs e)
-        {
 
+        private void ucEditSupplier_OnClearButtonClickEvent(object sender, EventArgs e)
+        {
+            lstSuppliers.SelectedItem = null;
         }
     }
 }
