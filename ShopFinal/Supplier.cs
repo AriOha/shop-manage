@@ -8,7 +8,7 @@ namespace ShopFinal
 {
     public class Supplier
     {
-        private long id;
+        private int id;
         private string name, address, phone, email;
 
 
@@ -21,7 +21,7 @@ namespace ShopFinal
             email = "";
         }
 
-        public long Id
+        public int Id
         {
             set { id = value; }
             get { return id; }

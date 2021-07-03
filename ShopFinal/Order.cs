@@ -8,7 +8,7 @@ namespace ShopFinal
 {
     class Order
     {
-        private long id, customerId;
+        private int id, customerId;
         private string dateTime;
 
         public Order()
@@ -18,7 +18,7 @@ namespace ShopFinal
             dateTime = "undefined";
         }
 
-        public long Id
+        public int Id
         {
             set
             {
@@ -27,7 +27,7 @@ namespace ShopFinal
             }
             get { return id; }
         }
-        public long CustomerId
+        public int CustomerId
         {
             set
             {

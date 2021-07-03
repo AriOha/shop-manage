@@ -43,7 +43,7 @@ namespace ShopFinal
             this.txtAddProd = new System.Windows.Forms.TextBox();
             this.lblEditProd = new System.Windows.Forms.Label();
             this.lblSuppName1 = new System.Windows.Forms.Label();
-            this.cboEditSupp = new System.Windows.Forms.ComboBox();
+            this.cboEditProd = new System.Windows.Forms.ComboBox();
             this.txtEditProd = new System.Windows.Forms.TextBox();
             this.lblProdTitle = new System.Windows.Forms.Label();
             this.tabSuppliers = new System.Windows.Forms.TabPage();
@@ -115,7 +115,7 @@ namespace ShopFinal
             this.tabProducts.Controls.Add(this.txtAddProd);
             this.tabProducts.Controls.Add(this.lblEditProd);
             this.tabProducts.Controls.Add(this.lblSuppName1);
-            this.tabProducts.Controls.Add(this.cboEditSupp);
+            this.tabProducts.Controls.Add(this.cboEditProd);
             this.tabProducts.Controls.Add(this.txtEditProd);
             this.tabProducts.Controls.Add(this.lblProdTitle);
             this.tabProducts.Controls.Add(this.lstProducts);
@@ -135,6 +135,7 @@ namespace ShopFinal
             this.btnAddProd.TabIndex = 15;
             this.btnAddProd.Text = "Add";
             this.btnAddProd.UseVisualStyleBackColor = true;
+            this.btnAddProd.Click += new System.EventHandler(this.btnAddProd_Click);
             // 
             // btnRemoveProd
             // 
@@ -144,6 +145,7 @@ namespace ShopFinal
             this.btnRemoveProd.TabIndex = 14;
             this.btnRemoveProd.Text = "Remove";
             this.btnRemoveProd.UseVisualStyleBackColor = true;
+            this.btnRemoveProd.Click += new System.EventHandler(this.btnRemoveProd_Click);
             // 
             // btnEditProd
             // 
@@ -227,14 +229,14 @@ namespace ShopFinal
             this.lblSuppName1.TabIndex = 5;
             this.lblSuppName1.Text = "Supplier name:";
             // 
-            // cboEditSupp
+            // cboEditProd
             // 
-            this.cboEditSupp.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboEditSupp.FormattingEnabled = true;
-            this.cboEditSupp.Location = new System.Drawing.Point(184, 81);
-            this.cboEditSupp.Name = "cboEditSupp";
-            this.cboEditSupp.Size = new System.Drawing.Size(96, 21);
-            this.cboEditSupp.TabIndex = 4;
+            this.cboEditProd.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboEditProd.FormattingEnabled = true;
+            this.cboEditProd.Location = new System.Drawing.Point(184, 81);
+            this.cboEditProd.Name = "cboEditProd";
+            this.cboEditProd.Size = new System.Drawing.Size(96, 21);
+            this.cboEditProd.TabIndex = 4;
             // 
             // txtEditProd
             // 
@@ -530,7 +532,7 @@ namespace ShopFinal
         private System.Windows.Forms.TabPage tabProducts;
         private System.Windows.Forms.TabPage tabSuppliers;
         private System.Windows.Forms.Label lblProdTitle;
-        private System.Windows.Forms.ComboBox cboEditSupp;
+        private System.Windows.Forms.ComboBox cboEditProd;
         private System.Windows.Forms.TextBox txtEditProd;
         private System.Windows.Forms.Label lblEditProd;
         private System.Windows.Forms.Label lblSuppName1;

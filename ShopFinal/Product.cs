@@ -8,7 +8,7 @@ namespace ShopFinal
 {
     public class Product
     {
-        private long id, supplierId;
+        private int id, supplierId;
         private string name;
 
         public Product()
@@ -18,7 +18,7 @@ namespace ShopFinal
             name = "undefined";
         }
 
-        public long Id
+        public int Id
         {
             set
             {
@@ -27,7 +27,7 @@ namespace ShopFinal
             }
             get { return id; }
         }
-        public long SupplierId
+        public int SupplierId
         {
             set
             {
