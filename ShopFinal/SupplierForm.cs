@@ -15,6 +15,8 @@ namespace ShopFinal
         Supplier supplier;
         public delegate void SaveButtonClickEvent(object sender, EventArgs e);
         public event SaveButtonClickEvent OnSaveButtonClickEvent;
+        public delegate void ClearButtonClickEvent(object sender, EventArgs e);
+        public event ClearButtonClickEvent OnClearButtonClickEvent;
         public SupplierForm()
         {
             InitializeComponent();
@@ -48,6 +50,10 @@ namespace ShopFinal
         private void btnClear_Click(object sender, EventArgs e)
         {
             Clear();
+            if (OnClearButtonClickEvent != null)
+            {
+                OnClearButtonClickEvent(this, e);
+            }
         }
         private void btnSave_Click(object sender, EventArgs e)
         {

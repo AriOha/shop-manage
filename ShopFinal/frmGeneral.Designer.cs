@@ -49,6 +49,9 @@ namespace ShopFinal
             this.txtEditProd = new System.Windows.Forms.TextBox();
             this.lblProdTitle = new System.Windows.Forms.Label();
             this.tabSuppliers = new System.Windows.Forms.TabPage();
+            this.btnRemove = new System.Windows.Forms.Button();
+            this.ucEditSupplier = new ShopFinal.SupplierForm();
+            this.ucAddSupplier = new ShopFinal.SupplierForm();
             this.lblAddSupp = new System.Windows.Forms.Label();
             this.lstvProducts = new System.Windows.Forms.ListView();
             this.txtSuppliers = new System.Windows.Forms.Label();
@@ -57,8 +60,6 @@ namespace ShopFinal
             this.tabOrders = new System.Windows.Forms.TabPage();
             this.tabCreate = new System.Windows.Forms.TabPage();
             this.tabReport = new System.Windows.Forms.TabPage();
-            this.ucEditSupplier = new ShopFinal.SupplierForm();
-            this.ucAddSupplier = new ShopFinal.SupplierForm();
             this.tabMain.SuspendLayout();
             this.tabProducts.SuspendLayout();
             this.tabSuppliers.SuspendLayout();
@@ -108,7 +109,7 @@ namespace ShopFinal
             this.tabProducts.Location = new System.Drawing.Point(4, 22);
             this.tabProducts.Name = "tabProducts";
             this.tabProducts.Padding = new System.Windows.Forms.Padding(3);
-            this.tabProducts.Size = new System.Drawing.Size(709, 462);
+            this.tabProducts.Size = new System.Drawing.Size(673, 382);
             this.tabProducts.TabIndex = 0;
             this.tabProducts.Text = "Products";
             this.tabProducts.UseVisualStyleBackColor = true;
@@ -243,6 +244,7 @@ namespace ShopFinal
             // 
             // tabSuppliers
             // 
+            this.tabSuppliers.Controls.Add(this.btnRemove);
             this.tabSuppliers.Controls.Add(this.ucEditSupplier);
             this.tabSuppliers.Controls.Add(this.ucAddSupplier);
             this.tabSuppliers.Controls.Add(this.lblAddSupp);
@@ -256,7 +258,44 @@ namespace ShopFinal
             this.tabSuppliers.TabIndex = 1;
             this.tabSuppliers.Text = "Suppliers";
             this.tabSuppliers.UseVisualStyleBackColor = true;
-            this.tabSuppliers.Click += new System.EventHandler(this.tabSuppliers_Click);
+            // 
+            // btnRemove
+            // 
+            this.btnRemove.Location = new System.Drawing.Point(166, 271);
+            this.btnRemove.Name = "btnRemove";
+            this.btnRemove.Size = new System.Drawing.Size(75, 23);
+            this.btnRemove.TabIndex = 25;
+            this.btnRemove.Text = "Delete Supplier";
+            this.btnRemove.UseVisualStyleBackColor = true;
+            // 
+            // ucEditSupplier
+            // 
+            this.ucEditSupplier.Location = new System.Drawing.Point(6, 186);
+            this.ucEditSupplier.Name = "ucEditSupplier";
+            this.ucEditSupplier.Size = new System.Drawing.Size(153, 189);
+            supplier1.Address = "";
+            supplier1.Email = "";
+            supplier1.Id = -1;
+            supplier1.Name = "";
+            supplier1.Phone = "";
+            this.ucEditSupplier.Supplier = supplier1;
+            this.ucEditSupplier.TabIndex = 24;
+            this.ucEditSupplier.OnSaveButtonClickEvent += new ShopFinal.SupplierForm.SaveButtonClickEvent(this.ucEditSupplier_OnSaveButtonClickEvent);
+            this.ucEditSupplier.OnClearButtonClickEvent += new ShopFinal.SupplierForm.ClearButtonClickEvent(this.ucEditSupplier_OnClearButtonClickEvent);
+            // 
+            // ucAddSupplier
+            // 
+            this.ucAddSupplier.Location = new System.Drawing.Point(495, 75);
+            this.ucAddSupplier.Name = "ucAddSupplier";
+            this.ucAddSupplier.Size = new System.Drawing.Size(153, 189);
+            supplier2.Address = "";
+            supplier2.Email = "";
+            supplier2.Id = -1;
+            supplier2.Name = "";
+            supplier2.Phone = "";
+            this.ucAddSupplier.Supplier = supplier2;
+            this.ucAddSupplier.TabIndex = 23;
+            this.ucAddSupplier.OnSaveButtonClickEvent += new ShopFinal.SupplierForm.SaveButtonClickEvent(this.ucAddSupplier_onSaveButtonClickEvent);
             // 
             // lblAddSupp
             // 
@@ -285,7 +324,7 @@ namespace ShopFinal
             this.txtSuppliers.Name = "txtSuppliers";
             this.txtSuppliers.Size = new System.Drawing.Size(127, 31);
             this.txtSuppliers.TabIndex = 3;
-            this.txtSuppliers.Text = "Supplires";
+            this.txtSuppliers.Text = "Suppliers";
             // 
             // lstSuppliers
             // 
@@ -300,7 +339,7 @@ namespace ShopFinal
             // 
             this.tabCustomers.Location = new System.Drawing.Point(4, 22);
             this.tabCustomers.Name = "tabCustomers";
-            this.tabCustomers.Size = new System.Drawing.Size(709, 462);
+            this.tabCustomers.Size = new System.Drawing.Size(673, 382);
             this.tabCustomers.TabIndex = 2;
             this.tabCustomers.Text = "Customers";
             this.tabCustomers.UseVisualStyleBackColor = true;
@@ -310,7 +349,7 @@ namespace ShopFinal
             this.tabOrders.Location = new System.Drawing.Point(4, 22);
             this.tabOrders.Name = "tabOrders";
             this.tabOrders.Padding = new System.Windows.Forms.Padding(3);
-            this.tabOrders.Size = new System.Drawing.Size(709, 462);
+            this.tabOrders.Size = new System.Drawing.Size(673, 382);
             this.tabOrders.TabIndex = 3;
             this.tabOrders.Text = "Display Orders";
             this.tabOrders.UseVisualStyleBackColor = true;
@@ -319,7 +358,7 @@ namespace ShopFinal
             // 
             this.tabCreate.Location = new System.Drawing.Point(4, 22);
             this.tabCreate.Name = "tabCreate";
-            this.tabCreate.Size = new System.Drawing.Size(709, 462);
+            this.tabCreate.Size = new System.Drawing.Size(673, 382);
             this.tabCreate.TabIndex = 4;
             this.tabCreate.Text = "New Order";
             this.tabCreate.UseVisualStyleBackColor = true;
@@ -328,38 +367,10 @@ namespace ShopFinal
             // 
             this.tabReport.Location = new System.Drawing.Point(4, 22);
             this.tabReport.Name = "tabReport";
-            this.tabReport.Size = new System.Drawing.Size(709, 462);
+            this.tabReport.Size = new System.Drawing.Size(673, 382);
             this.tabReport.TabIndex = 5;
             this.tabReport.Text = "Reports";
             this.tabReport.UseVisualStyleBackColor = true;
-            // 
-            // ucEditSupplier
-            // 
-            this.ucEditSupplier.Location = new System.Drawing.Point(6, 186);
-            this.ucEditSupplier.Name = "ucEditSupplier";
-            this.ucEditSupplier.Size = new System.Drawing.Size(153, 189);
-            supplier1.Address = "";
-            supplier1.Email = "";
-            supplier1.Id = -1;
-            supplier1.Name = "";
-            supplier1.Phone = "";
-            this.ucEditSupplier.Supplier = supplier1;
-            this.ucEditSupplier.TabIndex = 24;
-            this.ucEditSupplier.OnSaveButtonClickEvent += new ShopFinal.SupplierForm.SaveButtonClickEvent(this.ucEditSupplier_OnSaveButtonClickEvent);
-            // 
-            // ucAddSupplier
-            // 
-            this.ucAddSupplier.Location = new System.Drawing.Point(495, 75);
-            this.ucAddSupplier.Name = "ucAddSupplier";
-            this.ucAddSupplier.Size = new System.Drawing.Size(153, 189);
-            supplier2.Address = "";
-            supplier2.Email = "";
-            supplier2.Id = -1;
-            supplier2.Name = "";
-            supplier2.Phone = "";
-            this.ucAddSupplier.Supplier = supplier2;
-            this.ucAddSupplier.TabIndex = 23;
-            this.ucAddSupplier.OnSaveButtonClickEvent += new ShopFinal.SupplierForm.SaveButtonClickEvent(this.ucAddSupplier_onSaveButtonClickEvent);
             // 
             // frmGeneral
             // 
@@ -408,6 +419,7 @@ namespace ShopFinal
         private System.Windows.Forms.Label lblAddSupp;
         private SupplierForm ucAddSupplier;
         private SupplierForm ucEditSupplier;
+        private System.Windows.Forms.Button btnRemove;
     }
 }
 
