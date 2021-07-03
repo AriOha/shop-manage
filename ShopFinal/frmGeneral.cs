@@ -74,11 +74,12 @@ namespace ShopFinal
 
         private void lstProducts_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //Product p = products[lstProducts.SelectedIndex];
             Product selectedProd = lstProducts.SelectedItem as Product;
-            //cboEditSupp.SelectedItem = ;
-            cboEditProd.SelectedIndex = Array.FindIndex(suppliers, supplier => supplier.Id == selectedProd.SupplierId);
-            txtEditProd.Text = selectedProd.Name;
+            if (selectedProd != null)
+            {
+                cboEditProd.SelectedIndex = Array.FindIndex(suppliers, supplier => supplier.Id == selectedProd.SupplierId);
+                txtEditProd.Text = selectedProd.Name;
+            }
         }
 
 
@@ -109,25 +110,23 @@ namespace ShopFinal
             Supplier selectedSupp = lstSuppliers.SelectedItem as Supplier;
             refreshProducts();
             lstvProducts.Items.Clear();
-            foreach (Product product in products)
+            if (selectedSupp != null)
             {
-                if (product.SupplierId == selectedSupp.Id)
+
+                foreach (Product product in products)
                 {
-                    string[] row = { product.Id.ToString(), product.Name, product.SupplierId.ToString() };
-                    ListViewItem itm = new ListViewItem(row);
-                    lstvProducts.Items.Add(itm);
+                    if (product.SupplierId == selectedSupp.Id)
+                    {
+                        string[] row = { product.Id.ToString(), product.Name, product.SupplierId.ToString() };
+                        ListViewItem itm = new ListViewItem(row);
+                        lstvProducts.Items.Add(itm);
+                    }
                 }
+                ucEditSupplier.Supplier = selectedSupp;
             }
-            fillEditSupplier(selectedSupp);
         }
 
-        private void fillEditSupplier(Supplier supplier)
-        {
-            txtEditSupp.Text = supplier.Name;
-            txtEditAddress.Text = supplier.Address;
-            txtEditPhone.Text = supplier.Phone;
-            txtEditEmail.Text = supplier.Email;
-        }
+
 
 
         private void btnEditProd_Click(object sender, EventArgs e)
@@ -170,13 +169,6 @@ namespace ShopFinal
             cboAddProd.SelectedItem = null;
             txtAddProd.Text = "";
         }
-        private void clearEditSupplier()
-        {
-            txtEditSupp.Text = "";
-            txtEditAddress.Text = "";
-            txtEditPhone.Text = "";
-            txtEditEmail.Text = "";
-        }
 
         private void btnAddProd_Click(object sender, EventArgs e)
         {
@@ -205,8 +197,33 @@ namespace ShopFinal
             if (mySQL.UpdateSupplier(edtSupp))
             {
                 LoadSuppliersToList(lstSuppliers);
-                clearEditSupplier();
             }
+        }
+
+        private void ucAddSupplier_onSaveButtonClickEvent(object sender, EventArgs e)
+        {
+            ucAddSupplier.RefreshData();
+            if (mySQL.InsertSupplier(ucAddSupplier.Supplier))
+            {
+                LoadSuppliersToList(lstSuppliers);
+                ucAddSupplier.Clear();
+            }
+
+        }
+
+        private void ucEditSupplier_OnSaveButtonClickEvent(object sender, EventArgs e)
+        {
+            ucEditSupplier.RefreshData();
+            if (mySQL.UpdateSupplier(ucEditSupplier.Supplier))
+            {
+                LoadSuppliersToList(lstSuppliers);
+                ucEditSupplier.Clear();
+            }
+        }
+
+        private void tabSuppliers_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

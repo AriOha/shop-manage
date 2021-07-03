@@ -53,7 +53,11 @@ namespace ShopFinal
             get { return email; }
         }
 
-
+        public void Clear()
+        {
+            Id = -1;
+            Name = Address = Phone = Email = "";
+        }
 
 
 
