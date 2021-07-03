@@ -247,5 +247,22 @@ namespace ShopFinal
             }
             return result;
         }
+
+        public bool InsertSupplier(Supplier Item)
+        {
+            string cmdStr = "INSERT INTO suppliers(name,address,phone,email) VALUES(@name,@address,@phone,@email)";
+
+            using (MySqlCommand command = new MySqlCommand(cmdStr))
+            {
+                command.Parameters.AddWithValue("@name", Item.Name);
+                command.Parameters.AddWithValue("@address", Item.Address);
+                command.Parameters.AddWithValue("@phone", Item.Phone);
+                command.Parameters.AddWithValue("@email", Item.Email);
+
+                return base.ExecuteSimpleQuery(command);
+            }
+            //return false
+
+        }
     }
 }
