@@ -12,13 +12,19 @@ namespace ShopFinal
         private string name, address, phone, email;
 
 
-        public Supplier()
+        public Supplier() : this("", "", "", "")
+        { }
+
+        public Supplier(string name, string address, string phone, string email) : this(-1, name, address, phone, email)
+        { }
+
+        public Supplier(int id, string name, string address, string phone, string email)
         {
-            id = -1;
-            name = "";
-            address = "";
-            phone = "";
-            email = "";
+            Id = id;
+            Name = name;
+            Address = address;
+            Phone = phone;
+            Email = email;
         }
 
         public int Id

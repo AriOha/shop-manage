@@ -170,6 +170,13 @@ namespace ShopFinal
             cboAddProd.SelectedItem = null;
             txtAddProd.Text = "";
         }
+        private void clearEditSupplier()
+        {
+            txtEditSupp.Text = "";
+            txtEditAddress.Text = "";
+            txtEditPhone.Text = "";
+            txtEditEmail.Text = "";
+        }
 
         private void btnAddProd_Click(object sender, EventArgs e)
         {
@@ -183,6 +190,23 @@ namespace ShopFinal
                 clearAddProduct();
             }
 
+        }
+
+        private void btnEditSupp_Click(object sender, EventArgs e)
+        {
+            Supplier edtSupp = new Supplier(
+                ((Supplier)lstSuppliers.SelectedItem).Id,
+                txtEditSupp.Text,
+                txtEditAddress.Text,
+                txtEditPhone.Text,
+                txtEditEmail.Text
+                );
+
+            if (mySQL.UpdateSupplier(edtSupp))
+            {
+                LoadSuppliersToList(lstSuppliers);
+                clearEditSupplier();
+            }
         }
     }
 }
