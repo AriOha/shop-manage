@@ -98,7 +98,7 @@ namespace ShopFinal
             this.tabMain.Location = new System.Drawing.Point(13, 13);
             this.tabMain.Name = "tabMain";
             this.tabMain.SelectedIndex = 0;
-            this.tabMain.Size = new System.Drawing.Size(662, 346);
+            this.tabMain.Size = new System.Drawing.Size(717, 391);
             this.tabMain.TabIndex = 1;
             this.tabMain.SelectedIndexChanged += new System.EventHandler(this.tabMain_SelectedIndexChanged);
             // 
@@ -282,14 +282,14 @@ namespace ShopFinal
             this.tabSuppliers.Location = new System.Drawing.Point(4, 22);
             this.tabSuppliers.Name = "tabSuppliers";
             this.tabSuppliers.Padding = new System.Windows.Forms.Padding(3);
-            this.tabSuppliers.Size = new System.Drawing.Size(654, 320);
+            this.tabSuppliers.Size = new System.Drawing.Size(709, 365);
             this.tabSuppliers.TabIndex = 1;
             this.tabSuppliers.Text = "Suppliers";
             this.tabSuppliers.UseVisualStyleBackColor = true;
             // 
             // btnAddSupp
             // 
-            this.btnAddSupp.Location = new System.Drawing.Point(488, 226);
+            this.btnAddSupp.Location = new System.Drawing.Point(487, 219);
             this.btnAddSupp.Name = "btnAddSupp";
             this.btnAddSupp.Size = new System.Drawing.Size(145, 20);
             this.btnAddSupp.TabIndex = 23;
@@ -298,18 +298,19 @@ namespace ShopFinal
             // 
             // btnEditSupp
             // 
-            this.btnEditSupp.Location = new System.Drawing.Point(157, 281);
+            this.btnEditSupp.Location = new System.Drawing.Point(157, 242);
             this.btnEditSupp.Name = "btnEditSupp";
             this.btnEditSupp.Size = new System.Drawing.Size(80, 20);
             this.btnEditSupp.TabIndex = 22;
             this.btnEditSupp.Text = "Save";
             this.btnEditSupp.UseVisualStyleBackColor = true;
+            this.btnEditSupp.Click += new System.EventHandler(this.btnEditSupp_Click);
             // 
             // lblAddSupp
             // 
             this.lblAddSupp.AutoSize = true;
             this.lblAddSupp.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAddSupp.Location = new System.Drawing.Point(487, 37);
+            this.lblAddSupp.Location = new System.Drawing.Point(487, 33);
             this.lblAddSupp.Name = "lblAddSupp";
             this.lblAddSupp.Size = new System.Drawing.Size(95, 25);
             this.lblAddSupp.TabIndex = 21;
@@ -317,7 +318,7 @@ namespace ShopFinal
             // 
             // txtAddEmail
             // 
-            this.txtAddEmail.Location = new System.Drawing.Point(488, 198);
+            this.txtAddEmail.Location = new System.Drawing.Point(487, 191);
             this.txtAddEmail.Name = "txtAddEmail";
             this.txtAddEmail.Size = new System.Drawing.Size(145, 20);
             this.txtAddEmail.TabIndex = 20;
@@ -325,7 +326,7 @@ namespace ShopFinal
             // lblAddEmail
             // 
             this.lblAddEmail.AutoSize = true;
-            this.lblAddEmail.Location = new System.Drawing.Point(489, 182);
+            this.lblAddEmail.Location = new System.Drawing.Point(488, 175);
             this.lblAddEmail.Name = "lblAddEmail";
             this.lblAddEmail.Size = new System.Drawing.Size(35, 13);
             this.lblAddEmail.TabIndex = 19;
@@ -333,7 +334,7 @@ namespace ShopFinal
             // 
             // txtAddPhone
             // 
-            this.txtAddPhone.Location = new System.Drawing.Point(488, 159);
+            this.txtAddPhone.Location = new System.Drawing.Point(487, 152);
             this.txtAddPhone.Name = "txtAddPhone";
             this.txtAddPhone.Size = new System.Drawing.Size(145, 20);
             this.txtAddPhone.TabIndex = 18;
@@ -341,7 +342,7 @@ namespace ShopFinal
             // lblAddPhone
             // 
             this.lblAddPhone.AutoSize = true;
-            this.lblAddPhone.Location = new System.Drawing.Point(489, 143);
+            this.lblAddPhone.Location = new System.Drawing.Point(488, 136);
             this.lblAddPhone.Name = "lblAddPhone";
             this.lblAddPhone.Size = new System.Drawing.Size(41, 13);
             this.lblAddPhone.TabIndex = 17;
@@ -349,7 +350,7 @@ namespace ShopFinal
             // 
             // txtAddAddress
             // 
-            this.txtAddAddress.Location = new System.Drawing.Point(488, 120);
+            this.txtAddAddress.Location = new System.Drawing.Point(487, 113);
             this.txtAddAddress.Name = "txtAddAddress";
             this.txtAddAddress.Size = new System.Drawing.Size(145, 20);
             this.txtAddAddress.TabIndex = 16;
@@ -357,7 +358,7 @@ namespace ShopFinal
             // lblAddAddress
             // 
             this.lblAddAddress.AutoSize = true;
-            this.lblAddAddress.Location = new System.Drawing.Point(489, 104);
+            this.lblAddAddress.Location = new System.Drawing.Point(488, 97);
             this.lblAddAddress.Name = "lblAddAddress";
             this.lblAddAddress.Size = new System.Drawing.Size(48, 13);
             this.lblAddAddress.TabIndex = 15;
@@ -365,7 +366,7 @@ namespace ShopFinal
             // 
             // txtAddSupp
             // 
-            this.txtAddSupp.Location = new System.Drawing.Point(488, 81);
+            this.txtAddSupp.Location = new System.Drawing.Point(487, 74);
             this.txtAddSupp.Name = "txtAddSupp";
             this.txtAddSupp.Size = new System.Drawing.Size(145, 20);
             this.txtAddSupp.TabIndex = 14;
@@ -373,7 +374,7 @@ namespace ShopFinal
             // lblAddSuppName
             // 
             this.lblAddSuppName.AutoSize = true;
-            this.lblAddSuppName.Location = new System.Drawing.Point(489, 65);
+            this.lblAddSuppName.Location = new System.Drawing.Point(488, 58);
             this.lblAddSuppName.Name = "lblAddSuppName";
             this.lblAddSuppName.Size = new System.Drawing.Size(38, 13);
             this.lblAddSuppName.TabIndex = 13;
@@ -448,7 +449,7 @@ namespace ShopFinal
             this.lstvProducts.HideSelection = false;
             this.lstvProducts.Location = new System.Drawing.Point(157, 37);
             this.lstvProducts.Name = "lstvProducts";
-            this.lstvProducts.Size = new System.Drawing.Size(324, 241);
+            this.lstvProducts.Size = new System.Drawing.Size(324, 202);
             this.lstvProducts.TabIndex = 4;
             this.lstvProducts.UseCompatibleStateImageBehavior = false;
             // 
@@ -512,7 +513,7 @@ namespace ShopFinal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(687, 371);
+            this.ClientSize = new System.Drawing.Size(742, 416);
             this.Controls.Add(this.tabMain);
             this.Name = "frmGeneral";
             this.Text = "Shop Management";

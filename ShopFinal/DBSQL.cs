@@ -229,6 +229,23 @@ namespace ShopFinal
             }
             return suppliers;
         }
-
+        public bool UpdateSupplier(Supplier Item)
+        {
+            bool result = false;
+            string cmdStr = "UPDATE `suppliers` SET `name` = @name, `address` = @address, `phone` = @phone, `email` = @email WHERE `suppliers`.`id` = @id";
+            using (MySqlCommand command = new MySqlCommand(cmdStr))
+            {
+                if (Item.Id != -1)
+                {
+                    command.Parameters.AddWithValue("@id", Item.Id);
+                    command.Parameters.AddWithValue("@name", Item.Name);
+                    command.Parameters.AddWithValue("@address", Item.Address);
+                    command.Parameters.AddWithValue("@phone", Item.Phone);
+                    command.Parameters.AddWithValue("@email", Item.Email);
+                    result = base.ExecuteSimpleQuery(command);
+                }
+            }
+            return result;
+        }
     }
 }
