@@ -21,7 +21,14 @@ namespace ShopFinal
             tabMain.SelectedIndex = 0;
 
         }
-
+        private void refreshProducts()
+        {
+            products = mySQL.GetProductsData();
+        }
+        private void refreshSuppliers()
+        {
+            suppliers = mySQL.GetSuppliersData();
+        }
 
 
         //function get list of objects and insert them to the given ListBox binding key and value
@@ -43,36 +50,36 @@ namespace ShopFinal
 
         private void LoadProductsToList(ListBox destList)
         {
+            refreshProducts();
             destList.Items.Clear();
-            products = mySQL.GetProductsData();
             fillListBox(destList, products, "Name", "SupplierId");
         }
 
         //get data from db and loading the new data to the selected ListBox
         private void LoadSuppliersToList(ListBox destList)
         {
+            refreshSuppliers();
             destList.Items.Clear();
-            suppliers = mySQL.GetSuppliersData();
             fillListBox(destList, suppliers, "Name", "Id");
         }
 
         //get data from db and loading the new data to the selected ComboBox
         private void LoadSuppliersToCbo(ComboBox destList)
         {
+            refreshSuppliers();
             destList.Items.Clear();
-            suppliers = mySQL.GetSuppliersData();
             fillCboList(destList, suppliers, "Name", "Id");
         }
 
 
         private void lstProducts_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //Product p = products[lstProducts.SelectedIndex];
             Product selectedProd = lstProducts.SelectedItem as Product;
-            //cboEditSupp.SelectedItem = ;
-            cboEditSupp.SelectedIndex = Array.FindIndex(suppliers, supplier => supplier.Id == selectedProd.SupplierId);
-            txtEditProd.Text = selectedProd.Name;
-
+            if (selectedProd != null)
+            {
+                cboEditProd.SelectedIndex = Array.FindIndex(suppliers, supplier => supplier.Id == selectedProd.SupplierId);
+                txtEditProd.Text = selectedProd.Name;
+            }
         }
 
 
@@ -82,15 +89,15 @@ namespace ShopFinal
             {
                 LoadProductsToList(lstProducts);
                 LoadSuppliersToCbo(cboAddProd);
-                LoadSuppliersToCbo(cboEditSupp);
+                LoadSuppliersToCbo(cboEditProd);
             }
             else
             if (tabMain.SelectedIndex == 1)
             {
                 lstvProducts.Columns.Clear();
-                lstvProducts.Columns.Add("ID", 100);
-                lstvProducts.Columns.Add("Name", 100);
-                lstvProducts.Columns.Add("SupplierId", 100);
+                lstvProducts.Columns.Add("ID");
+                lstvProducts.Columns.Add("Name", 150);
+                lstvProducts.Columns.Add("SupplierId");
                 lstvProducts.View = View.Details;
                 lstvProducts.GridLines = true;
                 lstvProducts.FullRowSelect = true;
@@ -101,38 +108,78 @@ namespace ShopFinal
         private void lstSuppliers_SelectedIndexChanged(object sender, EventArgs e)
         {
             Supplier selectedSupp = lstSuppliers.SelectedItem as Supplier;
+            refreshProducts();
             lstvProducts.Items.Clear();
-            foreach (Product product in products)
+            if (selectedSupp != null)
             {
-                if (product.SupplierId == selectedSupp.Id)
+
+                foreach (Product product in products)
                 {
-                    string[] row = { product.Id.ToString(), product.Name, product.SupplierId.ToString() };
-                    ListViewItem itm = new ListViewItem(row);
-                    lstvProducts.Items.Add(itm);
+                    if (product.SupplierId == selectedSupp.Id)
+                    {
+                        string[] row = { product.Id.ToString(), product.Name, product.SupplierId.ToString() };
+                        ListViewItem itm = new ListViewItem(row);
+                        lstvProducts.Items.Add(itm);
+                    }
                 }
+                ucEditSupplier.Supplier = selectedSupp;
             }
-            fillEditSupplier(selectedSupp);
         }
 
-        private void fillEditSupplier(Supplier supplier)
-        {
-            txtEditSupp.Text = supplier.Name;
-            txtEditAddress.Text = supplier.Address;
-            txtEditPhone.Text = supplier.Phone;
-            txtEditEmail.Text = supplier.Email;
-        }
+
 
 
         private void btnEditProd_Click(object sender, EventArgs e)
         {
-
             Product edtPrd = new Product();
             edtPrd.Name = txtEditProd.Text;
-            edtPrd.SupplierId = ((Supplier)cboEditSupp.SelectedItem).Id;
+            edtPrd.SupplierId = ((Supplier)cboEditProd.SelectedItem).Id;
             edtPrd.Id = ((Product)lstProducts.SelectedItem).Id;
             if (mySQL.UpdateProduct(edtPrd))
             {
                 LoadProductsToList(lstProducts);
+                clearEditProduct();
+            }
+
+        }
+
+        private void btnRemoveProd_Click(object sender, EventArgs e)
+        {
+            if (lstProducts.SelectedItem != null)
+            {
+                int selectedId = ((Product)lstProducts.SelectedItem).Id;
+                if (mySQL.DeleteProduct(selectedId))
+                {
+                    LoadProductsToList(lstProducts);
+                    clearEditProduct();
+                }
+            }
+        }
+
+
+
+
+        private void clearEditProduct()
+        {
+            cboEditProd.SelectedItem = null;
+            txtEditProd.Text = "";
+        }
+        private void clearAddProduct()
+        {
+            cboAddProd.SelectedItem = null;
+            txtAddProd.Text = "";
+        }
+
+        private void btnAddProd_Click(object sender, EventArgs e)
+        {
+            Product addPrd = new Product();
+            addPrd.Name = txtAddProd.Text;
+            addPrd.SupplierId = ((Supplier)cboAddProd.SelectedItem).Id;
+
+            if (mySQL.InsertProduct(addPrd))
+            {
+                LoadProductsToList(lstProducts);
+                clearAddProduct();
             }
 
         }
@@ -162,19 +209,6 @@ namespace ShopFinal
         private void ucEditSupplier_OnClearButtonClickEvent(object sender, EventArgs e)
         {
             lstSuppliers.SelectedItem = null;
-        }
-
-        private void btnRemove_Click(object sender, EventArgs e)
-        {
-            using (frmPrompt confirmDelete = new frmPrompt())
-            {
-                //if (confirmDelete.ShowDialog() == DialogResult.OK)
-                //{
-                //    this.Text = "Cool";
-                //}
-                btnRemove.Text= confirmDelete.ShowDialog().ToString();
-            }
-            //int res = Prompt.ShowDialog("Hello","Dear");
         }
     }
 }
