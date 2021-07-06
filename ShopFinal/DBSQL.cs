@@ -264,5 +264,18 @@ namespace ShopFinal
             //return false
 
         }
+        public bool RemoveSupplier(int id)
+        {
+            string cmdStr = "DELETE FROM `suppliers` WHERE `suppliers`.`id` = @id";
+
+            using (MySqlCommand command = new MySqlCommand(cmdStr))
+            {
+                command.Parameters.AddWithValue("@id", id);
+
+                return base.ExecuteSimpleQuery(command);
+            }
+            //return false
+
+        }
     }
 }

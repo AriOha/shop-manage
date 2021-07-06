@@ -210,5 +210,17 @@ namespace ShopFinal
         {
             lstSuppliers.SelectedItem = null;
         }
+
+        private void btnRemove_Click(object sender, EventArgs e)
+        {
+            MessageDialog messageDialog = new MessageDialog();
+            if (lstSuppliers.SelectedItem != null)
+                if (MessageHandler.Show("Delete", "Are you sure?") == DialogResult.OK)
+                {
+                    if (mySQL.RemoveSupplier(((Supplier)lstSuppliers.SelectedItem).Id))
+                        LoadSuppliersToList(lstSuppliers);
+                }
+
+        }
     }
 }

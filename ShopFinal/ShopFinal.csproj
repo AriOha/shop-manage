@@ -89,11 +89,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Prompt.cs">
+    <Compile Include="MessageDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Prompt.Designer.cs">
-      <DependentUpon>Prompt.cs</DependentUpon>
+    <Compile Include="MessageDialog.Designer.cs">
+      <DependentUpon>MessageDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Customer.cs" />
     <Compile Include="DBConnection.cs" />
@@ -116,11 +116,11 @@
     <Compile Include="SupplierForm.Designer.cs">
       <DependentUpon>SupplierForm.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Prompt.resx">
-      <DependentUpon>Prompt.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="frmGeneral.resx">
       <DependentUpon>frmGeneral.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MessageDialog.resx">
+      <DependentUpon>MessageDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

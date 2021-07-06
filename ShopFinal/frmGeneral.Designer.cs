@@ -29,8 +29,8 @@ namespace ShopFinal
         /// </summary>
         private void InitializeComponent()
         {
-            ShopFinal.Supplier supplier1 = new ShopFinal.Supplier();
-            ShopFinal.Supplier supplier2 = new ShopFinal.Supplier();
+            ShopFinal.Supplier supplier5 = new ShopFinal.Supplier();
+            ShopFinal.Supplier supplier6 = new ShopFinal.Supplier();
             this.lstProducts = new System.Windows.Forms.ListBox();
             this.tabMain = new System.Windows.Forms.TabControl();
             this.tabProducts = new System.Windows.Forms.TabPage();
@@ -60,8 +60,6 @@ namespace ShopFinal
             this.tabOrders = new System.Windows.Forms.TabPage();
             this.tabCreate = new System.Windows.Forms.TabPage();
             this.tabReport = new System.Windows.Forms.TabPage();
-            this.ucEditSupplier = new ShopFinal.SupplierForm();
-            this.ucAddSupplier = new ShopFinal.SupplierForm();
             this.tabMain.SuspendLayout();
             this.tabProducts.SuspendLayout();
             this.tabSuppliers.SuspendLayout();
@@ -269,18 +267,19 @@ namespace ShopFinal
             this.btnRemove.TabIndex = 25;
             this.btnRemove.Text = "Delete Supplier";
             this.btnRemove.UseVisualStyleBackColor = true;
+            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
             // 
             // ucEditSupplier
             // 
             this.ucEditSupplier.Location = new System.Drawing.Point(6, 186);
             this.ucEditSupplier.Name = "ucEditSupplier";
             this.ucEditSupplier.Size = new System.Drawing.Size(153, 189);
-            supplier1.Address = "";
-            supplier1.Email = "";
-            supplier1.Id = -1;
-            supplier1.Name = "";
-            supplier1.Phone = "";
-            this.ucEditSupplier.Supplier = supplier1;
+            supplier5.Address = "";
+            supplier5.Email = "";
+            supplier5.Id = -1;
+            supplier5.Name = "";
+            supplier5.Phone = "";
+            this.ucEditSupplier.Supplier = supplier5;
             this.ucEditSupplier.TabIndex = 24;
             this.ucEditSupplier.OnSaveButtonClickEvent += new ShopFinal.SupplierForm.SaveButtonClickEvent(this.ucEditSupplier_OnSaveButtonClickEvent);
             this.ucEditSupplier.OnClearButtonClickEvent += new ShopFinal.SupplierForm.ClearButtonClickEvent(this.ucEditSupplier_OnClearButtonClickEvent);
@@ -290,12 +289,12 @@ namespace ShopFinal
             this.ucAddSupplier.Location = new System.Drawing.Point(495, 75);
             this.ucAddSupplier.Name = "ucAddSupplier";
             this.ucAddSupplier.Size = new System.Drawing.Size(153, 189);
-            supplier2.Address = "";
-            supplier2.Email = "";
-            supplier2.Id = -1;
-            supplier2.Name = "";
-            supplier2.Phone = "";
-            this.ucAddSupplier.Supplier = supplier2;
+            supplier6.Address = "";
+            supplier6.Email = "";
+            supplier6.Id = -1;
+            supplier6.Name = "";
+            supplier6.Phone = "";
+            this.ucAddSupplier.Supplier = supplier6;
             this.ucAddSupplier.TabIndex = 23;
             this.ucAddSupplier.OnSaveButtonClickEvent += new ShopFinal.SupplierForm.SaveButtonClickEvent(this.ucAddSupplier_onSaveButtonClickEvent);
             // 
@@ -374,41 +373,13 @@ namespace ShopFinal
             this.tabReport.Text = "Reports";
             this.tabReport.UseVisualStyleBackColor = true;
             // 
-            // ucEditSupplier
-            // 
-            this.ucEditSupplier.Location = new System.Drawing.Point(6, 186);
-            this.ucEditSupplier.Name = "ucEditSupplier";
-            this.ucEditSupplier.Size = new System.Drawing.Size(153, 189);
-            supplier1.Address = "";
-            supplier1.Email = "";
-            supplier1.Id = -1;
-            supplier1.Name = "";
-            supplier1.Phone = "";
-            this.ucEditSupplier.Supplier = supplier1;
-            this.ucEditSupplier.TabIndex = 24;
-            this.ucEditSupplier.OnSaveButtonClickEvent += new ShopFinal.SupplierForm.SaveButtonClickEvent(this.ucEditSupplier_OnSaveButtonClickEvent);
-            this.ucEditSupplier.OnClearButtonClickEvent += new ShopFinal.SupplierForm.ClearButtonClickEvent(this.ucEditSupplier_OnClearButtonClickEvent);
-            // 
-            // ucAddSupplier
-            // 
-            this.ucAddSupplier.Location = new System.Drawing.Point(495, 75);
-            this.ucAddSupplier.Name = "ucAddSupplier";
-            this.ucAddSupplier.Size = new System.Drawing.Size(153, 189);
-            supplier2.Address = "";
-            supplier2.Email = "";
-            supplier2.Id = -1;
-            supplier2.Name = "";
-            supplier2.Phone = "";
-            this.ucAddSupplier.Supplier = supplier2;
-            this.ucAddSupplier.TabIndex = 23;
-            this.ucAddSupplier.OnSaveButtonClickEvent += new ShopFinal.SupplierForm.SaveButtonClickEvent(this.ucAddSupplier_onSaveButtonClickEvent);
-            // 
             // frmGeneral
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(706, 433);
             this.Controls.Add(this.tabMain);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Name = "frmGeneral";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Shop Management";
