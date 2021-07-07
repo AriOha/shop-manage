@@ -37,10 +37,9 @@ namespace ShopFinal
             // btnNo
             // 
             this.btnNo.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnNo.Location = new System.Drawing.Point(69, 156);
-            this.btnNo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnNo.Location = new System.Drawing.Point(52, 127);
             this.btnNo.Name = "btnNo";
-            this.btnNo.Size = new System.Drawing.Size(100, 28);
+            this.btnNo.Size = new System.Drawing.Size(75, 23);
             this.btnNo.TabIndex = 1;
             this.btnNo.Text = "No";
             this.btnNo.UseVisualStyleBackColor = true;
@@ -48,10 +47,9 @@ namespace ShopFinal
             // btnYes
             // 
             this.btnYes.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnYes.Location = new System.Drawing.Point(221, 156);
-            this.btnYes.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnYes.Location = new System.Drawing.Point(166, 127);
             this.btnYes.Name = "btnYes";
-            this.btnYes.Size = new System.Drawing.Size(100, 28);
+            this.btnYes.Size = new System.Drawing.Size(75, 23);
             this.btnYes.TabIndex = 2;
             this.btnYes.Text = "Yes";
             this.btnYes.UseVisualStyleBackColor = true;
@@ -59,25 +57,23 @@ namespace ShopFinal
             // lblMessage
             // 
             this.lblMessage.AutoSize = true;
-            this.lblMessage.Location = new System.Drawing.Point(17, 30);
-            this.lblMessage.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblMessage.Location = new System.Drawing.Point(13, 24);
             this.lblMessage.Name = "lblMessage";
-            this.lblMessage.Size = new System.Drawing.Size(65, 17);
+            this.lblMessage.Size = new System.Drawing.Size(50, 13);
             this.lblMessage.TabIndex = 0;
             this.lblMessage.Text = "Message";
             // 
             // MessageDialog
             // 
             this.AcceptButton = this.btnYes;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnNo;
-            this.ClientSize = new System.Drawing.Size(379, 229);
+            this.ClientSize = new System.Drawing.Size(284, 186);
             this.Controls.Add(this.btnNo);
             this.Controls.Add(this.btnYes);
             this.Controls.Add(this.lblMessage);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "MessageDialog";

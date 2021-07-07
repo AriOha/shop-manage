@@ -148,11 +148,12 @@ namespace ShopFinal
             if (lstProducts.SelectedItem != null)
             {
                 int selectedId = ((Product)lstProducts.SelectedItem).Id;
-                if (mySQL.DeleteProduct(selectedId))
-                {
-                    LoadProductsToList(lstProducts);
-                    clearEditProduct();
-                }
+                if (MessageHandler.Show("Delete Product", "Are you sure to delete this product?") == DialogResult.OK)
+                    if (mySQL.DeleteProduct(selectedId))
+                    {
+                        LoadProductsToList(lstProducts);
+                        clearEditProduct();
+                    }
             }
         }
 
