@@ -37,7 +37,7 @@ namespace ShopFinal
             // btnNo
             // 
             this.btnNo.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnNo.Location = new System.Drawing.Point(52, 127);
+            this.btnNo.Location = new System.Drawing.Point(16, 87);
             this.btnNo.Name = "btnNo";
             this.btnNo.Size = new System.Drawing.Size(75, 23);
             this.btnNo.TabIndex = 1;
@@ -47,7 +47,7 @@ namespace ShopFinal
             // btnYes
             // 
             this.btnYes.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnYes.Location = new System.Drawing.Point(166, 127);
+            this.btnYes.Location = new System.Drawing.Point(130, 87);
             this.btnYes.Name = "btnYes";
             this.btnYes.Size = new System.Drawing.Size(75, 23);
             this.btnYes.TabIndex = 2;
@@ -69,7 +69,7 @@ namespace ShopFinal
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnNo;
-            this.ClientSize = new System.Drawing.Size(284, 186);
+            this.ClientSize = new System.Drawing.Size(226, 122);
             this.Controls.Add(this.btnNo);
             this.Controls.Add(this.btnYes);
             this.Controls.Add(this.lblMessage);

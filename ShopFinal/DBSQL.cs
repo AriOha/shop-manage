@@ -229,6 +229,7 @@ namespace ShopFinal
             }
             return suppliers;
         }
+
         public bool UpdateSupplier(Supplier Item)
         {
             bool result = false;
@@ -267,6 +268,86 @@ namespace ShopFinal
         public bool RemoveSupplier(int id)
         {
             string cmdStr = "DELETE FROM `suppliers` WHERE `suppliers`.`id` = @id";
+
+            using (MySqlCommand command = new MySqlCommand(cmdStr))
+            {
+                command.Parameters.AddWithValue("@id", id);
+
+                return base.ExecuteSimpleQuery(command);
+            }
+            //return false
+
+        }
+
+
+
+        ////####################Customers####################
+
+
+        public Customer[] GetCustomersData()
+        {
+            DataSet ds = new DataSet(); //creating dataset to get the result from db into ds tables
+            Customer[] customers = null;
+            string cmdStr = "SELECT id,firstName,lastName FROM customers";
+
+            using (MySqlCommand command = new MySqlCommand(cmdStr)) //free the MySqlCommand after finishing the query
+            {
+                ds = GetMultipleQuery(command); //returns data of cities
+            }
+
+            DataTable dt = new DataTable(); // Creating data table to be as reference to ds to get the result table from the query
+            try
+            {
+                dt = ds.Tables[0];
+            }
+            catch { }
+            if (dt.Rows.Count > 0) // if received data from the database
+            {
+                customers = new Customer[dt.Rows.Count];
+                for (int i = 0; i < customers.Length; i++)
+                {
+                    customers[i] = new Customer();
+                    customers[i].Id = Convert.ToInt32(dt.Rows[i][0]); //city code stored at column 0
+                    customers[i].FirstName = dt.Rows[i][1].ToString();// first name stored at column 1
+                    customers[i].LastName = dt.Rows[i][2].ToString();// last name stored at column 2
+                }
+            }
+            return customers;
+        }
+
+        public bool UpdateCustomer(Customer item)
+        {
+            bool result = false;
+            string cmdStr = "UPDATE `customers` SET `firstName` = @firstName, `lastName` = @lastName WHERE `customers`.`id` = @id";
+            using (MySqlCommand command = new MySqlCommand(cmdStr))
+            {
+                if (item.Id != -1)
+                {
+                    command.Parameters.AddWithValue("@id", item.Id);
+                    command.Parameters.AddWithValue("@firstName", item.FirstName);
+                    command.Parameters.AddWithValue("@lastName", item.LastName);
+                    result = base.ExecuteSimpleQuery(command);
+                }
+            }
+            return result;
+        }
+
+        public bool InsertCustomer(Customer Item)
+        {
+            string cmdStr = "INSERT INTO customers(firstName,lastName) VALUES(@firstName,@lastName)";
+
+            using (MySqlCommand command = new MySqlCommand(cmdStr))
+            {
+                command.Parameters.AddWithValue("@firstName", Item.FirstName);
+                command.Parameters.AddWithValue("@lastName", Item.LastName);
+
+                return base.ExecuteSimpleQuery(command);
+            }
+        }
+
+        public bool RemoveCustomer(int id)
+        {
+            string cmdStr = "DELETE FROM `customers` WHERE `customers`.`id` = @id";
 
             using (MySqlCommand command = new MySqlCommand(cmdStr))
             {

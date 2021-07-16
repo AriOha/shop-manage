@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace ShopFinal
@@ -9,6 +10,7 @@ namespace ShopFinal
         private DBSQL mySQL;
         Product[] products;
         Supplier[] suppliers;
+        Customer[] customers;
 
         public frmGeneral()
         {
@@ -28,6 +30,10 @@ namespace ShopFinal
         private void refreshSuppliers()
         {
             suppliers = mySQL.GetSuppliersData();
+        }
+        private void refreshCustomers()
+        {
+            customers = mySQL.GetCustomersData();
         }
 
 
@@ -71,7 +77,33 @@ namespace ShopFinal
             fillCboList(destList, suppliers, "Name", "Id");
         }
 
+        // Loads customers to Listview in Customers tab
+        private void LoadCustomersToList(ListView destList)
+        {
+            refreshCustomers();
+            //lstvCustomers.Items.Clear();
+            destList.Items.Clear();
+            foreach (Customer customer in customers)
+            {
+                string[] row = { customer.Id.ToString(), customer.FirstName, customer.LastName };
+                ListViewItem itm = new ListViewItem(row);
+                destList.Items.Add(itm);
+            }
+        }
+        //Save edited customer to db and refresh the list
+        private void ucEditCustomer_OnSaveButtonClickEvent(object sender, EventArgs e)
+        {
 
+            ucEditCustomer.RefreshData();
+            if (mySQL.UpdateCustomer(ucEditCustomer.Customer)) // if query passed
+            {
+                LoadCustomersToList(lstvCustomers);
+                ucEditCustomer.Clear();
+            }
+
+        }
+
+        //Updating the product data to edit in Products tab
         private void lstProducts_SelectedIndexChanged(object sender, EventArgs e)
         {
             Product selectedProd = lstProducts.SelectedItem as Product;
@@ -82,7 +114,7 @@ namespace ShopFinal
             }
         }
 
-
+        //updating the data according the current tab
         private void tabMain_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (tabMain.SelectedIndex == 0)
@@ -102,6 +134,18 @@ namespace ShopFinal
                 lstvProducts.GridLines = true;
                 lstvProducts.FullRowSelect = true;
                 LoadSuppliersToList(lstSuppliers);
+            }
+            else
+            if (tabMain.SelectedIndex == 2)
+            {
+                lstvCustomers.Columns.Clear();
+                lstvCustomers.Columns.Add("ID");
+                lstvCustomers.Columns.Add("First Name", 120);
+                lstvCustomers.Columns.Add("Last Name", 120);
+                lstvCustomers.View = View.Details;
+                lstvCustomers.GridLines = true;
+                lstvCustomers.FullRowSelect = true;
+                LoadCustomersToList(lstvCustomers);
             }
         }
 
@@ -126,7 +170,19 @@ namespace ShopFinal
             }
         }
 
+        private void lstvCustomers_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
+            foreach (Customer customer in customers)
+            {
+                if (customer.Id == Convert.ToInt32(lstvCustomers.FocusedItem.Text))
+                {
+                    ucEditCustomer.Customer = customer;
+                    break;
+                }
+            }
+
+        }
 
 
         private void btnEditProd_Click(object sender, EventArgs e)
@@ -165,6 +221,7 @@ namespace ShopFinal
             cboEditProd.SelectedItem = null;
             txtEditProd.Text = "";
         }
+
         private void clearAddProduct()
         {
             cboAddProd.SelectedItem = null;
@@ -182,7 +239,6 @@ namespace ShopFinal
                 LoadProductsToList(lstProducts);
                 clearAddProduct();
             }
-
         }
 
         private void ucAddSupplier_onSaveButtonClickEvent(object sender, EventArgs e)
@@ -219,9 +275,52 @@ namespace ShopFinal
                 if (MessageHandler.Show("Delete", "Are you sure?") == DialogResult.OK)
                 {
                     if (mySQL.RemoveSupplier(((Supplier)lstSuppliers.SelectedItem).Id))
+                    {
                         LoadSuppliersToList(lstSuppliers);
+                        ucEditSupplier.Clear();
+                    }
                 }
 
+        }
+
+        private void btnEditCustomer_Click(object sender, EventArgs e)
+        {
+
+            if (mySQL.UpdateSupplier(ucEditSupplier.Supplier))
+            {
+                LoadSuppliersToList(lstSuppliers);
+                ucEditSupplier.Clear();
+            }
+        }
+
+        private void lstvCustomers_MouseLeave(object sender, EventArgs e)
+        {
+            lstvCustomers.SelectedItems.Clear();
+        }
+
+        private void ucAddCustomer_OnSaveButtonClickEvent(object sender, EventArgs e)
+        {
+            ucAddCustomer.RefreshData();
+            if (mySQL.InsertCustomer(ucAddCustomer.Customer))
+            {
+                LoadCustomersToList(lstvCustomers);
+                ucAddCustomer.Clear();
+            }
+        }
+
+        private void btnRemoveCustomer_Click(object sender, EventArgs e)
+        {
+            Customer selected = ucEditCustomer.Customer;
+            if (selected.Id != -1)
+                if (MessageHandler.Show("Delete Customer", $"Are you sure to delete?\n{selected.FirstName} {selected.LastName}") == DialogResult.OK)
+                {
+                    if (mySQL.RemoveCustomer(selected.Id))
+                    {
+                        LoadCustomersToList(lstvCustomers);
+                        //ucEditCustomer.Customer.Clear();
+                        ucEditCustomer.Clear();
+                    }
+                }
         }
     }
 }

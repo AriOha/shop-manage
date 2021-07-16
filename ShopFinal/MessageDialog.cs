@@ -27,20 +27,7 @@ namespace ShopFinal
             this.lblMessage.Text = description;
         }
 
-        //public static DialogResult Show(string messageText)
-        //{
-        //    message = new MessageDialog();
-        //    message.lblMessage.Text = messageText;
-        //    return message.ShowDialog();
-        //}
 
-        //public static DialogResult Show(string title, string txtMessage)
-        //{
-        //    message = new MessageDialog();
-        //    message.Text = title;
-        //    message.lblMessage.Text = txtMessage;
-        //    return message.ShowDialog();
-        //}
     }
     public static class MessageHandler
     {

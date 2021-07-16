@@ -6,24 +6,23 @@ using System.Threading.Tasks;
 
 namespace ShopFinal
 {
-    class Customer
+    public class Customer
     {
-        private long id;
+        private int id;
         private string firstName, lastName;
 
         public Customer()
         {
             id = -1;
-            firstName = "undefined";
-            lastName = "undefined";
+            firstName = "";
+            lastName = "";
         }
 
-        public long Id
+        public int Id
         {
             set
             {
-                if (value > 0)
-                    id = value;
+                id = value;
             }
             get { return id; }
         }
@@ -37,6 +36,11 @@ namespace ShopFinal
         {
             set { lastName = value; }
             get { return lastName; }
+        }
+        public void Clear()
+        {
+            Id = -1;
+            FirstName = LastName = "";
         }
     }
 }
