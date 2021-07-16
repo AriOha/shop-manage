@@ -29,10 +29,10 @@ namespace ShopFinal
         /// </summary>
         private void InitializeComponent()
         {
-            ShopFinal.Supplier supplier5 = new ShopFinal.Supplier();
-            ShopFinal.Supplier supplier6 = new ShopFinal.Supplier();
-            ShopFinal.Customer customer5 = new ShopFinal.Customer();
-            ShopFinal.Customer customer6 = new ShopFinal.Customer();
+            ShopFinal.Supplier supplier1 = new ShopFinal.Supplier();
+            ShopFinal.Supplier supplier2 = new ShopFinal.Supplier();
+            ShopFinal.Customer customer1 = new ShopFinal.Customer();
+            ShopFinal.Customer customer2 = new ShopFinal.Customer();
             this.lstProducts = new System.Windows.Forms.ListBox();
             this.tabMain = new System.Windows.Forms.TabControl();
             this.tabProducts = new System.Windows.Forms.TabPage();
@@ -297,12 +297,12 @@ namespace ShopFinal
             this.ucEditSupplier.Location = new System.Drawing.Point(6, 186);
             this.ucEditSupplier.Name = "ucEditSupplier";
             this.ucEditSupplier.Size = new System.Drawing.Size(153, 189);
-            supplier5.Address = "";
-            supplier5.Email = "";
-            supplier5.Id = -1;
-            supplier5.Name = "";
-            supplier5.Phone = "";
-            this.ucEditSupplier.Supplier = supplier5;
+            supplier1.Address = "";
+            supplier1.Email = "";
+            supplier1.Id = -1;
+            supplier1.Name = "";
+            supplier1.Phone = "";
+            this.ucEditSupplier.Supplier = supplier1;
             this.ucEditSupplier.TabIndex = 24;
             this.ucEditSupplier.OnSaveButtonClickEvent += new ShopFinal.SupplierForm.SaveButtonClickEvent(this.ucEditSupplier_OnSaveButtonClickEvent);
             this.ucEditSupplier.OnClearButtonClickEvent += new ShopFinal.SupplierForm.ClearButtonClickEvent(this.ucEditSupplier_OnClearButtonClickEvent);
@@ -312,12 +312,12 @@ namespace ShopFinal
             this.ucAddSupplier.Location = new System.Drawing.Point(495, 75);
             this.ucAddSupplier.Name = "ucAddSupplier";
             this.ucAddSupplier.Size = new System.Drawing.Size(153, 189);
-            supplier6.Address = "";
-            supplier6.Email = "";
-            supplier6.Id = -1;
-            supplier6.Name = "";
-            supplier6.Phone = "";
-            this.ucAddSupplier.Supplier = supplier6;
+            supplier2.Address = "";
+            supplier2.Email = "";
+            supplier2.Id = -1;
+            supplier2.Name = "";
+            supplier2.Phone = "";
+            this.ucAddSupplier.Supplier = supplier2;
             this.ucAddSupplier.TabIndex = 23;
             this.ucAddSupplier.OnSaveButtonClickEvent += new ShopFinal.SupplierForm.SaveButtonClickEvent(this.ucAddSupplier_onSaveButtonClickEvent);
             // 
@@ -386,10 +386,10 @@ namespace ShopFinal
             // 
             // ucAddCustomer
             // 
-            customer5.FirstName = "";
-            customer5.Id = -1;
-            customer5.LastName = "";
-            this.ucAddCustomer.Customer = customer5;
+            customer1.FirstName = "";
+            customer1.Id = -1;
+            customer1.LastName = "";
+            this.ucAddCustomer.Customer = customer1;
             this.ucAddCustomer.Location = new System.Drawing.Point(12, 257);
             this.ucAddCustomer.Name = "ucAddCustomer";
             this.ucAddCustomer.Size = new System.Drawing.Size(150, 112);
@@ -398,10 +398,10 @@ namespace ShopFinal
             // 
             // ucEditCustomer
             // 
-            customer6.FirstName = "";
-            customer6.Id = -1;
-            customer6.LastName = "";
-            this.ucEditCustomer.Customer = customer6;
+            customer2.FirstName = "";
+            customer2.Id = -1;
+            customer2.LastName = "";
+            this.ucEditCustomer.Customer = customer2;
             this.ucEditCustomer.Location = new System.Drawing.Point(12, 63);
             this.ucEditCustomer.Name = "ucEditCustomer";
             this.ucEditCustomer.Size = new System.Drawing.Size(150, 112);

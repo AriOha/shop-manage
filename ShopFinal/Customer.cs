@@ -14,8 +14,8 @@ namespace ShopFinal
         public Customer()
         {
             id = -1;
-            firstName = "";
-            lastName = "";
+            firstName = string.Empty;
+            lastName = string.Empty;
         }
 
         public int Id

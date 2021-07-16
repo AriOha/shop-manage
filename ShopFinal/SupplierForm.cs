@@ -68,14 +68,28 @@ namespace ShopFinal
             get { return supplier; }
             set
             {
-                supplier.Id = value.Id;
-                supplier.Name = value.Name;
-                supplier.Address = value.Address;
-                supplier.Phone = value.Phone;
-                supplier.Email = value.Email;
-                UpdateViewInputs();
+                if (value != null)
+                {
+                    supplier.Id = value.Id;
+                    supplier.Name = value.Name;
+                    supplier.Address = value.Address;
+                    supplier.Phone = value.Phone;
+                    supplier.Email = value.Email;
+                    UpdateViewInputs();
+                }
             }
         }
 
+        private void txtName_TextChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtName.Text) || string.IsNullOrEmpty(txtAddress.Text)|| string.IsNullOrEmpty(txtPhone.Text)|| string.IsNullOrEmpty(txtEmail.Text))
+            {
+                btnSave.Enabled = false;
+            }
+            else
+                btnSave.Enabled = true;
+
+
+        }
     }
 }

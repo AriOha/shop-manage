@@ -29,6 +29,7 @@ namespace ShopFinal
         /// </summary>
         private void InitializeComponent()
         {
+            this.btnSave = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
             this.txtEmail = new System.Windows.Forms.TextBox();
             this.lblEmail = new System.Windows.Forms.Label();
@@ -38,8 +39,18 @@ namespace ShopFinal
             this.lblAddress = new System.Windows.Forms.Label();
             this.txtName = new System.Windows.Forms.TextBox();
             this.lblName = new System.Windows.Forms.Label();
-            this.btnSave = new System.Windows.Forms.Button();
             this.SuspendLayout();
+            // 
+            // btnSave
+            // 
+            this.btnSave.Enabled = false;
+            this.btnSave.Location = new System.Drawing.Point(73, 164);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(75, 20);
+            this.btnSave.TabIndex = 33;
+            this.btnSave.Text = "Save";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnClear
             // 
@@ -105,6 +116,7 @@ namespace ShopFinal
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(145, 20);
             this.txtName.TabIndex = 25;
+            this.txtName.TextChanged += new System.EventHandler(this.txtName_TextChanged);
             // 
             // lblName
             // 
@@ -114,16 +126,6 @@ namespace ShopFinal
             this.lblName.Size = new System.Drawing.Size(38, 13);
             this.lblName.TabIndex = 24;
             this.lblName.Text = "Name:";
-            // 
-            // btnSave
-            // 
-            this.btnSave.Location = new System.Drawing.Point(73, 164);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 20);
-            this.btnSave.TabIndex = 33;
-            this.btnSave.Text = "Save";
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // SupplierForm
             // 

@@ -73,5 +73,13 @@ namespace ShopFinal
                 }
             }
         }
+
+        private void uc_TextChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtFirstName.Text) || string.IsNullOrEmpty(txtLastName.Text))
+                btnSave.Enabled = false;
+            else
+                btnSave.Enabled = true;
+        }
     }
 }

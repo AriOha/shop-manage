@@ -34,7 +34,7 @@ namespace ShopFinal
             this.txtLastName = new System.Windows.Forms.TextBox();
             this.lblLastName = new System.Windows.Forms.Label();
             this.txtFirstName = new System.Windows.Forms.TextBox();
-            this.lblFIrstName = new System.Windows.Forms.Label();
+            this.lblFirstName = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnSave
@@ -63,6 +63,7 @@ namespace ShopFinal
             this.txtLastName.Name = "txtLastName";
             this.txtLastName.Size = new System.Drawing.Size(145, 20);
             this.txtLastName.TabIndex = 37;
+            this.txtLastName.TextChanged += new System.EventHandler(this.uc_TextChanged);
             // 
             // lblLastName
             // 
@@ -80,15 +81,16 @@ namespace ShopFinal
             this.txtFirstName.Size = new System.Drawing.Size(145, 20);
             this.txtFirstName.TabIndex = 35;
             this.txtFirstName.Text = " ";
+            this.txtFirstName.TextChanged += new System.EventHandler(this.uc_TextChanged);
             // 
-            // lblFIrstName
+            // lblFirstName
             // 
-            this.lblFIrstName.AutoSize = true;
-            this.lblFIrstName.Location = new System.Drawing.Point(4, 3);
-            this.lblFIrstName.Name = "lblFIrstName";
-            this.lblFIrstName.Size = new System.Drawing.Size(60, 13);
-            this.lblFIrstName.TabIndex = 34;
-            this.lblFIrstName.Text = "First Name:";
+            this.lblFirstName.AutoSize = true;
+            this.lblFirstName.Location = new System.Drawing.Point(4, 3);
+            this.lblFirstName.Name = "lblFirstName";
+            this.lblFirstName.Size = new System.Drawing.Size(60, 13);
+            this.lblFirstName.TabIndex = 34;
+            this.lblFirstName.Text = "First Name:";
             // 
             // CustomerForm
             // 
@@ -99,7 +101,7 @@ namespace ShopFinal
             this.Controls.Add(this.txtLastName);
             this.Controls.Add(this.lblLastName);
             this.Controls.Add(this.txtFirstName);
-            this.Controls.Add(this.lblFIrstName);
+            this.Controls.Add(this.lblFirstName);
             this.Name = "CustomerForm";
             this.Size = new System.Drawing.Size(150, 112);
             this.ResumeLayout(false);
@@ -114,6 +116,6 @@ namespace ShopFinal
         private System.Windows.Forms.TextBox txtLastName;
         private System.Windows.Forms.Label lblLastName;
         private System.Windows.Forms.TextBox txtFirstName;
-        private System.Windows.Forms.Label lblFIrstName;
+        private System.Windows.Forms.Label lblFirstName;
     }
 }

@@ -15,7 +15,7 @@ namespace ShopFinal
         {
             id = -1;
             supplierId = -1;
-            name = "undefined";
+            name = string.Empty;
         }
 
         public int Id

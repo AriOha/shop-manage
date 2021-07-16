@@ -167,6 +167,12 @@ namespace ShopFinal
                     }
                 }
                 ucEditSupplier.Supplier = selectedSupp;
+                if (lstSuppliers.SelectedIndex > -1)
+                {
+                    btnRemoveSupplier.Enabled = true;
+                }else
+                    btnRemoveSupplier.Enabled = false;
+
             }
         }
 
