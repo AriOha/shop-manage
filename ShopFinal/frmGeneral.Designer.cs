@@ -29,10 +29,10 @@ namespace ShopFinal
         /// </summary>
         private void InitializeComponent()
         {
-            ShopFinal.Supplier supplier1 = new ShopFinal.Supplier();
-            ShopFinal.Supplier supplier2 = new ShopFinal.Supplier();
-            ShopFinal.Customer customer1 = new ShopFinal.Customer();
-            ShopFinal.Customer customer2 = new ShopFinal.Customer();
+            ShopFinal.Supplier supplier7 = new ShopFinal.Supplier();
+            ShopFinal.Supplier supplier8 = new ShopFinal.Supplier();
+            ShopFinal.Customer customer7 = new ShopFinal.Customer();
+            ShopFinal.Customer customer8 = new ShopFinal.Customer();
             this.lstProducts = new System.Windows.Forms.ListBox();
             this.tabMain = new System.Windows.Forms.TabControl();
             this.tabProducts = new System.Windows.Forms.TabPage();
@@ -61,10 +61,9 @@ namespace ShopFinal
             this.lblTitleAddCustomer = new System.Windows.Forms.Label();
             this.lblTitleEditCustomer = new System.Windows.Forms.Label();
             this.lstvCustomers = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.idCol = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.firstName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.lastName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabCreate = new System.Windows.Forms.TabPage();
             this.lstNewOrderCustomers = new System.Windows.Forms.ListBox();
             this.btnToCartAll = new System.Windows.Forms.Button();
@@ -79,16 +78,19 @@ namespace ShopFinal
             this.lstvOrders = new System.Windows.Forms.ListView();
             this.lstDisplayOrderCustomers = new System.Windows.Forms.ListBox();
             this.tabReport = new System.Windows.Forms.TabPage();
+            this.btnExport = new System.Windows.Forms.Button();
             this.ucEditSupplier = new ShopFinal.SupplierForm();
             this.ucAddSupplier = new ShopFinal.SupplierForm();
             this.ucAddCustomer = new ShopFinal.CustomerForm();
             this.ucEditCustomer = new ShopFinal.CustomerForm();
+            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.tabMain.SuspendLayout();
             this.tabProducts.SuspendLayout();
             this.tabSuppliers.SuspendLayout();
             this.tabCustomers.SuspendLayout();
             this.tabCreate.SuspendLayout();
             this.tabOrders.SuspendLayout();
+            this.tabReport.SuspendLayout();
             this.SuspendLayout();
             // 
             // lstProducts
@@ -381,10 +383,9 @@ namespace ShopFinal
             // lstvCustomers
             // 
             this.lstvCustomers.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2,
-            this.columnHeader3,
-            this.columnHeader4});
+            this.idCol,
+            this.firstName,
+            this.lastName});
             this.lstvCustomers.HideSelection = false;
             this.lstvCustomers.Location = new System.Drawing.Point(185, 34);
             this.lstvCustomers.Name = "lstvCustomers";
@@ -393,6 +394,20 @@ namespace ShopFinal
             this.lstvCustomers.UseCompatibleStateImageBehavior = false;
             this.lstvCustomers.SelectedIndexChanged += new System.EventHandler(this.lstvCustomers_SelectedIndexChanged);
             this.lstvCustomers.MouseLeave += new System.EventHandler(this.lstvCustomers_MouseLeave);
+            // 
+            // idCol
+            // 
+            this.idCol.Text = "ID";
+            // 
+            // firstName
+            // 
+            this.firstName.Text = "First Name";
+            this.firstName.Width = 100;
+            // 
+            // lastName
+            // 
+            this.lastName.Text = "Last Name";
+            this.lastName.Width = 100;
             // 
             // tabCreate
             // 
@@ -537,6 +552,7 @@ namespace ShopFinal
             // 
             // tabReport
             // 
+            this.tabReport.Controls.Add(this.btnExport);
             this.tabReport.Location = new System.Drawing.Point(4, 22);
             this.tabReport.Name = "tabReport";
             this.tabReport.Size = new System.Drawing.Size(673, 382);
@@ -544,17 +560,27 @@ namespace ShopFinal
             this.tabReport.Text = "Reports";
             this.tabReport.UseVisualStyleBackColor = true;
             // 
+            // btnExport
+            // 
+            this.btnExport.Location = new System.Drawing.Point(298, 183);
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Size = new System.Drawing.Size(85, 23);
+            this.btnExport.TabIndex = 0;
+            this.btnExport.Text = "Export to Pdf";
+            this.btnExport.UseVisualStyleBackColor = true;
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
+            // 
             // ucEditSupplier
             // 
             this.ucEditSupplier.Location = new System.Drawing.Point(6, 186);
             this.ucEditSupplier.Name = "ucEditSupplier";
             this.ucEditSupplier.Size = new System.Drawing.Size(153, 189);
-            supplier1.Address = "";
-            supplier1.Email = "";
-            supplier1.Id = -1;
-            supplier1.Name = "";
-            supplier1.Phone = "";
-            this.ucEditSupplier.Supplier = supplier1;
+            supplier7.Address = "";
+            supplier7.Email = "";
+            supplier7.Id = -1;
+            supplier7.Name = "";
+            supplier7.Phone = "";
+            this.ucEditSupplier.Supplier = supplier7;
             this.ucEditSupplier.TabIndex = 24;
             this.ucEditSupplier.OnSaveButtonClickEvent += new ShopFinal.SupplierForm.SaveButtonClickEvent(this.ucEditSupplier_OnSaveButtonClickEvent);
             this.ucEditSupplier.OnClearButtonClickEvent += new ShopFinal.SupplierForm.ClearButtonClickEvent(this.ucEditSupplier_OnClearButtonClickEvent);
@@ -564,21 +590,21 @@ namespace ShopFinal
             this.ucAddSupplier.Location = new System.Drawing.Point(495, 75);
             this.ucAddSupplier.Name = "ucAddSupplier";
             this.ucAddSupplier.Size = new System.Drawing.Size(153, 189);
-            supplier2.Address = "";
-            supplier2.Email = "";
-            supplier2.Id = -1;
-            supplier2.Name = "";
-            supplier2.Phone = "";
-            this.ucAddSupplier.Supplier = supplier2;
+            supplier8.Address = "";
+            supplier8.Email = "";
+            supplier8.Id = -1;
+            supplier8.Name = "";
+            supplier8.Phone = "";
+            this.ucAddSupplier.Supplier = supplier8;
             this.ucAddSupplier.TabIndex = 23;
             this.ucAddSupplier.OnSaveButtonClickEvent += new ShopFinal.SupplierForm.SaveButtonClickEvent(this.ucAddSupplier_onSaveButtonClickEvent);
             // 
             // ucAddCustomer
             // 
-            customer1.FirstName = "";
-            customer1.Id = -1;
-            customer1.LastName = "";
-            this.ucAddCustomer.Customer = customer1;
+            customer7.FirstName = "";
+            customer7.Id = -1;
+            customer7.LastName = "";
+            this.ucAddCustomer.Customer = customer7;
             this.ucAddCustomer.Location = new System.Drawing.Point(12, 257);
             this.ucAddCustomer.Name = "ucAddCustomer";
             this.ucAddCustomer.Size = new System.Drawing.Size(150, 112);
@@ -587,15 +613,21 @@ namespace ShopFinal
             // 
             // ucEditCustomer
             // 
-            customer2.FirstName = "";
-            customer2.Id = -1;
-            customer2.LastName = "";
-            this.ucEditCustomer.Customer = customer2;
+            customer8.FirstName = "";
+            customer8.Id = -1;
+            customer8.LastName = "";
+            this.ucEditCustomer.Customer = customer8;
             this.ucEditCustomer.Location = new System.Drawing.Point(12, 63);
             this.ucEditCustomer.Name = "ucEditCustomer";
             this.ucEditCustomer.Size = new System.Drawing.Size(150, 112);
             this.ucEditCustomer.TabIndex = 4;
             this.ucEditCustomer.OnSaveButtonClickEvent += new ShopFinal.CustomerForm.SaveButtonClickEvent(this.ucEditCustomer_OnSaveButtonClickEvent);
+            // 
+            // saveFileDIalog
+            // 
+            this.saveFileDialog.DefaultExt = "pdf";
+            this.saveFileDialog.Filter = "pdf files (*.pdf)|*.pdf|All files (*.*)|*.*";
+            this.saveFileDialog.Title = "Save to PDF";
             // 
             // frmGeneral
             // 
@@ -617,6 +649,7 @@ namespace ShopFinal
             this.tabCustomers.PerformLayout();
             this.tabCreate.ResumeLayout(false);
             this.tabOrders.ResumeLayout(false);
+            this.tabReport.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -653,10 +686,9 @@ namespace ShopFinal
         private SupplierForm ucEditSupplier;
         private System.Windows.Forms.Button btnRemoveSupplier;
         private System.Windows.Forms.ListView lstvCustomers;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
-        private System.Windows.Forms.ColumnHeader columnHeader2;
-        private System.Windows.Forms.ColumnHeader columnHeader3;
-        private System.Windows.Forms.ColumnHeader columnHeader4;
+        private System.Windows.Forms.ColumnHeader idCol;
+        private System.Windows.Forms.ColumnHeader firstName;
+        private System.Windows.Forms.ColumnHeader lastName;
         private CustomerForm ucEditCustomer;
         private System.Windows.Forms.Label lblTitleAddCustomer;
         private System.Windows.Forms.Label lblTitleEditCustomer;
@@ -673,6 +705,8 @@ namespace ShopFinal
         private System.Windows.Forms.ListBox lstDisplayOrderCustomers;
         private System.Windows.Forms.ListView lstvOrders;
         private System.Windows.Forms.ListView lstvOrderProducts;
+        private System.Windows.Forms.Button btnExport;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog;
     }
 }
 

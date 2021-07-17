@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Windows.Forms;
 
 namespace ShopFinal
@@ -487,6 +488,28 @@ namespace ShopFinal
                         }
                 }
             }
+        }
+
+        // Saving customers list to pdf file using save file dialog
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            saveFileDialog.InitialDirectory = "C:\\";
+            saveFileDialog.CheckPathExists = true;
+            saveFileDialog.FileName = "customers list.pdf";
+            saveFileDialog.RestoreDirectory = true;
+            if (saveFileDialog.ShowDialog() == DialogResult.OK) // if selected valid path & name
+            {
+                PdfMaker pdfFile = new PdfMaker(Path.GetFullPath(saveFileDialog.FileName));
+                pdfFile.AddParagraph("Customers list:");
+                pdfFile.AddSpace();
+                LoadCustomersToListView(lstvCustomers);
+                pdfFile.addTable(lstvCustomers);
+                lstvCustomers.Items.Clear();
+                pdfFile.CloseReport();
+            }
+
+
+
         }
     }
 }
