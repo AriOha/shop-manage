@@ -68,6 +68,7 @@ namespace ShopFinal
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(145, 20);
             this.txtEmail.TabIndex = 31;
+            this.txtEmail.TextChanged += new System.EventHandler(this.isFormEmpty);
             // 
             // lblEmail
             // 
@@ -84,6 +85,7 @@ namespace ShopFinal
             this.txtPhone.Name = "txtPhone";
             this.txtPhone.Size = new System.Drawing.Size(145, 20);
             this.txtPhone.TabIndex = 29;
+            this.txtPhone.TextChanged += new System.EventHandler(this.isFormEmpty);
             // 
             // lblPhone
             // 
@@ -100,6 +102,7 @@ namespace ShopFinal
             this.txtAddress.Name = "txtAddress";
             this.txtAddress.Size = new System.Drawing.Size(145, 20);
             this.txtAddress.TabIndex = 27;
+            this.txtAddress.TextChanged += new System.EventHandler(this.isFormEmpty);
             // 
             // lblAddress
             // 
@@ -116,7 +119,7 @@ namespace ShopFinal
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(145, 20);
             this.txtName.TabIndex = 25;
-            this.txtName.TextChanged += new System.EventHandler(this.txtName_TextChanged);
+            this.txtName.TextChanged += new System.EventHandler(this.isFormEmpty);
             // 
             // lblName
             // 

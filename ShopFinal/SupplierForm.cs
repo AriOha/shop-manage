@@ -17,6 +17,10 @@ namespace ShopFinal
         public event SaveButtonClickEvent OnSaveButtonClickEvent;
         public delegate void ClearButtonClickEvent(object sender, EventArgs e);
         public event ClearButtonClickEvent OnClearButtonClickEvent;
+        public delegate void SaveButtonDisabledEvent(object sender, EventArgs e);
+        public event SaveButtonDisabledEvent OnSaveButtonChangedEvent;
+
+
         public SupplierForm()
         {
             InitializeComponent();
@@ -80,16 +84,26 @@ namespace ShopFinal
             }
         }
 
-        private void txtName_TextChanged(object sender, EventArgs e)
+        private void isFormEmpty(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtName.Text) || string.IsNullOrEmpty(txtAddress.Text)|| string.IsNullOrEmpty(txtPhone.Text)|| string.IsNullOrEmpty(txtEmail.Text))
+            if (string.IsNullOrEmpty(txtName.Text) || string.IsNullOrEmpty(txtAddress.Text) || string.IsNullOrEmpty(txtPhone.Text) || string.IsNullOrEmpty(txtEmail.Text))
             {
                 btnSave.Enabled = false;
             }
             else
+            {
                 btnSave.Enabled = true;
+            }
+            if (OnSaveButtonChangedEvent != null)
+            {
+                OnSaveButtonChangedEvent(this, e);
+            }
 
+        }
 
+        public bool isBtnEnabled
+        {
+            get => btnSave.Enabled;
         }
     }
 }

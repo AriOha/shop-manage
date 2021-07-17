@@ -91,8 +91,6 @@ namespace ShopFinal
                     break;
                 default:
                     break;
-                    
-                
             }
 
         }
@@ -219,7 +217,7 @@ namespace ShopFinal
                         lstvProducts.Items.Add(itm);
                     }
                 }
-                ucEditSupplier.Supplier = selectedSupp;
+                ucEditSupplier.Supplier = selectedSupp; // insert the data to the uc fields
                 if (lstSuppliers.SelectedIndex > -1)
                 {
                     btnRemoveSupplier.Enabled = true;
@@ -324,24 +322,26 @@ namespace ShopFinal
                 LoadSuppliersToList(lstSuppliers);
                 ucEditSupplier.Clear();
             }
+            btnRemoveChange(sender, e);
         }
 
 
         private void ucEditSupplier_OnClearButtonClickEvent(object sender, EventArgs e)
         {
             lstSuppliers.SelectedItem = null;
+            btnRemoveChange(sender, e);
         }
 
         private void btnRemove_Click(object sender, EventArgs e)
         {
-            MessageDialog messageDialog = new MessageDialog();
             if (lstSuppliers.SelectedItem != null)
-                if (MessageHandler.Show("Delete", "Are you sure?") == DialogResult.OK)
+                if (MessageHandler.Show("Delete", "Are you sure to delete this supplier?") == DialogResult.OK)
                 {
                     if (mySQL.RemoveSupplier(((Supplier)lstSuppliers.SelectedItem).Id))
                     {
                         LoadSuppliersToList(lstSuppliers);
                         ucEditSupplier.Clear();
+                        btnRemoveSupplier.Enabled = false;
                     }
                 }
 
@@ -525,12 +525,18 @@ namespace ShopFinal
 
         }
 
+        //Enable/Disable the Add Product button according the related inputs
         private void btnAddProduct_Lock(object sender, EventArgs e)
         {
 
             btnAddProd.Enabled = !(cboAddProd.SelectedIndex == -1 || txtAddProd.Text.Length == 0);
 
+        }
 
+        //Enable/Disable the Delete button according the UC form
+        private void btnRemoveChange(object sender, EventArgs e)
+        {
+            btnRemoveSupplier.Enabled = ((SupplierForm)sender).isBtnEnabled;
         }
     }
 }
