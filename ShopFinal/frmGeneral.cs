@@ -21,9 +21,84 @@ namespace ShopFinal
             DBSQL.UserName = "root";
             DBSQL.Password = "secret";
             mySQL = DBSQL.Instance;
-            tabMain.SelectedIndex = 0;
+            lblName1.Text = "Ariel Ohayon";
+            lblName2.Text = "Boris Sverdlov";
+        }
+
+
+        //updating the data according the current tab
+        private void tabMain_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (tabMain.SelectedIndex)
+            {
+                case 1:
+                    //Products Tab
+                    LoadProductsToList(lstProducts);
+                    LoadSuppliersToCbo(cboAddProd);
+                    LoadSuppliersToCbo(cboEditProd);
+                    break;
+                case 2:
+                    //Suppliers Tab
+                    lstvProducts.Columns.Clear();
+                    lstvProducts.Columns.Add("ID");
+                    lstvProducts.Columns.Add("Name", 150);
+                    lstvProducts.Columns.Add("SupplierId");
+                    lstvProducts.View = View.Details;
+                    lstvProducts.GridLines = true;
+                    lstvProducts.FullRowSelect = true;
+                    LoadSuppliersToList(lstSuppliers);
+                    break;
+                case 3:
+                    //Customers Tab
+                    lstvCustomers.Columns.Clear();
+                    lstvCustomers.Columns.Add("ID");
+                    lstvCustomers.Columns.Add("First Name", 120);
+                    lstvCustomers.Columns.Add("Last Name", 120);
+                    lstvCustomers.View = View.Details;
+                    lstvCustomers.GridLines = true;
+                    lstvCustomers.FullRowSelect = true;
+                    LoadCustomersToListView(lstvCustomers);
+                    break;
+                case 4:
+                    //New Order Tab
+                    LoadProductsToList(lstOrderProducts);
+                    LoadCustomersToList(lstNewOrderCustomers);
+                    lstOrderSelected.ValueMember = "SupplierId"; // The value of the selected item
+                    lstOrderSelected.DisplayMember = "Name"; // the value that will displayed at the list(name)
+                    lstOrderSelected.Items.Clear();
+                    break;
+                case 5:
+                    //Display Orders Tab
+                    lstvOrders.Columns.Clear();
+                    lstvOrderProducts.Columns.Clear();
+                    lstvOrders.Columns.Add("ID", 40);
+                    lstvOrders.Columns.Add("Date", 70);
+                    lstvOrders.Columns.Add("Time", 60);
+                    lstvOrders.View = View.Details;
+                    lstvOrders.GridLines = true;
+                    lstvOrders.FullRowSelect = true;
+                    lstvOrderProducts.Columns.Add("Product ID", 70);
+                    lstvOrderProducts.Columns.Add("Product Name", 140);
+                    lstvOrderProducts.Columns.Add("Supplier ID", 70);
+                    lstvOrderProducts.View = View.Details;
+                    lstvOrderProducts.FullRowSelect = true;
+                    LoadCustomersToList(lstDisplayOrderCustomers);
+                    lstvOrders.Items.Clear();
+                    lstvOrderProducts.Items.Clear();
+                    break;
+                case 6:
+                    //Reports Tab
+                    break;
+                default:
+                    break;
+                    
+                
+            }
 
         }
+
+
+
         private void refreshProducts()
         {
             products = mySQL.GetProductsData();
@@ -40,6 +115,7 @@ namespace ShopFinal
         {
             orders = mySQL.GetOrdersData();
         }
+
 
 
         //function get list of objects and insert them to the given ListBox binding key and value
@@ -124,73 +200,6 @@ namespace ShopFinal
                 cboEditProd.SelectedIndex = Array.FindIndex(suppliers, supplier => supplier.Id == selectedProd.SupplierId);
                 txtEditProd.Text = selectedProd.Name;
             }
-        }
-
-        //updating the data according the current tab
-        private void tabMain_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            switch (tabMain.SelectedIndex)
-            {
-                case 0:
-                    //Products Tab
-                    LoadProductsToList(lstProducts);
-                    LoadSuppliersToCbo(cboAddProd);
-                    LoadSuppliersToCbo(cboEditProd);
-                    break;
-                case 1:
-                    //Suppliers Tab
-                    lstvProducts.Columns.Clear();
-                    lstvProducts.Columns.Add("ID");
-                    lstvProducts.Columns.Add("Name", 150);
-                    lstvProducts.Columns.Add("SupplierId");
-                    lstvProducts.View = View.Details;
-                    lstvProducts.GridLines = true;
-                    lstvProducts.FullRowSelect = true;
-                    LoadSuppliersToList(lstSuppliers);
-                    break;
-                case 2:
-                    //Customers Tab
-                    lstvCustomers.Columns.Clear();
-                    lstvCustomers.Columns.Add("ID");
-                    lstvCustomers.Columns.Add("First Name", 120);
-                    lstvCustomers.Columns.Add("Last Name", 120);
-                    lstvCustomers.View = View.Details;
-                    lstvCustomers.GridLines = true;
-                    lstvCustomers.FullRowSelect = true;
-                    LoadCustomersToListView(lstvCustomers);
-                    break;
-                case 3:
-                    //New Order Tab
-                    LoadProductsToList(lstOrderProducts);
-                    LoadCustomersToList(lstNewOrderCustomers);
-                    lstOrderSelected.ValueMember = "SupplierId"; // The value of the selected item
-                    lstOrderSelected.DisplayMember = "Name"; // the value that will displayed at the list(name)
-                    lstOrderSelected.Items.Clear();
-                    break;
-                case 4:
-                    //Display Orders Tab
-                    lstvOrders.Columns.Clear();
-                    lstvOrderProducts.Columns.Clear();
-                    lstvOrders.Columns.Add("ID", 40);
-                    lstvOrders.Columns.Add("Date", 70);
-                    lstvOrders.Columns.Add("Time", 60);
-                    lstvOrders.View = View.Details;
-                    lstvOrders.GridLines = true;
-                    lstvOrders.FullRowSelect = true;
-                    lstvOrderProducts.Columns.Add("Product ID", 70);
-                    lstvOrderProducts.Columns.Add("Product Name", 140);
-                    lstvOrderProducts.Columns.Add("Supplier ID", 70);
-                    lstvOrderProducts.View = View.Details;
-                    lstvOrderProducts.FullRowSelect = true;
-                    LoadCustomersToList(lstDisplayOrderCustomers);
-                    lstvOrders.Items.Clear();
-                    lstvOrderProducts.Items.Clear();
-                    break;
-                case 5:
-                    //Reports Tab
-                    break;
-            }
-
         }
 
         private void lstSuppliers_SelectedIndexChanged(object sender, EventArgs e)
@@ -283,12 +292,16 @@ namespace ShopFinal
         {
             Product addPrd = new Product();
             addPrd.Name = txtAddProd.Text;
-            addPrd.SupplierId = ((Supplier)cboAddProd.SelectedItem).Id;
 
-            if (mySQL.InsertProduct(addPrd))
+            if (cboAddProd.SelectedItem != null)
             {
-                LoadProductsToList(lstProducts);
-                clearAddProduct();
+                addPrd.SupplierId = ((Supplier)cboAddProd.SelectedItem).Id;
+
+                if (mySQL.InsertProduct(addPrd))
+                {
+                    LoadProductsToList(lstProducts);
+                    clearAddProduct();
+                }
             }
         }
 
@@ -508,6 +521,14 @@ namespace ShopFinal
                 pdfFile.CloseReport();
             }
 
+
+
+        }
+
+        private void btnAddProduct_Lock(object sender, EventArgs e)
+        {
+
+            btnAddProd.Enabled = !(cboAddProd.SelectedIndex == -1 || txtAddProd.Text.Length == 0);
 
 
         }
