@@ -6,19 +6,18 @@ using System.Threading.Tasks;
 
 namespace ShopFinal
 {
-    class OrderProduct
+    public class OrderProduct
     {
-        private long id, custumerId, productId, total;
-
+        private int id, supplierId;
+        private string name;
         public OrderProduct()
         {
             id = -1;
-            custumerId = -1;
-            productId = -1;
-            total = 0;
+            supplierId = -1;
+            name = "";
         }
 
-        public long Id
+        public int Id
         {
             set
             {
@@ -27,33 +26,12 @@ namespace ShopFinal
             }
             get { return id; }
         }
-        public long CustomerId
+        public string Name
         {
-            set
-            {
-                if (value > 0)
-                    custumerId = value;
-            }
-            get { return custumerId; }
-        }
-        public long ProductId
-        {
-            set
-            {
-                if (value > 0)
-                    productId = value;
-            }
-            get { return productId; }
-        }
-        public long Total
-        {
-            set
-            {
-                if (value > 0)
-                    total = value;
-            }
-            get { return total; }
+            set { name = value; }
+            get { return name; }
         }
 
+        public int SupplierId { get => supplierId; set => supplierId = value; }
     }
 }

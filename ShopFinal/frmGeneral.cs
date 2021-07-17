@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Windows.Forms;
 
 namespace ShopFinal
@@ -11,6 +10,7 @@ namespace ShopFinal
         Product[] products;
         Supplier[] suppliers;
         Customer[] customers;
+        Order[] orders;
 
         public frmGeneral()
         {
@@ -34,6 +34,10 @@ namespace ShopFinal
         private void refreshCustomers()
         {
             customers = mySQL.GetCustomersData();
+        }
+        private void refreshOrders()
+        {
+            orders = mySQL.GetOrdersData();
         }
 
 
@@ -69,6 +73,13 @@ namespace ShopFinal
             fillListBox(destList, suppliers, "Name", "Id");
         }
 
+        private void LoadCustomersToList(ListBox destList)
+        {
+            refreshCustomers();
+            destList.Items.Clear();
+            fillListBox(destList, customers, "FirstName", "Id");
+        }
+
         //get data from db and loading the new data to the selected ComboBox
         private void LoadSuppliersToCbo(ComboBox destList)
         {
@@ -78,7 +89,7 @@ namespace ShopFinal
         }
 
         // Loads customers to Listview in Customers tab
-        private void LoadCustomersToList(ListView destList)
+        private void LoadCustomersToListView(ListView destList)
         {
             refreshCustomers();
             //lstvCustomers.Items.Clear();
@@ -97,7 +108,7 @@ namespace ShopFinal
             ucEditCustomer.RefreshData();
             if (mySQL.UpdateCustomer(ucEditCustomer.Customer)) // if query passed
             {
-                LoadCustomersToList(lstvCustomers);
+                LoadCustomersToListView(lstvCustomers);
                 ucEditCustomer.Clear();
             }
 
@@ -117,36 +128,68 @@ namespace ShopFinal
         //updating the data according the current tab
         private void tabMain_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (tabMain.SelectedIndex == 0)
+            switch (tabMain.SelectedIndex)
             {
-                LoadProductsToList(lstProducts);
-                LoadSuppliersToCbo(cboAddProd);
-                LoadSuppliersToCbo(cboEditProd);
+                case 0:
+                    //Products Tab
+                    LoadProductsToList(lstProducts);
+                    LoadSuppliersToCbo(cboAddProd);
+                    LoadSuppliersToCbo(cboEditProd);
+                    break;
+                case 1:
+                    //Suppliers Tab
+                    lstvProducts.Columns.Clear();
+                    lstvProducts.Columns.Add("ID");
+                    lstvProducts.Columns.Add("Name", 150);
+                    lstvProducts.Columns.Add("SupplierId");
+                    lstvProducts.View = View.Details;
+                    lstvProducts.GridLines = true;
+                    lstvProducts.FullRowSelect = true;
+                    LoadSuppliersToList(lstSuppliers);
+                    break;
+                case 2:
+                    //Customers Tab
+                    lstvCustomers.Columns.Clear();
+                    lstvCustomers.Columns.Add("ID");
+                    lstvCustomers.Columns.Add("First Name", 120);
+                    lstvCustomers.Columns.Add("Last Name", 120);
+                    lstvCustomers.View = View.Details;
+                    lstvCustomers.GridLines = true;
+                    lstvCustomers.FullRowSelect = true;
+                    LoadCustomersToListView(lstvCustomers);
+                    break;
+                case 3:
+                    //New Order Tab
+                    LoadProductsToList(lstOrderProducts);
+                    LoadCustomersToList(lstNewOrderCustomers);
+                    lstOrderSelected.ValueMember = "SupplierId"; // The value of the selected item
+                    lstOrderSelected.DisplayMember = "Name"; // the value that will displayed at the list(name)
+                    lstOrderSelected.Items.Clear();
+                    break;
+                case 4:
+                    //Display Orders Tab
+                    lstvOrders.Columns.Clear();
+                    lstvOrderProducts.Columns.Clear();
+                    lstvOrders.Columns.Add("ID", 40);
+                    lstvOrders.Columns.Add("Date", 70);
+                    lstvOrders.Columns.Add("Time", 60);
+                    lstvOrders.View = View.Details;
+                    lstvOrders.GridLines = true;
+                    lstvOrders.FullRowSelect = true;
+                    lstvOrderProducts.Columns.Add("Product ID", 70);
+                    lstvOrderProducts.Columns.Add("Product Name", 140);
+                    lstvOrderProducts.Columns.Add("Supplier ID", 70);
+                    lstvOrderProducts.View = View.Details;
+                    lstvOrderProducts.FullRowSelect = true;
+                    LoadCustomersToList(lstDisplayOrderCustomers);
+                    lstvOrders.Items.Clear();
+                    lstvOrderProducts.Items.Clear();
+                    break;
+                case 5:
+                    //Reports Tab
+                    break;
             }
-            else
-            if (tabMain.SelectedIndex == 1)
-            {
-                lstvProducts.Columns.Clear();
-                lstvProducts.Columns.Add("ID");
-                lstvProducts.Columns.Add("Name", 150);
-                lstvProducts.Columns.Add("SupplierId");
-                lstvProducts.View = View.Details;
-                lstvProducts.GridLines = true;
-                lstvProducts.FullRowSelect = true;
-                LoadSuppliersToList(lstSuppliers);
-            }
-            else
-            if (tabMain.SelectedIndex == 2)
-            {
-                lstvCustomers.Columns.Clear();
-                lstvCustomers.Columns.Add("ID");
-                lstvCustomers.Columns.Add("First Name", 120);
-                lstvCustomers.Columns.Add("Last Name", 120);
-                lstvCustomers.View = View.Details;
-                lstvCustomers.GridLines = true;
-                lstvCustomers.FullRowSelect = true;
-                LoadCustomersToList(lstvCustomers);
-            }
+
         }
 
         private void lstSuppliers_SelectedIndexChanged(object sender, EventArgs e)
@@ -170,7 +213,8 @@ namespace ShopFinal
                 if (lstSuppliers.SelectedIndex > -1)
                 {
                     btnRemoveSupplier.Enabled = true;
-                }else
+                }
+                else
                     btnRemoveSupplier.Enabled = false;
 
             }
@@ -309,7 +353,7 @@ namespace ShopFinal
             ucAddCustomer.RefreshData();
             if (mySQL.InsertCustomer(ucAddCustomer.Customer))
             {
-                LoadCustomersToList(lstvCustomers);
+                LoadCustomersToListView(lstvCustomers);
                 ucAddCustomer.Clear();
             }
         }
@@ -322,11 +366,127 @@ namespace ShopFinal
                 {
                     if (mySQL.RemoveCustomer(selected.Id))
                     {
-                        LoadCustomersToList(lstvCustomers);
+                        LoadCustomersToListView(lstvCustomers);
                         //ucEditCustomer.Customer.Clear();
                         ucEditCustomer.Clear();
                     }
                 }
+        }
+
+        private void btnOrder_Click(object sender, EventArgs e)
+        {
+            //i customer selected
+            if (lstNewOrderCustomers.SelectedItem != null)
+            {
+                int orderId = mySQL.CreateOrder((Customer)lstNewOrderCustomers.SelectedItem);
+
+                //if order created, starts inserting the product to the order list
+                if (orderId != -1)
+                {
+                    //inserting each product to the db according the order id
+                    for (int i = 0; i < lstOrderSelected.Items.Count; i++)
+                        mySQL.AddOrderProduct(orderId, ((Product)lstOrderSelected.Items[i]).Id);
+                    Console.WriteLine("Created order no: " + orderId);
+
+                    //resets the lists to default
+                    lstOrderSelected.Items.Clear();
+                    lstNewOrderCustomers.SelectedIndex = -1;
+                    LoadProductsToList(lstOrderProducts);
+                }
+            }
+        }
+
+        private void btnOrder_Lock(object sender, EventArgs e)
+        {
+            btnOrder.Enabled = !(lstNewOrderCustomers.SelectedIndex == -1 || lstOrderSelected.Items.Count == 0);
+
+
+        }
+
+        private void btnToCart_Click(object sender, EventArgs e)
+        {
+            if (lstOrderProducts.SelectedItem != null)
+            {
+                lstOrderSelected.Items.Add(lstOrderProducts.SelectedItem);
+                int i = lstOrderProducts.SelectedIndex;
+                lstOrderProducts.Items.RemoveAt(i);
+                if (lstOrderProducts.Items.Count > 0)
+                    lstOrderProducts.SelectedIndex = 0;
+            }
+        }
+
+        private void btnFromCart_Click(object sender, EventArgs e)
+        {
+            if (lstOrderSelected.SelectedItem != null)
+            {
+                lstOrderProducts.Items.Add(lstOrderSelected.SelectedItem);
+                int i = lstOrderSelected.SelectedIndex;
+                lstOrderSelected.Items.RemoveAt(i);
+                if (lstOrderSelected.Items.Count > 0)
+                    lstOrderSelected.SelectedIndex = 0;
+            }
+        }
+
+        private void btnToCartAll_Click(object sender, EventArgs e)
+        {
+            for (int i = lstOrderProducts.Items.Count - 1; i >= 0; i--)
+            {
+                lstOrderSelected.Items.Add(lstOrderProducts.Items[i]);
+                lstOrderProducts.Items.RemoveAt(i);
+
+            }
+        }
+
+        private void btnFromCartAll_Click(object sender, EventArgs e)
+        {
+            for (int i = lstOrderSelected.Items.Count - 1; i >= 0; i--)
+            {
+                lstOrderProducts.Items.Add(lstOrderSelected.Items[i]);
+                lstOrderSelected.Items.RemoveAt(i);
+
+            }
+        }
+
+        private void lstDisplayOrderCustomers_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Customer selectedCust = lstDisplayOrderCustomers.SelectedItem as Customer;
+            refreshOrders();
+            lstvOrders.Items.Clear();
+            lstvOrderProducts.Items.Clear();
+            if (selectedCust != null)
+            {
+                foreach (Order ord in orders)
+                {
+                    if (ord.CustomerId == selectedCust.Id)
+                    {
+                        string[] dt = ord.DateTime.Split(' ');
+                        string[] row = { ord.Id.ToString(), dt[0], dt[1] };
+                        ListViewItem itm = new ListViewItem(row);
+                        lstvOrders.Items.Add(itm);
+                    }
+                }
+            }
+        }
+
+        private void lstvOrders_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            lstvOrderProducts.Items.Clear();
+            foreach (Order ord in orders)
+            {
+                Console.WriteLine(lstvOrders.FocusedItem.Text);
+                if (ord.Id == Convert.ToInt32(lstvOrders.FocusedItem.Text))
+                {
+                    OrderProduct[] orderProducts = mySQL.GetOrderedProductsById(ord.Id);
+                    if (orderProducts != null)
+                        foreach (OrderProduct prod in orderProducts)
+                        {
+                            string[] row = { prod.Id.ToString(), prod.Name, prod.SupplierId.ToString() };
+                            ListViewItem itm = new ListViewItem(row);
+                            lstvOrderProducts.Items.Add(itm);
+                        }
+                }
+            }
         }
     }
 }

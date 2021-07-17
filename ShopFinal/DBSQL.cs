@@ -307,7 +307,7 @@ namespace ShopFinal
                 for (int i = 0; i < customers.Length; i++)
                 {
                     customers[i] = new Customer();
-                    customers[i].Id = Convert.ToInt32(dt.Rows[i][0]); //city code stored at column 0
+                    customers[i].Id = Convert.ToInt32(dt.Rows[i][0]); //id stored at column 0
                     customers[i].FirstName = dt.Rows[i][1].ToString();// first name stored at column 1
                     customers[i].LastName = dt.Rows[i][2].ToString();// last name stored at column 2
                 }
@@ -357,6 +357,120 @@ namespace ShopFinal
             }
             //return false
 
+        }
+
+
+        ////####################Orders####################
+        ///
+        public int GetCustomersMaxId()
+        {
+            int result;
+            string cmdStr = "SELECT Max(id) FROM orders";
+
+            using (MySqlCommand command = new MySqlCommand(cmdStr))
+            {
+                result = ExecuteScalarIntQuery(command);
+            }
+            return result;
+        }
+
+        public int CreateOrder(Customer Item)
+        {
+            string cmdStr = "INSERT INTO `orders` ( `customerId`, `dateTime`) VALUES ( @id, current_timestamp())";
+
+            using (MySqlCommand command = new MySqlCommand(cmdStr))
+            {
+                command.Parameters.AddWithValue("@id", Item.Id);
+
+                if (base.ExecuteSimpleQuery(command))
+                {
+                    return GetCustomersMaxId();
+                }
+                return -1;
+            }
+        }
+
+        public bool AddOrderProduct(int orderId, int prodId)
+        {
+            string cmdStr = "INSERT INTO `order_products` (`orderId`, `productId`) VALUES ( @orderId, @prodId)";
+
+            using (MySqlCommand command = new MySqlCommand(cmdStr))
+            {
+                command.Parameters.AddWithValue("@orderId", orderId);
+                command.Parameters.AddWithValue("@prodId", prodId);
+
+                return base.ExecuteSimpleQuery(command);
+            }
+        }
+
+        public Order[] GetOrdersData()
+        {
+            DataSet ds = new DataSet(); //creating dataset to get the result from db into ds tables
+            Order[] orders = null;
+            string cmdStr = "SELECT id,customerId,dateTime FROM orders";
+
+            using (MySqlCommand command = new MySqlCommand(cmdStr)) //free the MySqlCommand after finishing the query
+            {
+                ds = GetMultipleQuery(command); //returns data of cities
+            }
+
+            DataTable dt = new DataTable(); // Creating data table to be as reference to ds to get the result table from the query
+            try
+            {
+                dt = ds.Tables[0];
+            }
+            catch { }
+            if (dt.Rows.Count > 0) // if received data from the database
+            {
+                orders = new Order[dt.Rows.Count];
+                for (int i = 0; i < orders.Length; i++)
+                {
+                    orders[i] = new Order();
+                    orders[i].Id = Convert.ToInt32(dt.Rows[i][0]); //id stored at column 0
+                    orders[i].CustomerId = Convert.ToInt32(dt.Rows[i][1]);// first name stored at column 1
+                    orders[i].DateTime = dt.Rows[i][2].ToString();// last name stored at column 2
+                }
+            }
+            return orders;
+        }
+
+        public OrderProduct[] GetOrderedProductsById(int orderId)
+        {
+            DataSet ds = new DataSet(); //creating dataset to get the result from db into ds tables
+            OrderProduct[] orderProducts = null;
+            string cmdStr = "SELECT p.id,p.name,p.supplierId " +
+                            "FROM `order_products` o " +
+                            "JOIN products p on p.id = o.productId " +
+                            "WHERE o.orderId = @id; ";
+
+
+            using (MySqlCommand command = new MySqlCommand(cmdStr)) //free the MySqlCommand after finishing the query
+            {
+                command.Parameters.AddWithValue("@id", orderId);
+                ds = GetMultipleQuery(command); //returns data of cities
+            }
+
+            DataTable dt = new DataTable(); // Creating data table to be as reference to ds to get the result table from the query
+            try
+            {
+                dt = ds.Tables[0];
+            }
+            catch
+            {
+                Console.WriteLine("Error while executing OrderProduct query");
+            }
+            if (dt.Rows.Count > 0) // if received data from the database
+            {
+                orderProducts = new OrderProduct[dt.Rows.Count];
+                for (int i = 0; i < orderProducts.Length; i++)
+                {
+                    orderProducts[i] = new OrderProduct();
+                    orderProducts[i].Id = Convert.ToInt32(dt.Rows[i][0]); //id stored at column 0
+                    orderProducts[i].Name = dt.Rows[i][1].ToString();// first name stored at column 1
+                    orderProducts[i].SupplierId = Convert.ToInt32(dt.Rows[i][2]);// last name stored at column 2
+                }
+            }
+            return orderProducts;
         }
     }
 }

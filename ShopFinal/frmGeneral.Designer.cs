@@ -53,29 +53,42 @@ namespace ShopFinal
             this.tabSuppliers = new System.Windows.Forms.TabPage();
             this.btnRemoveSupplier = new System.Windows.Forms.Button();
             this.lblAddSupp = new System.Windows.Forms.Label();
-            this.ucEditSupplier = new ShopFinal.SupplierForm();
-            this.ucAddSupplier = new ShopFinal.SupplierForm();
             this.lstvProducts = new System.Windows.Forms.ListView();
             this.txtSuppliers = new System.Windows.Forms.Label();
             this.lstSuppliers = new System.Windows.Forms.ListBox();
             this.tabCustomers = new System.Windows.Forms.TabPage();
+            this.btnRemoveCustomer = new System.Windows.Forms.Button();
             this.lblTitleAddCustomer = new System.Windows.Forms.Label();
             this.lblTitleEditCustomer = new System.Windows.Forms.Label();
-            this.ucAddCustomer = new ShopFinal.CustomerForm();
-            this.ucEditCustomer = new ShopFinal.CustomerForm();
             this.lstvCustomers = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabCreate = new System.Windows.Forms.TabPage();
+            this.lstNewOrderCustomers = new System.Windows.Forms.ListBox();
+            this.btnToCartAll = new System.Windows.Forms.Button();
+            this.btnFromCartAll = new System.Windows.Forms.Button();
+            this.btnFromCart = new System.Windows.Forms.Button();
+            this.btnToCart = new System.Windows.Forms.Button();
+            this.lstOrderSelected = new System.Windows.Forms.ListBox();
+            this.btnOrder = new System.Windows.Forms.Button();
+            this.lstOrderProducts = new System.Windows.Forms.ListBox();
             this.tabOrders = new System.Windows.Forms.TabPage();
+            this.lstvOrderProducts = new System.Windows.Forms.ListView();
+            this.lstvOrders = new System.Windows.Forms.ListView();
+            this.lstDisplayOrderCustomers = new System.Windows.Forms.ListBox();
             this.tabReport = new System.Windows.Forms.TabPage();
-            this.btnRemoveCustomer = new System.Windows.Forms.Button();
+            this.ucEditSupplier = new ShopFinal.SupplierForm();
+            this.ucAddSupplier = new ShopFinal.SupplierForm();
+            this.ucAddCustomer = new ShopFinal.CustomerForm();
+            this.ucEditCustomer = new ShopFinal.CustomerForm();
             this.tabMain.SuspendLayout();
             this.tabProducts.SuspendLayout();
             this.tabSuppliers.SuspendLayout();
             this.tabCustomers.SuspendLayout();
+            this.tabCreate.SuspendLayout();
+            this.tabOrders.SuspendLayout();
             this.SuspendLayout();
             // 
             // lstProducts
@@ -292,35 +305,6 @@ namespace ShopFinal
             this.lblAddSupp.TabIndex = 21;
             this.lblAddSupp.Text = "Add new";
             // 
-            // ucEditSupplier
-            // 
-            this.ucEditSupplier.Location = new System.Drawing.Point(6, 186);
-            this.ucEditSupplier.Name = "ucEditSupplier";
-            this.ucEditSupplier.Size = new System.Drawing.Size(153, 189);
-            supplier1.Address = "";
-            supplier1.Email = "";
-            supplier1.Id = -1;
-            supplier1.Name = "";
-            supplier1.Phone = "";
-            this.ucEditSupplier.Supplier = supplier1;
-            this.ucEditSupplier.TabIndex = 24;
-            this.ucEditSupplier.OnSaveButtonClickEvent += new ShopFinal.SupplierForm.SaveButtonClickEvent(this.ucEditSupplier_OnSaveButtonClickEvent);
-            this.ucEditSupplier.OnClearButtonClickEvent += new ShopFinal.SupplierForm.ClearButtonClickEvent(this.ucEditSupplier_OnClearButtonClickEvent);
-            // 
-            // ucAddSupplier
-            // 
-            this.ucAddSupplier.Location = new System.Drawing.Point(495, 75);
-            this.ucAddSupplier.Name = "ucAddSupplier";
-            this.ucAddSupplier.Size = new System.Drawing.Size(153, 189);
-            supplier2.Address = "";
-            supplier2.Email = "";
-            supplier2.Id = -1;
-            supplier2.Name = "";
-            supplier2.Phone = "";
-            this.ucAddSupplier.Supplier = supplier2;
-            this.ucAddSupplier.TabIndex = 23;
-            this.ucAddSupplier.OnSaveButtonClickEvent += new ShopFinal.SupplierForm.SaveButtonClickEvent(this.ucAddSupplier_onSaveButtonClickEvent);
-            // 
             // lstvProducts
             // 
             this.lstvProducts.HideSelection = false;
@@ -364,6 +348,16 @@ namespace ShopFinal
             this.tabCustomers.Text = "Customers";
             this.tabCustomers.UseVisualStyleBackColor = true;
             // 
+            // btnRemoveCustomer
+            // 
+            this.btnRemoveCustomer.Location = new System.Drawing.Point(13, 181);
+            this.btnRemoveCustomer.Name = "btnRemoveCustomer";
+            this.btnRemoveCustomer.Size = new System.Drawing.Size(149, 23);
+            this.btnRemoveCustomer.TabIndex = 8;
+            this.btnRemoveCustomer.Text = "Delete";
+            this.btnRemoveCustomer.UseVisualStyleBackColor = true;
+            this.btnRemoveCustomer.Click += new System.EventHandler(this.btnRemoveCustomer_Click);
+            // 
             // lblTitleAddCustomer
             // 
             this.lblTitleAddCustomer.AutoSize = true;
@@ -383,6 +377,201 @@ namespace ShopFinal
             this.lblTitleEditCustomer.Size = new System.Drawing.Size(52, 24);
             this.lblTitleEditCustomer.TabIndex = 6;
             this.lblTitleEditCustomer.Text = "Edit:";
+            // 
+            // lstvCustomers
+            // 
+            this.lstvCustomers.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2,
+            this.columnHeader3,
+            this.columnHeader4});
+            this.lstvCustomers.HideSelection = false;
+            this.lstvCustomers.Location = new System.Drawing.Point(185, 34);
+            this.lstvCustomers.Name = "lstvCustomers";
+            this.lstvCustomers.Size = new System.Drawing.Size(314, 335);
+            this.lstvCustomers.TabIndex = 3;
+            this.lstvCustomers.UseCompatibleStateImageBehavior = false;
+            this.lstvCustomers.SelectedIndexChanged += new System.EventHandler(this.lstvCustomers_SelectedIndexChanged);
+            this.lstvCustomers.MouseLeave += new System.EventHandler(this.lstvCustomers_MouseLeave);
+            // 
+            // tabCreate
+            // 
+            this.tabCreate.Controls.Add(this.lstNewOrderCustomers);
+            this.tabCreate.Controls.Add(this.btnToCartAll);
+            this.tabCreate.Controls.Add(this.btnFromCartAll);
+            this.tabCreate.Controls.Add(this.btnFromCart);
+            this.tabCreate.Controls.Add(this.btnToCart);
+            this.tabCreate.Controls.Add(this.lstOrderSelected);
+            this.tabCreate.Controls.Add(this.btnOrder);
+            this.tabCreate.Controls.Add(this.lstOrderProducts);
+            this.tabCreate.Location = new System.Drawing.Point(4, 22);
+            this.tabCreate.Name = "tabCreate";
+            this.tabCreate.Size = new System.Drawing.Size(673, 382);
+            this.tabCreate.TabIndex = 4;
+            this.tabCreate.Text = "New Order";
+            this.tabCreate.UseVisualStyleBackColor = true;
+            // 
+            // lstNewOrderCustomers
+            // 
+            this.lstNewOrderCustomers.FormattingEnabled = true;
+            this.lstNewOrderCustomers.Location = new System.Drawing.Point(14, 12);
+            this.lstNewOrderCustomers.MultiColumn = true;
+            this.lstNewOrderCustomers.Name = "lstNewOrderCustomers";
+            this.lstNewOrderCustomers.Size = new System.Drawing.Size(188, 95);
+            this.lstNewOrderCustomers.TabIndex = 7;
+            this.lstNewOrderCustomers.SelectedIndexChanged += new System.EventHandler(this.btnOrder_Lock);
+            // 
+            // btnToCartAll
+            // 
+            this.btnToCartAll.Location = new System.Drawing.Point(145, 260);
+            this.btnToCartAll.Name = "btnToCartAll";
+            this.btnToCartAll.Size = new System.Drawing.Size(48, 23);
+            this.btnToCartAll.TabIndex = 6;
+            this.btnToCartAll.Text = ">>";
+            this.btnToCartAll.UseVisualStyleBackColor = true;
+            this.btnToCartAll.Click += new System.EventHandler(this.btnToCartAll_Click);
+            // 
+            // btnFromCartAll
+            // 
+            this.btnFromCartAll.Location = new System.Drawing.Point(145, 289);
+            this.btnFromCartAll.Name = "btnFromCartAll";
+            this.btnFromCartAll.Size = new System.Drawing.Size(48, 23);
+            this.btnFromCartAll.TabIndex = 5;
+            this.btnFromCartAll.Text = "<<";
+            this.btnFromCartAll.UseVisualStyleBackColor = true;
+            this.btnFromCartAll.Click += new System.EventHandler(this.btnFromCartAll_Click);
+            // 
+            // btnFromCart
+            // 
+            this.btnFromCart.Location = new System.Drawing.Point(145, 142);
+            this.btnFromCart.Name = "btnFromCart";
+            this.btnFromCart.Size = new System.Drawing.Size(48, 23);
+            this.btnFromCart.TabIndex = 4;
+            this.btnFromCart.Text = "<";
+            this.btnFromCart.UseVisualStyleBackColor = true;
+            this.btnFromCart.Click += new System.EventHandler(this.btnFromCart_Click);
+            // 
+            // btnToCart
+            // 
+            this.btnToCart.Location = new System.Drawing.Point(145, 113);
+            this.btnToCart.Name = "btnToCart";
+            this.btnToCart.Size = new System.Drawing.Size(48, 23);
+            this.btnToCart.TabIndex = 3;
+            this.btnToCart.Text = ">";
+            this.btnToCart.UseVisualStyleBackColor = true;
+            this.btnToCart.Click += new System.EventHandler(this.btnToCart_Click);
+            // 
+            // lstOrderSelected
+            // 
+            this.lstOrderSelected.FormattingEnabled = true;
+            this.lstOrderSelected.Location = new System.Drawing.Point(199, 113);
+            this.lstOrderSelected.Name = "lstOrderSelected";
+            this.lstOrderSelected.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.lstOrderSelected.Size = new System.Drawing.Size(125, 199);
+            this.lstOrderSelected.TabIndex = 2;
+            this.lstOrderSelected.SelectedIndexChanged += new System.EventHandler(this.btnOrder_Lock);
+            this.lstOrderSelected.DoubleClick += new System.EventHandler(this.btnFromCart_Click);
+            // 
+            // btnOrder
+            // 
+            this.btnOrder.Enabled = false;
+            this.btnOrder.Location = new System.Drawing.Point(127, 318);
+            this.btnOrder.Name = "btnOrder";
+            this.btnOrder.Size = new System.Drawing.Size(75, 23);
+            this.btnOrder.TabIndex = 1;
+            this.btnOrder.Text = "Create Order";
+            this.btnOrder.UseVisualStyleBackColor = true;
+            this.btnOrder.Click += new System.EventHandler(this.btnOrder_Click);
+            // 
+            // lstOrderProducts
+            // 
+            this.lstOrderProducts.FormattingEnabled = true;
+            this.lstOrderProducts.Location = new System.Drawing.Point(14, 113);
+            this.lstOrderProducts.Name = "lstOrderProducts";
+            this.lstOrderProducts.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.lstOrderProducts.Size = new System.Drawing.Size(125, 199);
+            this.lstOrderProducts.TabIndex = 0;
+            this.lstOrderProducts.SelectedIndexChanged += new System.EventHandler(this.btnOrder_Lock);
+            this.lstOrderProducts.DoubleClick += new System.EventHandler(this.btnToCart_Click);
+            // 
+            // tabOrders
+            // 
+            this.tabOrders.Controls.Add(this.lstvOrderProducts);
+            this.tabOrders.Controls.Add(this.lstvOrders);
+            this.tabOrders.Controls.Add(this.lstDisplayOrderCustomers);
+            this.tabOrders.Location = new System.Drawing.Point(4, 22);
+            this.tabOrders.Name = "tabOrders";
+            this.tabOrders.Padding = new System.Windows.Forms.Padding(3);
+            this.tabOrders.Size = new System.Drawing.Size(673, 382);
+            this.tabOrders.TabIndex = 3;
+            this.tabOrders.Text = "Display Orders";
+            this.tabOrders.UseVisualStyleBackColor = true;
+            // 
+            // lstvOrderProducts
+            // 
+            this.lstvOrderProducts.HideSelection = false;
+            this.lstvOrderProducts.Location = new System.Drawing.Point(315, 7);
+            this.lstvOrderProducts.Name = "lstvOrderProducts";
+            this.lstvOrderProducts.Size = new System.Drawing.Size(352, 237);
+            this.lstvOrderProducts.TabIndex = 2;
+            this.lstvOrderProducts.UseCompatibleStateImageBehavior = false;
+            // 
+            // lstvOrders
+            // 
+            this.lstvOrders.HideSelection = false;
+            this.lstvOrders.Location = new System.Drawing.Point(132, 6);
+            this.lstvOrders.Name = "lstvOrders";
+            this.lstvOrders.Size = new System.Drawing.Size(176, 238);
+            this.lstvOrders.TabIndex = 1;
+            this.lstvOrders.UseCompatibleStateImageBehavior = false;
+            this.lstvOrders.SelectedIndexChanged += new System.EventHandler(this.lstvOrders_SelectedIndexChanged);
+            // 
+            // lstDisplayOrderCustomers
+            // 
+            this.lstDisplayOrderCustomers.FormattingEnabled = true;
+            this.lstDisplayOrderCustomers.Location = new System.Drawing.Point(6, 6);
+            this.lstDisplayOrderCustomers.Name = "lstDisplayOrderCustomers";
+            this.lstDisplayOrderCustomers.Size = new System.Drawing.Size(120, 238);
+            this.lstDisplayOrderCustomers.TabIndex = 0;
+            this.lstDisplayOrderCustomers.SelectedIndexChanged += new System.EventHandler(this.lstDisplayOrderCustomers_SelectedIndexChanged);
+            // 
+            // tabReport
+            // 
+            this.tabReport.Location = new System.Drawing.Point(4, 22);
+            this.tabReport.Name = "tabReport";
+            this.tabReport.Size = new System.Drawing.Size(673, 382);
+            this.tabReport.TabIndex = 5;
+            this.tabReport.Text = "Reports";
+            this.tabReport.UseVisualStyleBackColor = true;
+            // 
+            // ucEditSupplier
+            // 
+            this.ucEditSupplier.Location = new System.Drawing.Point(6, 186);
+            this.ucEditSupplier.Name = "ucEditSupplier";
+            this.ucEditSupplier.Size = new System.Drawing.Size(153, 189);
+            supplier1.Address = "";
+            supplier1.Email = "";
+            supplier1.Id = -1;
+            supplier1.Name = "";
+            supplier1.Phone = "";
+            this.ucEditSupplier.Supplier = supplier1;
+            this.ucEditSupplier.TabIndex = 24;
+            this.ucEditSupplier.OnSaveButtonClickEvent += new ShopFinal.SupplierForm.SaveButtonClickEvent(this.ucEditSupplier_OnSaveButtonClickEvent);
+            this.ucEditSupplier.OnClearButtonClickEvent += new ShopFinal.SupplierForm.ClearButtonClickEvent(this.ucEditSupplier_OnClearButtonClickEvent);
+            // 
+            // ucAddSupplier
+            // 
+            this.ucAddSupplier.Location = new System.Drawing.Point(495, 75);
+            this.ucAddSupplier.Name = "ucAddSupplier";
+            this.ucAddSupplier.Size = new System.Drawing.Size(153, 189);
+            supplier2.Address = "";
+            supplier2.Email = "";
+            supplier2.Id = -1;
+            supplier2.Name = "";
+            supplier2.Phone = "";
+            this.ucAddSupplier.Supplier = supplier2;
+            this.ucAddSupplier.TabIndex = 23;
+            this.ucAddSupplier.OnSaveButtonClickEvent += new ShopFinal.SupplierForm.SaveButtonClickEvent(this.ucAddSupplier_onSaveButtonClickEvent);
             // 
             // ucAddCustomer
             // 
@@ -408,60 +597,6 @@ namespace ShopFinal
             this.ucEditCustomer.TabIndex = 4;
             this.ucEditCustomer.OnSaveButtonClickEvent += new ShopFinal.CustomerForm.SaveButtonClickEvent(this.ucEditCustomer_OnSaveButtonClickEvent);
             // 
-            // lstvCustomers
-            // 
-            this.lstvCustomers.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2,
-            this.columnHeader3,
-            this.columnHeader4});
-            this.lstvCustomers.HideSelection = false;
-            this.lstvCustomers.Location = new System.Drawing.Point(185, 34);
-            this.lstvCustomers.Name = "lstvCustomers";
-            this.lstvCustomers.Size = new System.Drawing.Size(314, 335);
-            this.lstvCustomers.TabIndex = 3;
-            this.lstvCustomers.UseCompatibleStateImageBehavior = false;
-            this.lstvCustomers.SelectedIndexChanged += new System.EventHandler(this.lstvCustomers_SelectedIndexChanged);
-            this.lstvCustomers.MouseLeave += new System.EventHandler(this.lstvCustomers_MouseLeave);
-            // 
-            // tabCreate
-            // 
-            this.tabCreate.Location = new System.Drawing.Point(4, 22);
-            this.tabCreate.Name = "tabCreate";
-            this.tabCreate.Size = new System.Drawing.Size(673, 382);
-            this.tabCreate.TabIndex = 4;
-            this.tabCreate.Text = "New Order";
-            this.tabCreate.UseVisualStyleBackColor = true;
-            // 
-            // tabOrders
-            // 
-            this.tabOrders.Location = new System.Drawing.Point(4, 22);
-            this.tabOrders.Name = "tabOrders";
-            this.tabOrders.Padding = new System.Windows.Forms.Padding(3);
-            this.tabOrders.Size = new System.Drawing.Size(673, 382);
-            this.tabOrders.TabIndex = 3;
-            this.tabOrders.Text = "Display Orders";
-            this.tabOrders.UseVisualStyleBackColor = true;
-            // 
-            // tabReport
-            // 
-            this.tabReport.Location = new System.Drawing.Point(4, 22);
-            this.tabReport.Name = "tabReport";
-            this.tabReport.Size = new System.Drawing.Size(673, 382);
-            this.tabReport.TabIndex = 5;
-            this.tabReport.Text = "Reports";
-            this.tabReport.UseVisualStyleBackColor = true;
-            // 
-            // btnRemoveCustomer
-            // 
-            this.btnRemoveCustomer.Location = new System.Drawing.Point(13, 181);
-            this.btnRemoveCustomer.Name = "btnRemoveCustomer";
-            this.btnRemoveCustomer.Size = new System.Drawing.Size(149, 23);
-            this.btnRemoveCustomer.TabIndex = 8;
-            this.btnRemoveCustomer.Text = "Delete";
-            this.btnRemoveCustomer.UseVisualStyleBackColor = true;
-            this.btnRemoveCustomer.Click += new System.EventHandler(this.btnRemoveCustomer_Click);
-            // 
             // frmGeneral
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -480,6 +615,8 @@ namespace ShopFinal
             this.tabSuppliers.PerformLayout();
             this.tabCustomers.ResumeLayout(false);
             this.tabCustomers.PerformLayout();
+            this.tabCreate.ResumeLayout(false);
+            this.tabOrders.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -525,6 +662,17 @@ namespace ShopFinal
         private System.Windows.Forms.Label lblTitleEditCustomer;
         private CustomerForm ucAddCustomer;
         private System.Windows.Forms.Button btnRemoveCustomer;
+        private System.Windows.Forms.ListBox lstOrderProducts;
+        private System.Windows.Forms.Button btnOrder;
+        private System.Windows.Forms.Button btnToCart;
+        private System.Windows.Forms.ListBox lstOrderSelected;
+        private System.Windows.Forms.Button btnFromCart;
+        private System.Windows.Forms.Button btnToCartAll;
+        private System.Windows.Forms.Button btnFromCartAll;
+        private System.Windows.Forms.ListBox lstNewOrderCustomers;
+        private System.Windows.Forms.ListBox lstDisplayOrderCustomers;
+        private System.Windows.Forms.ListView lstvOrders;
+        private System.Windows.Forms.ListView lstvOrderProducts;
     }
 }
 

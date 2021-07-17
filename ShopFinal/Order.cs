@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ShopFinal
 {
-    class Order
+    public class Order
     {
         private int id, customerId;
         private string dateTime;
@@ -15,7 +15,7 @@ namespace ShopFinal
         {
             id = -1;
             customerId = -1;
-            dateTime = "undefined";
+            dateTime = "";
         }
 
         public int Id
@@ -40,7 +40,7 @@ namespace ShopFinal
         public string DateTime
         {
             set { dateTime = value; }
-            get { return DateTime; }
+            get { return dateTime; }
         }
     }
 }
