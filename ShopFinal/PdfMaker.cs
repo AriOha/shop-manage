@@ -36,52 +36,19 @@ namespace ShopFinal
         {
             document.Add(new Paragraph(title));
         }
+        
+        //title
+        public void AddTitle(string title)
+        {
+            // create new font
+            Font myFont = new Font(iTextSharp.text.Font.FontFamily.COURIER, 18, Font.ITALIC);
+            myFont.Color = BaseColor.BLUE;
+            document.Add(new Paragraph(title, myFont));
+        }
 
         public void AddSpace()
         {
             document.Add(new Chunk("\n"));
-        }
-        public void SetImage(string imagePath)
-        {
-            try
-            {
-                iTextSharp.text.Image pic = iTextSharp.text.Image.GetInstance(imagePath);
-                document.Add(pic);
-
-            }
-            catch (Exception e)
-            {
-                document.Add(new Paragraph($"unable to load \"{imagePath}\"."));
-                Console.WriteLine("File was not found!");
-                Console.WriteLine(e);
-            }
-        }
-
-        public void SetIntTable(int[,] table)
-        {
-            iTextSharp.text.pdf.PdfPTable myTable = new iTextSharp.text.pdf.PdfPTable(table.GetLength(1));
-            //set all cells alignment
-            myTable.HorizontalAlignment = Element.ALIGN_CENTER;
-
-            //create cell
-            iTextSharp.text.pdf.PdfPCell myCell = new iTextSharp.text.pdf.PdfPCell();
-            myCell.GrayFill = 0.9F;
-            myCell.FixedHeight = 20;
-            myCell.BorderColor = BaseColor.DARK_GRAY;
-            myCell.HorizontalAlignment = Element.ALIGN_CENTER;
-            myCell.VerticalAlignment = Element.ALIGN_MIDDLE;
-
-            //create table text
-            for (int i = 0; i < table.GetLength(0); i++)
-            {
-                for (int j = 0; j < table.GetLength(1); j++)
-                {
-                    myCell.Phrase = new Phrase(table[i, j].ToString());
-                    myTable.AddCell(myCell);
-                }
-
-            }
-            document.Add(myTable);
         }
 
         public void CloseReport()
@@ -95,14 +62,18 @@ namespace ShopFinal
             //Creating iTextSharp Table from the DataTable data
             PdfPTable pdfTable = new PdfPTable(table.Columns.Count);
             pdfTable.DefaultCell.Padding = 3;
-            pdfTable.WidthPercentage = 30;
-            pdfTable.HorizontalAlignment = Element.ALIGN_LEFT;
+            pdfTable.WidthPercentage = 50;
+            pdfTable.HorizontalAlignment = Element.ALIGN_CENTER;
             pdfTable.DefaultCell.BorderWidth = 1;
+
 
             //Adding Header row
             foreach (ColumnHeader column in table.Columns)
             {
                 PdfPCell cell = new PdfPCell(new Phrase(column.Text));
+                cell.GrayFill = 0.9F;
+                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                cell.VerticalAlignment = Element.ALIGN_MIDDLE;
                 pdfTable.AddCell(cell);
             }
 

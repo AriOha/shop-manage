@@ -548,7 +548,7 @@ namespace ShopFinal
                 lstvOrders.Visible = lstvOrders.Items.Count > 0;
                 lstvOrderProducts.Visible = false;
                 lblSelectOrderMsg.Visible = !lblOrdersNotFound.Visible;
-                    
+
             }
         }
 
@@ -575,27 +575,6 @@ namespace ShopFinal
             }
         }
 
-        // Saving customers list to pdf file using save file dialog
-        private void btnExport_Click(object sender, EventArgs e)
-        {
-            saveFileDialog.InitialDirectory = "C:\\";
-            saveFileDialog.CheckPathExists = true;
-            saveFileDialog.FileName = "customers list.pdf";
-            saveFileDialog.RestoreDirectory = true;
-            if (saveFileDialog.ShowDialog() == DialogResult.OK) // if selected valid path & name
-            {
-                PdfMaker pdfFile = new PdfMaker(Path.GetFullPath(saveFileDialog.FileName));
-                pdfFile.AddParagraph("Customers list:");
-                pdfFile.AddSpace();
-                LoadCustomersToListView(lstvCustomers);
-                pdfFile.addTable(lstvCustomers);
-                lstvCustomers.Items.Clear();
-                pdfFile.CloseReport();
-            }
-
-
-
-        }
 
         //Enable/Disable the Add Product button according the related inputs
         private void btnAddProduct_Lock(object sender, EventArgs e)
@@ -635,8 +614,47 @@ namespace ShopFinal
             ListView list = sender as ListView;
             lblDetailsDO.Visible = list.Visible;
             lblSelectOrderMsg.Visible = !list.Visible && lstvOrders.Visible;
+            btnExportOrder.Visible = list.Visible;
             Console.WriteLine("Details Visible changed is visible? " + list.Visible);
         }
 
+
+        // Saving customers list to pdf file using save file dialog
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            saveFileDialog.CheckPathExists = true;
+            saveFileDialog.FileName = "Customers List";
+            saveFileDialog.RestoreDirectory = true;
+            if (saveFileDialog.ShowDialog() == DialogResult.OK) // if selected valid path & name
+            {
+                PdfMaker pdfFile = new PdfMaker(Path.GetFullPath(saveFileDialog.FileName));
+                pdfFile.AddTitle("Customers list:");
+                pdfFile.AddSpace();
+                //LoadCustomersToListView(lstvCustomers);
+                pdfFile.addTable(lstvCustomers);
+                //lstvCustomers.Items.Clear();
+                pdfFile.CloseReport();
+            }
+        }
+
+        private void btnExportOrder_Click(object sender, EventArgs e)
+        {
+            // Saving customers list to pdf file using save file dialog
+
+            saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            saveFileDialog.CheckPathExists = true;
+            saveFileDialog.FileName = "Order No."+ lstvOrders.FocusedItem.Text;
+            saveFileDialog.RestoreDirectory = true;
+            if (saveFileDialog.ShowDialog() == DialogResult.OK) // if selected valid path & name
+            {
+                PdfMaker pdfFile = new PdfMaker(Path.GetFullPath(saveFileDialog.FileName));
+                pdfFile.AddTitle($"Order Number {lstvOrders.FocusedItem.Text}:");
+                pdfFile.AddParagraph("Products:");
+                //pdfFile.AddSpace();
+                pdfFile.addTable(lstvOrderProducts);
+                pdfFile.CloseReport();
+            }
+        }
     }
 }

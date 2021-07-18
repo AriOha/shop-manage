@@ -58,8 +58,6 @@ namespace ShopFinal
             this.tabSuppliers = new System.Windows.Forms.TabPage();
             this.btnRemoveSupplier = new System.Windows.Forms.Button();
             this.lblAddSupp = new System.Windows.Forms.Label();
-            this.ucEditSupplier = new ShopFinal.SupplierForm();
-            this.ucAddSupplier = new ShopFinal.SupplierForm();
             this.lstvProducts = new System.Windows.Forms.ListView();
             this.txtSuppliers = new System.Windows.Forms.Label();
             this.lstSuppliers = new System.Windows.Forms.ListBox();
@@ -67,8 +65,6 @@ namespace ShopFinal
             this.btnRemoveCustomer = new System.Windows.Forms.Button();
             this.lblTitleAddCustomer = new System.Windows.Forms.Label();
             this.lblTitleEditCustomer = new System.Windows.Forms.Label();
-            this.ucAddCustomer = new ShopFinal.CustomerForm();
-            this.ucEditCustomer = new ShopFinal.CustomerForm();
             this.lstvCustomers = new System.Windows.Forms.ListView();
             this.idCol = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.firstName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -83,18 +79,21 @@ namespace ShopFinal
             this.btnOrder = new System.Windows.Forms.Button();
             this.lstOrderProducts = new System.Windows.Forms.ListBox();
             this.tabOrders = new System.Windows.Forms.TabPage();
+            this.btnExportOrder = new System.Windows.Forms.Button();
             this.lstvOrders = new System.Windows.Forms.ListView();
             this.lblDetailsDO = new System.Windows.Forms.Label();
             this.lblOrdersDO = new System.Windows.Forms.Label();
             this.lblCustomersDO = new System.Windows.Forms.Label();
-            this.lstvOrderProducts = new System.Windows.Forms.ListView();
             this.lstDisplayOrderCustomers = new System.Windows.Forms.ListBox();
-            this.lblOrdersNotFound = new System.Windows.Forms.Label();
-            this.tabReport = new System.Windows.Forms.TabPage();
-            this.label5 = new System.Windows.Forms.Label();
-            this.btnExport = new System.Windows.Forms.Button();
-            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.lstvOrderProducts = new System.Windows.Forms.ListView();
             this.lblSelectOrderMsg = new System.Windows.Forms.Label();
+            this.lblOrdersNotFound = new System.Windows.Forms.Label();
+            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.btnExport = new System.Windows.Forms.Button();
+            this.ucEditSupplier = new ShopFinal.SupplierForm();
+            this.ucAddSupplier = new ShopFinal.SupplierForm();
+            this.ucAddCustomer = new ShopFinal.CustomerForm();
+            this.ucEditCustomer = new ShopFinal.CustomerForm();
             this.tabMain.SuspendLayout();
             this.tabIntro.SuspendLayout();
             this.tabProducts.SuspendLayout();
@@ -102,7 +101,6 @@ namespace ShopFinal
             this.tabCustomers.SuspendLayout();
             this.tabCreate.SuspendLayout();
             this.tabOrders.SuspendLayout();
-            this.tabReport.SuspendLayout();
             this.SuspendLayout();
             // 
             // lstProducts
@@ -122,7 +120,6 @@ namespace ShopFinal
             this.tabMain.Controls.Add(this.tabCustomers);
             this.tabMain.Controls.Add(this.tabCreate);
             this.tabMain.Controls.Add(this.tabOrders);
-            this.tabMain.Controls.Add(this.tabReport);
             this.tabMain.Location = new System.Drawing.Point(13, 13);
             this.tabMain.Name = "tabMain";
             this.tabMain.SelectedIndex = 0;
@@ -384,36 +381,6 @@ namespace ShopFinal
             this.lblAddSupp.TabIndex = 21;
             this.lblAddSupp.Text = "Add new";
             // 
-            // ucEditSupplier
-            // 
-            this.ucEditSupplier.Enabled = false;
-            this.ucEditSupplier.Location = new System.Drawing.Point(6, 186);
-            this.ucEditSupplier.Name = "ucEditSupplier";
-            this.ucEditSupplier.Size = new System.Drawing.Size(153, 189);
-            supplier1.Address = "";
-            supplier1.Email = "";
-            supplier1.Id = -1;
-            supplier1.Name = "";
-            supplier1.Phone = "";
-            this.ucEditSupplier.Supplier = supplier1;
-            this.ucEditSupplier.TabIndex = 24;
-            this.ucEditSupplier.OnSaveButtonClickEvent += new ShopFinal.SupplierForm.SaveButtonClickEvent(this.ucEditSupplier_OnSaveButtonClickEvent);
-            this.ucEditSupplier.OnClearButtonClickEvent += new ShopFinal.SupplierForm.ClearButtonClickEvent(this.ucEditSupplier_OnClearButtonClickEvent);
-            // 
-            // ucAddSupplier
-            // 
-            this.ucAddSupplier.Location = new System.Drawing.Point(495, 75);
-            this.ucAddSupplier.Name = "ucAddSupplier";
-            this.ucAddSupplier.Size = new System.Drawing.Size(153, 189);
-            supplier2.Address = "";
-            supplier2.Email = "";
-            supplier2.Id = -1;
-            supplier2.Name = "";
-            supplier2.Phone = "";
-            this.ucAddSupplier.Supplier = supplier2;
-            this.ucAddSupplier.TabIndex = 23;
-            this.ucAddSupplier.OnSaveButtonClickEvent += new ShopFinal.SupplierForm.SaveButtonClickEvent(this.ucAddSupplier_onSaveButtonClickEvent);
-            // 
             // lstvProducts
             // 
             this.lstvProducts.HideSelection = false;
@@ -446,6 +413,7 @@ namespace ShopFinal
             // 
             this.tabCustomers.Controls.Add(this.btnRemoveCustomer);
             this.tabCustomers.Controls.Add(this.lblTitleAddCustomer);
+            this.tabCustomers.Controls.Add(this.btnExport);
             this.tabCustomers.Controls.Add(this.lblTitleEditCustomer);
             this.tabCustomers.Controls.Add(this.ucAddCustomer);
             this.tabCustomers.Controls.Add(this.ucEditCustomer);
@@ -460,7 +428,7 @@ namespace ShopFinal
             // btnRemoveCustomer
             // 
             this.btnRemoveCustomer.Enabled = false;
-            this.btnRemoveCustomer.Location = new System.Drawing.Point(13, 181);
+            this.btnRemoveCustomer.Location = new System.Drawing.Point(13, 171);
             this.btnRemoveCustomer.Name = "btnRemoveCustomer";
             this.btnRemoveCustomer.Size = new System.Drawing.Size(149, 23);
             this.btnRemoveCustomer.TabIndex = 8;
@@ -487,32 +455,6 @@ namespace ShopFinal
             this.lblTitleEditCustomer.Size = new System.Drawing.Size(52, 24);
             this.lblTitleEditCustomer.TabIndex = 6;
             this.lblTitleEditCustomer.Text = "Edit:";
-            // 
-            // ucAddCustomer
-            // 
-            customer1.FirstName = "";
-            customer1.Id = -1;
-            customer1.LastName = "";
-            this.ucAddCustomer.Customer = customer1;
-            this.ucAddCustomer.Location = new System.Drawing.Point(12, 257);
-            this.ucAddCustomer.Name = "ucAddCustomer";
-            this.ucAddCustomer.Size = new System.Drawing.Size(150, 112);
-            this.ucAddCustomer.TabIndex = 5;
-            this.ucAddCustomer.OnSaveButtonClickEvent += new ShopFinal.CustomerForm.SaveButtonClickEvent(this.ucAddCustomer_OnSaveButtonClickEvent);
-            // 
-            // ucEditCustomer
-            // 
-            customer2.FirstName = "";
-            customer2.Id = -1;
-            customer2.LastName = "";
-            this.ucEditCustomer.Customer = customer2;
-            this.ucEditCustomer.Location = new System.Drawing.Point(12, 63);
-            this.ucEditCustomer.Name = "ucEditCustomer";
-            this.ucEditCustomer.Size = new System.Drawing.Size(150, 112);
-            this.ucEditCustomer.TabIndex = 4;
-            this.ucEditCustomer.OnSaveButtonClickEvent += new ShopFinal.CustomerForm.SaveButtonClickEvent(this.ucEditCustomer_OnSaveButtonClickEvent);
-            this.ucEditCustomer.OnClearButtonClickEvent += new ShopFinal.CustomerForm.ClearButtonClickEvent(this.btnRemoveCustomerChange);
-            this.ucEditCustomer.OnSaveButtonChangedEvent += new ShopFinal.CustomerForm.SaveButtonDisabledEvent(this.btnRemoveCustomerChange);
             // 
             // lstvCustomers
             // 
@@ -645,14 +587,15 @@ namespace ShopFinal
             // 
             // tabOrders
             // 
+            this.tabOrders.Controls.Add(this.btnExportOrder);
             this.tabOrders.Controls.Add(this.lstvOrders);
             this.tabOrders.Controls.Add(this.lblDetailsDO);
             this.tabOrders.Controls.Add(this.lblOrdersDO);
             this.tabOrders.Controls.Add(this.lblCustomersDO);
-            this.tabOrders.Controls.Add(this.lstvOrderProducts);
             this.tabOrders.Controls.Add(this.lstDisplayOrderCustomers);
-            this.tabOrders.Controls.Add(this.lblOrdersNotFound);
+            this.tabOrders.Controls.Add(this.lstvOrderProducts);
             this.tabOrders.Controls.Add(this.lblSelectOrderMsg);
+            this.tabOrders.Controls.Add(this.lblOrdersNotFound);
             this.tabOrders.Location = new System.Drawing.Point(4, 22);
             this.tabOrders.Name = "tabOrders";
             this.tabOrders.Padding = new System.Windows.Forms.Padding(3);
@@ -660,6 +603,17 @@ namespace ShopFinal
             this.tabOrders.TabIndex = 3;
             this.tabOrders.Text = "Display Orders";
             this.tabOrders.UseVisualStyleBackColor = true;
+            // 
+            // btnExportOrder
+            // 
+            this.btnExportOrder.Location = new System.Drawing.Point(592, 316);
+            this.btnExportOrder.Name = "btnExportOrder";
+            this.btnExportOrder.Size = new System.Drawing.Size(75, 23);
+            this.btnExportOrder.TabIndex = 8;
+            this.btnExportOrder.Text = "Export";
+            this.btnExportOrder.UseVisualStyleBackColor = true;
+            this.btnExportOrder.Visible = false;
+            this.btnExportOrder.Click += new System.EventHandler(this.btnExportOrder_Click);
             // 
             // lstvOrders
             // 
@@ -705,6 +659,15 @@ namespace ShopFinal
             this.lblCustomersDO.TabIndex = 3;
             this.lblCustomersDO.Text = "Customers:";
             // 
+            // lstDisplayOrderCustomers
+            // 
+            this.lstDisplayOrderCustomers.FormattingEnabled = true;
+            this.lstDisplayOrderCustomers.Location = new System.Drawing.Point(6, 72);
+            this.lstDisplayOrderCustomers.Name = "lstDisplayOrderCustomers";
+            this.lstDisplayOrderCustomers.Size = new System.Drawing.Size(120, 238);
+            this.lstDisplayOrderCustomers.TabIndex = 0;
+            this.lstDisplayOrderCustomers.SelectedIndexChanged += new System.EventHandler(this.lstDisplayOrderCustomers_SelectedIndexChanged);
+            // 
             // lstvOrderProducts
             // 
             this.lstvOrderProducts.HideSelection = false;
@@ -716,61 +679,6 @@ namespace ShopFinal
             this.lstvOrderProducts.Visible = false;
             this.lstvOrderProducts.VisibleChanged += new System.EventHandler(this.lstvOrderProducts_VisibleChanged);
             // 
-            // lstDisplayOrderCustomers
-            // 
-            this.lstDisplayOrderCustomers.FormattingEnabled = true;
-            this.lstDisplayOrderCustomers.Location = new System.Drawing.Point(6, 72);
-            this.lstDisplayOrderCustomers.Name = "lstDisplayOrderCustomers";
-            this.lstDisplayOrderCustomers.Size = new System.Drawing.Size(120, 238);
-            this.lstDisplayOrderCustomers.TabIndex = 0;
-            this.lstDisplayOrderCustomers.SelectedIndexChanged += new System.EventHandler(this.lstDisplayOrderCustomers_SelectedIndexChanged);
-            // 
-            // lblOrdersNotFound
-            // 
-            this.lblOrdersNotFound.AutoSize = true;
-            this.lblOrdersNotFound.Location = new System.Drawing.Point(277, 181);
-            this.lblOrdersNotFound.Name = "lblOrdersNotFound";
-            this.lblOrdersNotFound.Size = new System.Drawing.Size(196, 13);
-            this.lblOrdersNotFound.TabIndex = 6;
-            this.lblOrdersNotFound.Text = "This customer does not have any orders";
-            this.lblOrdersNotFound.Visible = false;
-            // 
-            // tabReport
-            // 
-            this.tabReport.Controls.Add(this.label5);
-            this.tabReport.Controls.Add(this.btnExport);
-            this.tabReport.Location = new System.Drawing.Point(4, 22);
-            this.tabReport.Name = "tabReport";
-            this.tabReport.Size = new System.Drawing.Size(673, 382);
-            this.tabReport.TabIndex = 5;
-            this.tabReport.Text = "Reports";
-            this.tabReport.UseVisualStyleBackColor = true;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(17, 48);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(143, 13);
-            this.label5.TabIndex = 1;
-            this.label5.Text = "Export Customers list to PDF:";
-            // 
-            // btnExport
-            // 
-            this.btnExport.Location = new System.Drawing.Point(166, 43);
-            this.btnExport.Name = "btnExport";
-            this.btnExport.Size = new System.Drawing.Size(85, 23);
-            this.btnExport.TabIndex = 0;
-            this.btnExport.Text = "Export Customers";
-            this.btnExport.UseVisualStyleBackColor = true;
-            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
-            // 
-            // saveFileDialog
-            // 
-            this.saveFileDialog.DefaultExt = "pdf";
-            this.saveFileDialog.Filter = "pdf files (*.pdf)|*.pdf|All files (*.*)|*.*";
-            this.saveFileDialog.Title = "Save to PDF";
-            // 
             // lblSelectOrderMsg
             // 
             this.lblSelectOrderMsg.AutoSize = true;
@@ -780,6 +688,88 @@ namespace ShopFinal
             this.lblSelectOrderMsg.TabIndex = 7;
             this.lblSelectOrderMsg.Text = "Please Select Order";
             this.lblSelectOrderMsg.Visible = false;
+            // 
+            // lblOrdersNotFound
+            // 
+            this.lblOrdersNotFound.AutoSize = true;
+            this.lblOrdersNotFound.Location = new System.Drawing.Point(277, 181);
+            this.lblOrdersNotFound.Name = "lblOrdersNotFound";
+            this.lblOrdersNotFound.Size = new System.Drawing.Size(189, 13);
+            this.lblOrdersNotFound.TabIndex = 6;
+            this.lblOrdersNotFound.Text = "This customer did not make any orders";
+            this.lblOrdersNotFound.Visible = false;
+            // 
+            // saveFileDialog
+            // 
+            this.saveFileDialog.DefaultExt = "pdf";
+            this.saveFileDialog.Filter = "pdf files (*.pdf)|*.pdf|All files (*.*)|*.*";
+            this.saveFileDialog.Title = "Save to PDF";
+            // 
+            // btnExport
+            // 
+            this.btnExport.Location = new System.Drawing.Point(505, 34);
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Size = new System.Drawing.Size(97, 23);
+            this.btnExport.TabIndex = 0;
+            this.btnExport.Text = "Export Customers";
+            this.btnExport.UseVisualStyleBackColor = true;
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
+            // 
+            // ucEditSupplier
+            // 
+            this.ucEditSupplier.Enabled = false;
+            this.ucEditSupplier.Location = new System.Drawing.Point(6, 186);
+            this.ucEditSupplier.Name = "ucEditSupplier";
+            this.ucEditSupplier.Size = new System.Drawing.Size(153, 189);
+            supplier1.Address = "";
+            supplier1.Email = "";
+            supplier1.Id = -1;
+            supplier1.Name = "";
+            supplier1.Phone = "";
+            this.ucEditSupplier.Supplier = supplier1;
+            this.ucEditSupplier.TabIndex = 24;
+            this.ucEditSupplier.OnSaveButtonClickEvent += new ShopFinal.SupplierForm.SaveButtonClickEvent(this.ucEditSupplier_OnSaveButtonClickEvent);
+            this.ucEditSupplier.OnClearButtonClickEvent += new ShopFinal.SupplierForm.ClearButtonClickEvent(this.ucEditSupplier_OnClearButtonClickEvent);
+            // 
+            // ucAddSupplier
+            // 
+            this.ucAddSupplier.Location = new System.Drawing.Point(495, 75);
+            this.ucAddSupplier.Name = "ucAddSupplier";
+            this.ucAddSupplier.Size = new System.Drawing.Size(153, 189);
+            supplier2.Address = "";
+            supplier2.Email = "";
+            supplier2.Id = -1;
+            supplier2.Name = "";
+            supplier2.Phone = "";
+            this.ucAddSupplier.Supplier = supplier2;
+            this.ucAddSupplier.TabIndex = 23;
+            this.ucAddSupplier.OnSaveButtonClickEvent += new ShopFinal.SupplierForm.SaveButtonClickEvent(this.ucAddSupplier_onSaveButtonClickEvent);
+            // 
+            // ucAddCustomer
+            // 
+            customer1.FirstName = "";
+            customer1.Id = -1;
+            customer1.LastName = "";
+            this.ucAddCustomer.Customer = customer1;
+            this.ucAddCustomer.Location = new System.Drawing.Point(12, 257);
+            this.ucAddCustomer.Name = "ucAddCustomer";
+            this.ucAddCustomer.Size = new System.Drawing.Size(150, 112);
+            this.ucAddCustomer.TabIndex = 5;
+            this.ucAddCustomer.OnSaveButtonClickEvent += new ShopFinal.CustomerForm.SaveButtonClickEvent(this.ucAddCustomer_OnSaveButtonClickEvent);
+            // 
+            // ucEditCustomer
+            // 
+            customer2.FirstName = "";
+            customer2.Id = -1;
+            customer2.LastName = "";
+            this.ucEditCustomer.Customer = customer2;
+            this.ucEditCustomer.Location = new System.Drawing.Point(12, 63);
+            this.ucEditCustomer.Name = "ucEditCustomer";
+            this.ucEditCustomer.Size = new System.Drawing.Size(150, 112);
+            this.ucEditCustomer.TabIndex = 4;
+            this.ucEditCustomer.OnSaveButtonClickEvent += new ShopFinal.CustomerForm.SaveButtonClickEvent(this.ucEditCustomer_OnSaveButtonClickEvent);
+            this.ucEditCustomer.OnClearButtonClickEvent += new ShopFinal.CustomerForm.ClearButtonClickEvent(this.btnRemoveCustomerChange);
+            this.ucEditCustomer.OnSaveButtonChangedEvent += new ShopFinal.CustomerForm.SaveButtonDisabledEvent(this.btnRemoveCustomerChange);
             // 
             // frmGeneral
             // 
@@ -804,8 +794,6 @@ namespace ShopFinal
             this.tabCreate.ResumeLayout(false);
             this.tabOrders.ResumeLayout(false);
             this.tabOrders.PerformLayout();
-            this.tabReport.ResumeLayout(false);
-            this.tabReport.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -836,7 +824,6 @@ namespace ShopFinal
         private System.Windows.Forms.ListBox lstSuppliers;
         private System.Windows.Forms.TabPage tabOrders;
         private System.Windows.Forms.TabPage tabCreate;
-        private System.Windows.Forms.TabPage tabReport;
         private System.Windows.Forms.Label lblAddSupp;
         private SupplierForm ucAddSupplier;
         private SupplierForm ucEditSupplier;
@@ -861,7 +848,6 @@ namespace ShopFinal
         private System.Windows.Forms.ListBox lstDisplayOrderCustomers;
         private System.Windows.Forms.ListView lstvOrders;
         private System.Windows.Forms.ListView lstvOrderProducts;
-        private System.Windows.Forms.Button btnExport;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
         private System.Windows.Forms.TabPage tabIntro;
         private System.Windows.Forms.Label lblName2;
@@ -871,9 +857,10 @@ namespace ShopFinal
         private System.Windows.Forms.Label lblDetailsDO;
         private System.Windows.Forms.Label lblOrdersDO;
         private System.Windows.Forms.Label lblCustomersDO;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label lblOrdersNotFound;
         private System.Windows.Forms.Label lblSelectOrderMsg;
+        private System.Windows.Forms.Button btnExportOrder;
+        private System.Windows.Forms.Button btnExport;
     }
 }
 
