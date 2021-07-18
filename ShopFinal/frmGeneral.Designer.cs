@@ -79,10 +79,14 @@ namespace ShopFinal
             this.btnOrder = new System.Windows.Forms.Button();
             this.lstOrderProducts = new System.Windows.Forms.ListBox();
             this.tabOrders = new System.Windows.Forms.TabPage();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.lstvOrderProducts = new System.Windows.Forms.ListView();
             this.lstvOrders = new System.Windows.Forms.ListView();
             this.lstDisplayOrderCustomers = new System.Windows.Forms.ListBox();
             this.tabReport = new System.Windows.Forms.TabPage();
+            this.label5 = new System.Windows.Forms.Label();
             this.btnExport = new System.Windows.Forms.Button();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.ucEditSupplier = new ShopFinal.SupplierForm();
@@ -217,6 +221,7 @@ namespace ShopFinal
             // 
             // btnRemoveProd
             // 
+            this.btnRemoveProd.Enabled = false;
             this.btnRemoveProd.Location = new System.Drawing.Point(318, 122);
             this.btnRemoveProd.Name = "btnRemoveProd";
             this.btnRemoveProd.Size = new System.Drawing.Size(75, 20);
@@ -227,6 +232,7 @@ namespace ShopFinal
             // 
             // btnEditProd
             // 
+            this.btnEditProd.Enabled = false;
             this.btnEditProd.Location = new System.Drawing.Point(318, 82);
             this.btnEditProd.Name = "btnEditProd";
             this.btnEditProd.Size = new System.Drawing.Size(75, 20);
@@ -312,6 +318,7 @@ namespace ShopFinal
             // cboEditProd
             // 
             this.cboEditProd.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboEditProd.Enabled = false;
             this.cboEditProd.FormattingEnabled = true;
             this.cboEditProd.Location = new System.Drawing.Point(184, 81);
             this.cboEditProd.Name = "cboEditProd";
@@ -320,10 +327,12 @@ namespace ShopFinal
             // 
             // txtEditProd
             // 
+            this.txtEditProd.Enabled = false;
             this.txtEditProd.Location = new System.Drawing.Point(184, 123);
             this.txtEditProd.Name = "txtEditProd";
             this.txtEditProd.Size = new System.Drawing.Size(100, 20);
             this.txtEditProd.TabIndex = 3;
+            this.txtEditProd.TextChanged += new System.EventHandler(this.btnAddProductLock);
             // 
             // lblProdTitle
             // 
@@ -355,11 +364,11 @@ namespace ShopFinal
             // btnRemoveSupplier
             // 
             this.btnRemoveSupplier.Enabled = false;
-            this.btnRemoveSupplier.Location = new System.Drawing.Point(166, 271);
+            this.btnRemoveSupplier.Location = new System.Drawing.Point(165, 282);
             this.btnRemoveSupplier.Name = "btnRemoveSupplier";
-            this.btnRemoveSupplier.Size = new System.Drawing.Size(75, 23);
+            this.btnRemoveSupplier.Size = new System.Drawing.Size(91, 23);
             this.btnRemoveSupplier.TabIndex = 25;
-            this.btnRemoveSupplier.Text = "Delete";
+            this.btnRemoveSupplier.Text = "Delete Supplier";
             this.btnRemoveSupplier.UseVisualStyleBackColor = true;
             this.btnRemoveSupplier.Click += new System.EventHandler(this.btnRemove_Click);
             // 
@@ -378,7 +387,7 @@ namespace ShopFinal
             this.lstvProducts.HideSelection = false;
             this.lstvProducts.Location = new System.Drawing.Point(165, 37);
             this.lstvProducts.Name = "lstvProducts";
-            this.lstvProducts.Size = new System.Drawing.Size(324, 227);
+            this.lstvProducts.Size = new System.Drawing.Size(324, 239);
             this.lstvProducts.TabIndex = 4;
             this.lstvProducts.UseCompatibleStateImageBehavior = false;
             // 
@@ -418,6 +427,7 @@ namespace ShopFinal
             // 
             // btnRemoveCustomer
             // 
+            this.btnRemoveCustomer.Enabled = false;
             this.btnRemoveCustomer.Location = new System.Drawing.Point(13, 181);
             this.btnRemoveCustomer.Name = "btnRemoveCustomer";
             this.btnRemoveCustomer.Size = new System.Drawing.Size(149, 23);
@@ -495,16 +505,16 @@ namespace ShopFinal
             // lstNewOrderCustomers
             // 
             this.lstNewOrderCustomers.FormattingEnabled = true;
-            this.lstNewOrderCustomers.Location = new System.Drawing.Point(14, 12);
+            this.lstNewOrderCustomers.Location = new System.Drawing.Point(187, 22);
             this.lstNewOrderCustomers.MultiColumn = true;
             this.lstNewOrderCustomers.Name = "lstNewOrderCustomers";
-            this.lstNewOrderCustomers.Size = new System.Drawing.Size(188, 95);
+            this.lstNewOrderCustomers.Size = new System.Drawing.Size(310, 95);
             this.lstNewOrderCustomers.TabIndex = 7;
             this.lstNewOrderCustomers.SelectedIndexChanged += new System.EventHandler(this.btnOrder_Lock);
             // 
             // btnToCartAll
             // 
-            this.btnToCartAll.Location = new System.Drawing.Point(145, 260);
+            this.btnToCartAll.Location = new System.Drawing.Point(318, 270);
             this.btnToCartAll.Name = "btnToCartAll";
             this.btnToCartAll.Size = new System.Drawing.Size(48, 23);
             this.btnToCartAll.TabIndex = 6;
@@ -514,7 +524,7 @@ namespace ShopFinal
             // 
             // btnFromCartAll
             // 
-            this.btnFromCartAll.Location = new System.Drawing.Point(145, 289);
+            this.btnFromCartAll.Location = new System.Drawing.Point(318, 299);
             this.btnFromCartAll.Name = "btnFromCartAll";
             this.btnFromCartAll.Size = new System.Drawing.Size(48, 23);
             this.btnFromCartAll.TabIndex = 5;
@@ -524,7 +534,7 @@ namespace ShopFinal
             // 
             // btnFromCart
             // 
-            this.btnFromCart.Location = new System.Drawing.Point(145, 142);
+            this.btnFromCart.Location = new System.Drawing.Point(318, 152);
             this.btnFromCart.Name = "btnFromCart";
             this.btnFromCart.Size = new System.Drawing.Size(48, 23);
             this.btnFromCart.TabIndex = 4;
@@ -534,7 +544,7 @@ namespace ShopFinal
             // 
             // btnToCart
             // 
-            this.btnToCart.Location = new System.Drawing.Point(145, 113);
+            this.btnToCart.Location = new System.Drawing.Point(318, 123);
             this.btnToCart.Name = "btnToCart";
             this.btnToCart.Size = new System.Drawing.Size(48, 23);
             this.btnToCart.TabIndex = 3;
@@ -545,7 +555,7 @@ namespace ShopFinal
             // lstOrderSelected
             // 
             this.lstOrderSelected.FormattingEnabled = true;
-            this.lstOrderSelected.Location = new System.Drawing.Point(199, 113);
+            this.lstOrderSelected.Location = new System.Drawing.Point(372, 123);
             this.lstOrderSelected.Name = "lstOrderSelected";
             this.lstOrderSelected.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.lstOrderSelected.Size = new System.Drawing.Size(125, 199);
@@ -556,7 +566,7 @@ namespace ShopFinal
             // btnOrder
             // 
             this.btnOrder.Enabled = false;
-            this.btnOrder.Location = new System.Drawing.Point(127, 318);
+            this.btnOrder.Location = new System.Drawing.Point(305, 328);
             this.btnOrder.Name = "btnOrder";
             this.btnOrder.Size = new System.Drawing.Size(75, 23);
             this.btnOrder.TabIndex = 1;
@@ -567,7 +577,7 @@ namespace ShopFinal
             // lstOrderProducts
             // 
             this.lstOrderProducts.FormattingEnabled = true;
-            this.lstOrderProducts.Location = new System.Drawing.Point(14, 113);
+            this.lstOrderProducts.Location = new System.Drawing.Point(187, 123);
             this.lstOrderProducts.Name = "lstOrderProducts";
             this.lstOrderProducts.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.lstOrderProducts.Size = new System.Drawing.Size(125, 199);
@@ -577,6 +587,9 @@ namespace ShopFinal
             // 
             // tabOrders
             // 
+            this.tabOrders.Controls.Add(this.label4);
+            this.tabOrders.Controls.Add(this.label3);
+            this.tabOrders.Controls.Add(this.label2);
             this.tabOrders.Controls.Add(this.lstvOrderProducts);
             this.tabOrders.Controls.Add(this.lstvOrders);
             this.tabOrders.Controls.Add(this.lstDisplayOrderCustomers);
@@ -588,10 +601,40 @@ namespace ShopFinal
             this.tabOrders.Text = "Display Orders";
             this.tabOrders.UseVisualStyleBackColor = true;
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(312, 43);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(99, 18);
+            this.label4.TabIndex = 5;
+            this.label4.Text = "Order Details:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(129, 43);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(58, 18);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Orders:";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(6, 43);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(86, 18);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Customers:";
+            // 
             // lstvOrderProducts
             // 
             this.lstvOrderProducts.HideSelection = false;
-            this.lstvOrderProducts.Location = new System.Drawing.Point(315, 7);
+            this.lstvOrderProducts.Location = new System.Drawing.Point(315, 73);
             this.lstvOrderProducts.Name = "lstvOrderProducts";
             this.lstvOrderProducts.Size = new System.Drawing.Size(352, 237);
             this.lstvOrderProducts.TabIndex = 2;
@@ -600,7 +643,7 @@ namespace ShopFinal
             // lstvOrders
             // 
             this.lstvOrders.HideSelection = false;
-            this.lstvOrders.Location = new System.Drawing.Point(132, 6);
+            this.lstvOrders.Location = new System.Drawing.Point(132, 72);
             this.lstvOrders.Name = "lstvOrders";
             this.lstvOrders.Size = new System.Drawing.Size(176, 238);
             this.lstvOrders.TabIndex = 1;
@@ -610,7 +653,7 @@ namespace ShopFinal
             // lstDisplayOrderCustomers
             // 
             this.lstDisplayOrderCustomers.FormattingEnabled = true;
-            this.lstDisplayOrderCustomers.Location = new System.Drawing.Point(6, 6);
+            this.lstDisplayOrderCustomers.Location = new System.Drawing.Point(6, 72);
             this.lstDisplayOrderCustomers.Name = "lstDisplayOrderCustomers";
             this.lstDisplayOrderCustomers.Size = new System.Drawing.Size(120, 238);
             this.lstDisplayOrderCustomers.TabIndex = 0;
@@ -618,6 +661,7 @@ namespace ShopFinal
             // 
             // tabReport
             // 
+            this.tabReport.Controls.Add(this.label5);
             this.tabReport.Controls.Add(this.btnExport);
             this.tabReport.Location = new System.Drawing.Point(4, 22);
             this.tabReport.Name = "tabReport";
@@ -626,13 +670,22 @@ namespace ShopFinal
             this.tabReport.Text = "Reports";
             this.tabReport.UseVisualStyleBackColor = true;
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(17, 48);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(143, 13);
+            this.label5.TabIndex = 1;
+            this.label5.Text = "Export Customers list to PDF:";
+            // 
             // btnExport
             // 
-            this.btnExport.Location = new System.Drawing.Point(298, 183);
+            this.btnExport.Location = new System.Drawing.Point(166, 43);
             this.btnExport.Name = "btnExport";
             this.btnExport.Size = new System.Drawing.Size(85, 23);
             this.btnExport.TabIndex = 0;
-            this.btnExport.Text = "Export to Pdf";
+            this.btnExport.Text = "Export Customers";
             this.btnExport.UseVisualStyleBackColor = true;
             this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
             // 
@@ -644,6 +697,7 @@ namespace ShopFinal
             // 
             // ucEditSupplier
             // 
+            this.ucEditSupplier.Enabled = false;
             this.ucEditSupplier.Location = new System.Drawing.Point(6, 186);
             this.ucEditSupplier.Name = "ucEditSupplier";
             this.ucEditSupplier.Size = new System.Drawing.Size(153, 189);
@@ -694,6 +748,8 @@ namespace ShopFinal
             this.ucEditCustomer.Size = new System.Drawing.Size(150, 112);
             this.ucEditCustomer.TabIndex = 4;
             this.ucEditCustomer.OnSaveButtonClickEvent += new ShopFinal.CustomerForm.SaveButtonClickEvent(this.ucEditCustomer_OnSaveButtonClickEvent);
+            this.ucEditCustomer.OnClearButtonClickEvent += new ShopFinal.CustomerForm.ClearButtonClickEvent(this.btnRemoveCustomerChange);
+            this.ucEditCustomer.OnSaveButtonChangedEvent += new ShopFinal.CustomerForm.SaveButtonDisabledEvent(this.btnRemoveCustomerChange);
             // 
             // frmGeneral
             // 
@@ -717,7 +773,9 @@ namespace ShopFinal
             this.tabCustomers.PerformLayout();
             this.tabCreate.ResumeLayout(false);
             this.tabOrders.ResumeLayout(false);
+            this.tabOrders.PerformLayout();
             this.tabReport.ResumeLayout(false);
+            this.tabReport.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -780,6 +838,10 @@ namespace ShopFinal
         private System.Windows.Forms.Label lblName1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblTitleIntro;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label5;
     }
 }
 

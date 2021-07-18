@@ -17,6 +17,9 @@ namespace ShopFinal
         public event SaveButtonClickEvent OnSaveButtonClickEvent;
         public delegate void ClearButtonClickEvent(object sender, EventArgs e);
         public event ClearButtonClickEvent OnClearButtonClickEvent;
+        public delegate void SaveButtonDisabledEvent(object sender, EventArgs e);
+        public event SaveButtonDisabledEvent OnSaveButtonChangedEvent;
+
         public CustomerForm()
         {
             InitializeComponent();
@@ -74,12 +77,21 @@ namespace ShopFinal
             }
         }
 
-        private void uc_TextChanged(object sender, EventArgs e)
+
+
+        private void isCustomerFormEmpty(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(txtFirstName.Text) || string.IsNullOrEmpty(txtLastName.Text))
-                btnSave.Enabled = false;
+                btnSave.Enabled = btnClear.Enabled = false;
             else
-                btnSave.Enabled = true;
+                btnSave.Enabled = btnClear.Enabled = true;
+            if (!string.IsNullOrEmpty(txtFirstName.Text) || !string.IsNullOrEmpty(txtLastName.Text))
+                btnClear.Enabled = true;
+        }
+
+        public bool isBtnEnabled
+        {
+            get => btnSave.Enabled;
         }
     }
 }

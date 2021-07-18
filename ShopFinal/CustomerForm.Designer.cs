@@ -63,7 +63,7 @@ namespace ShopFinal
             this.txtLastName.Name = "txtLastName";
             this.txtLastName.Size = new System.Drawing.Size(145, 20);
             this.txtLastName.TabIndex = 37;
-            this.txtLastName.TextChanged += new System.EventHandler(this.uc_TextChanged);
+            this.txtLastName.TextChanged += new System.EventHandler(this.isCustomerFormEmpty);
             // 
             // lblLastName
             // 
@@ -81,7 +81,7 @@ namespace ShopFinal
             this.txtFirstName.Size = new System.Drawing.Size(145, 20);
             this.txtFirstName.TabIndex = 35;
             this.txtFirstName.Text = " ";
-            this.txtFirstName.TextChanged += new System.EventHandler(this.uc_TextChanged);
+            this.txtFirstName.TextChanged += new System.EventHandler(this.isCustomerFormEmpty);
             // 
             // lblFirstName
             // 

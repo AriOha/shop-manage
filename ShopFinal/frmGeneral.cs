@@ -96,19 +96,33 @@ namespace ShopFinal
         }
 
 
-
+        /// <summary>
+        /// Getting data from db to Products list
+        /// </summary>
         private void refreshProducts()
         {
             products = mySQL.GetProductsData();
         }
+
+        /// <summary>
+        /// Getting data from db to Suppliers list
+        /// </summary>
         private void refreshSuppliers()
         {
             suppliers = mySQL.GetSuppliersData();
         }
+
+        /// <summary>
+        /// Getting data from db to Customers list
+        /// </summary>
         private void refreshCustomers()
         {
             customers = mySQL.GetCustomersData();
         }
+
+        /// <summary>
+        /// Getting data from db to Orders list
+        /// </summary>
         private void refreshOrders()
         {
             orders = mySQL.GetOrdersData();
@@ -116,7 +130,14 @@ namespace ShopFinal
 
 
 
-        //function get list of objects and insert them to the given ListBox binding key and value
+        /// <summary>
+        ///function get list of objects and insert them to the given ListBox binding key and value
+        /// </summary>
+        /// <typeparam name="T">Generic Type</typeparam>
+        /// <param name="destList">ListBox list to add to</param>
+        /// <param name="sourceArr">array of data(key-value)) to insert to the list box</param>
+        /// <param name="key">The data to display(What user see)</param>
+        /// <param name="value">the data that will be used on the item</param>
         private void fillListBox<T>(ListBox destList, IEnumerable<T> sourceArr, string key, string value)
         {
             foreach (T item in sourceArr)
@@ -124,7 +145,15 @@ namespace ShopFinal
             destList.ValueMember = value; // The value of the selected item
             destList.DisplayMember = key; // the value that will displayed at the list(name)
         }
-        //function get list of objects and insert them to the given ComboBox binding key and value
+        /// <summary>
+        /// function get list of objects and insert them to the given ComboBox binding key and value
+        /// 
+        /// </summary>
+        /// <typeparam name="T">Generic Type</typeparam>
+        /// <param name="destList">Combobox list to add to</param>
+        /// <param name="sourceArr">array of data to insert to the combo box</param>
+        /// <param name="key">The data to display(What user see)</param>
+        /// <param name="value">the data that will be used on the item</param>
         private void fillCboList<T>(ComboBox destList, IEnumerable<T> sourceArr, string key, string value)
         {
             foreach (T item in sourceArr)
@@ -133,6 +162,10 @@ namespace ShopFinal
             destList.DisplayMember = key;// the value that will displayed at the list(supplier name)
         }
 
+        /// <summary>
+        ///get data from db and loading the new data to the selected ListBox
+        /// </summary>
+        /// <param name="destList">Destination list to add the products</param>
         private void LoadProductsToList(ListBox destList)
         {
             refreshProducts();
@@ -140,7 +173,10 @@ namespace ShopFinal
             fillListBox(destList, products, "Name", "SupplierId");
         }
 
-        //get data from db and loading the new data to the selected ListBox
+        /// <summary>
+        ///get data from db and loading the new data to the selected ListBox
+        /// </summary>
+        /// <param name="destList">Destination list to add the suppliers</param>
         private void LoadSuppliersToList(ListBox destList)
         {
             refreshSuppliers();
@@ -148,14 +184,20 @@ namespace ShopFinal
             fillListBox(destList, suppliers, "Name", "Id");
         }
 
+        /// <summary>
+        ///get data from db and loading the new data to the selected ListBox
+        /// </summary>
+        /// <param name="destList">Destination list to add the customers</param>
         private void LoadCustomersToList(ListBox destList)
         {
             refreshCustomers();
             destList.Items.Clear();
             fillListBox(destList, customers, "FirstName", "Id");
         }
-
-        //get data from db and loading the new data to the selected ComboBox
+        /// <summary>
+        ///get data from db and loading the new data to the selected ComboBox
+        /// </summary>
+        /// <param name="destList">Destination list to add the suppliers</param>
         private void LoadSuppliersToCbo(ComboBox destList)
         {
             refreshSuppliers();
@@ -185,6 +227,7 @@ namespace ShopFinal
             {
                 LoadCustomersToListView(lstvCustomers);
                 ucEditCustomer.Clear();
+                btnRemoveCustomerChange(ucEditCustomer, e);//notify the delete button to be disabled
             }
 
         }
@@ -195,11 +238,19 @@ namespace ShopFinal
             Product selectedProd = lstProducts.SelectedItem as Product;
             if (selectedProd != null)
             {
+                cboEditProd.Enabled = txtEditProd.Enabled = true;
                 cboEditProd.SelectedIndex = Array.FindIndex(suppliers, supplier => supplier.Id == selectedProd.SupplierId);
                 txtEditProd.Text = selectedProd.Name;
             }
+            else
+                cboEditProd.Enabled = txtEditProd.Enabled = false;
         }
 
+        /// <summary>
+        /// handler when list of suppliers selected index changed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void lstSuppliers_SelectedIndexChanged(object sender, EventArgs e)
         {
             Supplier selectedSupp = lstSuppliers.SelectedItem as Supplier;
@@ -220,14 +271,19 @@ namespace ShopFinal
                 ucEditSupplier.Supplier = selectedSupp; // insert the data to the uc fields
                 if (lstSuppliers.SelectedIndex > -1)
                 {
-                    btnRemoveSupplier.Enabled = true;
+                    btnRemoveSupplier.Enabled = ucEditSupplier.Enabled = true;
                 }
                 else
-                    btnRemoveSupplier.Enabled = false;
+                    btnRemoveSupplier.Enabled = ucEditSupplier.Enabled = false;
 
             }
         }
 
+        /// <summary>
+        /// handler when list of customers selected index changed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void lstvCustomers_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -236,7 +292,13 @@ namespace ShopFinal
                 if (customer.Id == Convert.ToInt32(lstvCustomers.FocusedItem.Text))
                 {
                     ucEditCustomer.Customer = customer;
-                    break;
+                    btnRemoveCustomerChange(ucEditCustomer, e);
+                    if (ucEditCustomer.Customer.Id > -1) // if selected user the id should not be -1
+                    {
+                        ucEditCustomer.Enabled = true;
+                    }
+                    else
+                        ucEditCustomer.Enabled = false;
                 }
             }
 
@@ -261,12 +323,13 @@ namespace ShopFinal
         {
             if (lstProducts.SelectedItem != null)
             {
-                int selectedId = ((Product)lstProducts.SelectedItem).Id;
-                if (MessageHandler.Show("Delete Product", "Are you sure to delete this product?") == DialogResult.OK)
-                    if (mySQL.DeleteProduct(selectedId))
+                Product selectedProd = (Product)lstProducts.SelectedItem;
+                if (MessageHandler.Show("Delete Product", $"Are you sure to delete this product?\n{selectedProd.Name}") == DialogResult.OK)
+                    if (mySQL.DeleteProduct(selectedProd.Id))
                     {
                         LoadProductsToList(lstProducts);
                         clearEditProduct();
+                        cboEditProd.Enabled = txtEditProd.Enabled = false;
                     }
             }
         }
@@ -322,14 +385,14 @@ namespace ShopFinal
                 LoadSuppliersToList(lstSuppliers);
                 ucEditSupplier.Clear();
             }
-            btnRemoveChange(sender, e);
+            btnRemoveSupplierChange(sender, e);
         }
 
 
         private void ucEditSupplier_OnClearButtonClickEvent(object sender, EventArgs e)
         {
             lstSuppliers.SelectedItem = null;
-            btnRemoveChange(sender, e);
+            btnRemoveSupplierChange(sender, e);
         }
 
         private void btnRemove_Click(object sender, EventArgs e)
@@ -341,7 +404,8 @@ namespace ShopFinal
                     {
                         LoadSuppliersToList(lstSuppliers);
                         ucEditSupplier.Clear();
-                        btnRemoveSupplier.Enabled = false;
+                        btnRemoveSupplier.Enabled = ucEditSupplier.Enabled = false;
+
                     }
                 }
 
@@ -381,8 +445,8 @@ namespace ShopFinal
                     if (mySQL.RemoveCustomer(selected.Id))
                     {
                         LoadCustomersToListView(lstvCustomers);
-                        //ucEditCustomer.Customer.Clear();
                         ucEditCustomer.Clear();
+                        btnRemoveCustomerChange(ucEditCustomer, e);
                     }
                 }
         }
@@ -410,13 +474,14 @@ namespace ShopFinal
             }
         }
 
+        //Disables the button if customer not selected and at least 1 product not added
         private void btnOrder_Lock(object sender, EventArgs e)
         {
             btnOrder.Enabled = !(lstNewOrderCustomers.SelectedIndex == -1 || lstOrderSelected.Items.Count == 0);
-
-
         }
 
+
+        //Moves product from list to another
         private void btnToCart_Click(object sender, EventArgs e)
         {
             if (lstOrderProducts.SelectedItem != null)
@@ -429,6 +494,7 @@ namespace ShopFinal
             }
         }
 
+        //Removes selected item from the cart to the full list
         private void btnFromCart_Click(object sender, EventArgs e)
         {
             if (lstOrderSelected.SelectedItem != null)
@@ -534,9 +600,20 @@ namespace ShopFinal
         }
 
         //Enable/Disable the Delete button according the UC form
-        private void btnRemoveChange(object sender, EventArgs e)
+        private void btnRemoveSupplierChange(object sender, EventArgs e)
         {
-            btnRemoveSupplier.Enabled = ((SupplierForm)sender).isBtnEnabled;
+            btnRemoveSupplier.Enabled = ucEditSupplier.Enabled = ((SupplierForm)sender).isBtnEnabled;
+        }
+
+        private void btnRemoveCustomerChange(object sender, EventArgs e)
+        {
+            btnRemoveCustomer.Enabled = ucEditCustomer.Enabled = ((CustomerForm)sender).isBtnEnabled;
+        }
+
+        private void btnAddProductLock(object sender, EventArgs e)
+        {
+            btnEditProd.Enabled = btnRemoveProd.Enabled = !(lstProducts.SelectedIndex == -1 || cboEditProd.SelectedIndex == -1);
+            btnEditProd.Enabled = !string.IsNullOrEmpty(txtEditProd.Text);// unable to save if there is no text
         }
     }
 }

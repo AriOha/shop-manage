@@ -17,8 +17,7 @@ namespace ShopFinal
         public event SaveButtonClickEvent OnSaveButtonClickEvent;
         public delegate void ClearButtonClickEvent(object sender, EventArgs e);
         public event ClearButtonClickEvent OnClearButtonClickEvent;
-        public delegate void SaveButtonDisabledEvent(object sender, EventArgs e);
-        public event SaveButtonDisabledEvent OnSaveButtonChangedEvent;
+
 
 
         public SupplierForm()
@@ -33,7 +32,9 @@ namespace ShopFinal
             UpdateViewInputs();
         }
 
-        //updates the current inputs from the supplier object
+        /// <summary>
+        ///updates the current inputs from the supplier object
+        /// </summary>
         private void UpdateViewInputs()
         {
             txtName.Text = supplier.Name;
@@ -42,7 +43,9 @@ namespace ShopFinal
             txtEmail.Text = supplier.Email;
         }
 
-        //Refresh the data of the object according the current inputs
+        /// <summary>
+        /// Refresh the data of the object according the current inputs
+        /// </summary>
         public void RefreshData()
         {
             supplier.Name = txtName.Text;
@@ -59,6 +62,12 @@ namespace ShopFinal
                 OnClearButtonClickEvent(this, e);
             }
         }
+
+        /// <summary>
+        /// triggers save button click event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSave_Click(object sender, EventArgs e)
         {
             if (OnSaveButtonClickEvent != null)
@@ -84,23 +93,35 @@ namespace ShopFinal
             }
         }
 
+        /// <summary>
+        /// if the form is not fully filled, the Save & clear button will be disabled
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void isFormEmpty(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtName.Text) || string.IsNullOrEmpty(txtAddress.Text) || string.IsNullOrEmpty(txtPhone.Text) || string.IsNullOrEmpty(txtEmail.Text))
+            if (string.IsNullOrEmpty(txtName.Text) ||
+                string.IsNullOrEmpty(txtAddress.Text) ||
+                string.IsNullOrEmpty(txtPhone.Text) ||
+                string.IsNullOrEmpty(txtEmail.Text))
             {
-                btnSave.Enabled = false;
+                btnSave.Enabled = btnClear.Enabled = false;
             }
             else
+                btnSave.Enabled = btnClear.Enabled = true;
+            //validating at least 1 input to enable the clear button
+            if ((!string.IsNullOrEmpty(txtName.Text) ||
+                !string.IsNullOrEmpty(txtAddress.Text) ||
+                !string.IsNullOrEmpty(txtPhone.Text) ||
+                !string.IsNullOrEmpty(txtEmail.Text)))
             {
-                btnSave.Enabled = true;
+                btnClear.Enabled = true;
             }
-            if (OnSaveButtonChangedEvent != null)
-            {
-                OnSaveButtonChangedEvent(this, e);
-            }
-
         }
 
+        /// <summary>
+        /// Getter for btnSave enabled status
+        /// </summary>
         public bool isBtnEnabled
         {
             get => btnSave.Enabled;
