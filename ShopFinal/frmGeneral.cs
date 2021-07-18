@@ -545,6 +545,10 @@ namespace ShopFinal
                         lstvOrders.Items.Add(itm);
                     }
                 }
+                lstvOrders.Visible = lstvOrders.Items.Count > 0;
+                lstvOrderProducts.Visible = false;
+                lblSelectOrderMsg.Visible = !lblOrdersNotFound.Visible;
+                    
             }
         }
 
@@ -554,18 +558,20 @@ namespace ShopFinal
             lstvOrderProducts.Items.Clear();
             foreach (Order ord in orders)
             {
-                Console.WriteLine(lstvOrders.FocusedItem.Text);
-                if (ord.Id == Convert.ToInt32(lstvOrders.FocusedItem.Text))
-                {
-                    OrderProduct[] orderProducts = mySQL.GetOrderedProductsById(ord.Id);
-                    if (orderProducts != null)
-                        foreach (OrderProduct prod in orderProducts)
-                        {
-                            string[] row = { prod.Id.ToString(), prod.Name, prod.SupplierId.ToString() };
-                            ListViewItem itm = new ListViewItem(row);
-                            lstvOrderProducts.Items.Add(itm);
-                        }
-                }
+                if (lstvOrders.FocusedItem != null)
+                    if (ord.Id == Convert.ToInt32(lstvOrders.FocusedItem.Text))
+                    {
+                        OrderProduct[] orderProducts = mySQL.GetOrderedProductsById(ord.Id);
+                        if (orderProducts != null)
+                            foreach (OrderProduct prod in orderProducts)
+                            {
+                                string[] row = { prod.Id.ToString(), prod.Name, prod.SupplierId.ToString() };
+                                ListViewItem itm = new ListViewItem(row);
+                                lstvOrderProducts.Items.Add(itm);
+                            }
+                    }
+                lstvOrderProducts.Visible = lstvOrderProducts.Items.Count > 0;
+
             }
         }
 
@@ -615,5 +621,22 @@ namespace ShopFinal
             btnEditProd.Enabled = btnRemoveProd.Enabled = !(lstProducts.SelectedIndex == -1 || cboEditProd.SelectedIndex == -1);
             btnEditProd.Enabled = !string.IsNullOrEmpty(txtEditProd.Text);// unable to save if there is no text
         }
+
+        private void lstvOrders_VisibleChanged(object sender, EventArgs e)
+        {
+            ListView list = sender as ListView;
+            lblOrdersDO.Visible = list.Visible;
+            lblOrdersNotFound.Visible = !list.Visible;
+            Console.WriteLine("orders Visible changed is visible? " + list.Visible);
+            //lstvOrderProducts_VisibleChanged(sender, e);
+        }
+        private void lstvOrderProducts_VisibleChanged(object sender, EventArgs e)
+        {
+            ListView list = sender as ListView;
+            lblDetailsDO.Visible = list.Visible;
+            lblSelectOrderMsg.Visible = !list.Visible && lstvOrders.Visible;
+            Console.WriteLine("Details Visible changed is visible? " + list.Visible);
+        }
+
     }
 }
