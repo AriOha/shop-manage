@@ -29,10 +29,10 @@ namespace ShopFinal
         /// </summary>
         private void InitializeComponent()
         {
-            ShopFinal.Supplier supplier1 = new ShopFinal.Supplier();
-            ShopFinal.Supplier supplier2 = new ShopFinal.Supplier();
-            ShopFinal.Customer customer1 = new ShopFinal.Customer();
-            ShopFinal.Customer customer2 = new ShopFinal.Customer();
+            ShopFinal.Supplier supplier7 = new ShopFinal.Supplier();
+            ShopFinal.Supplier supplier8 = new ShopFinal.Supplier();
+            ShopFinal.Customer customer7 = new ShopFinal.Customer();
+            ShopFinal.Customer customer8 = new ShopFinal.Customer();
             this.lstProducts = new System.Windows.Forms.ListBox();
             this.tabMain = new System.Windows.Forms.TabControl();
             this.tabIntro = new System.Windows.Forms.TabPage();
@@ -94,6 +94,7 @@ namespace ShopFinal
             this.ucAddSupplier = new ShopFinal.SupplierForm();
             this.ucAddCustomer = new ShopFinal.CustomerForm();
             this.ucEditCustomer = new ShopFinal.CustomerForm();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.tabMain.SuspendLayout();
             this.tabIntro.SuspendLayout();
             this.tabProducts.SuspendLayout();
@@ -129,6 +130,7 @@ namespace ShopFinal
             // 
             // tabIntro
             // 
+            this.tabIntro.Controls.Add(this.linkLabel1);
             this.tabIntro.Controls.Add(this.lblName2);
             this.tabIntro.Controls.Add(this.lblName1);
             this.tabIntro.Controls.Add(this.label1);
@@ -146,7 +148,7 @@ namespace ShopFinal
             // 
             this.lblName2.AutoSize = true;
             this.lblName2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblName2.Location = new System.Drawing.Point(282, 142);
+            this.lblName2.Location = new System.Drawing.Point(10, 361);
             this.lblName2.Name = "lblName2";
             this.lblName2.Size = new System.Drawing.Size(45, 16);
             this.lblName2.TabIndex = 3;
@@ -156,7 +158,7 @@ namespace ShopFinal
             // 
             this.lblName1.AutoSize = true;
             this.lblName1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblName1.Location = new System.Drawing.Point(282, 120);
+            this.lblName1.Location = new System.Drawing.Point(10, 339);
             this.lblName1.Name = "lblName1";
             this.lblName1.Size = new System.Drawing.Size(24, 16);
             this.lblName1.TabIndex = 2;
@@ -165,10 +167,10 @@ namespace ShopFinal
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(251, 78);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(6, 319);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(165, 33);
+            this.label1.Size = new System.Drawing.Size(101, 20);
             this.label1.TabIndex = 1;
             this.label1.Text = "Created by:";
             // 
@@ -178,9 +180,9 @@ namespace ShopFinal
             this.lblTitleIntro.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitleIntro.Location = new System.Drawing.Point(3, 16);
             this.lblTitleIntro.Name = "lblTitleIntro";
-            this.lblTitleIntro.Size = new System.Drawing.Size(120, 55);
+            this.lblTitleIntro.Size = new System.Drawing.Size(308, 55);
             this.lblTitleIntro.TabIndex = 0;
-            this.lblTitleIntro.Text = "Intro";
+            this.lblTitleIntro.Text = "Gadget Shop";
             // 
             // tabProducts
             // 
@@ -721,12 +723,12 @@ namespace ShopFinal
             this.ucEditSupplier.Location = new System.Drawing.Point(6, 186);
             this.ucEditSupplier.Name = "ucEditSupplier";
             this.ucEditSupplier.Size = new System.Drawing.Size(153, 189);
-            supplier1.Address = "";
-            supplier1.Email = "";
-            supplier1.Id = -1;
-            supplier1.Name = "";
-            supplier1.Phone = "";
-            this.ucEditSupplier.Supplier = supplier1;
+            supplier7.Address = "";
+            supplier7.Email = "";
+            supplier7.Id = -1;
+            supplier7.Name = "";
+            supplier7.Phone = "";
+            this.ucEditSupplier.Supplier = supplier7;
             this.ucEditSupplier.TabIndex = 24;
             this.ucEditSupplier.OnSaveButtonClickEvent += new ShopFinal.SupplierForm.SaveButtonClickEvent(this.ucEditSupplier_OnSaveButtonClickEvent);
             this.ucEditSupplier.OnClearButtonClickEvent += new ShopFinal.SupplierForm.ClearButtonClickEvent(this.ucEditSupplier_OnClearButtonClickEvent);
@@ -736,21 +738,21 @@ namespace ShopFinal
             this.ucAddSupplier.Location = new System.Drawing.Point(495, 75);
             this.ucAddSupplier.Name = "ucAddSupplier";
             this.ucAddSupplier.Size = new System.Drawing.Size(153, 189);
-            supplier2.Address = "";
-            supplier2.Email = "";
-            supplier2.Id = -1;
-            supplier2.Name = "";
-            supplier2.Phone = "";
-            this.ucAddSupplier.Supplier = supplier2;
+            supplier8.Address = "";
+            supplier8.Email = "";
+            supplier8.Id = -1;
+            supplier8.Name = "";
+            supplier8.Phone = "";
+            this.ucAddSupplier.Supplier = supplier8;
             this.ucAddSupplier.TabIndex = 23;
             this.ucAddSupplier.OnSaveButtonClickEvent += new ShopFinal.SupplierForm.SaveButtonClickEvent(this.ucAddSupplier_onSaveButtonClickEvent);
             // 
             // ucAddCustomer
             // 
-            customer1.FirstName = "";
-            customer1.Id = -1;
-            customer1.LastName = "";
-            this.ucAddCustomer.Customer = customer1;
+            customer7.FirstName = "";
+            customer7.Id = -1;
+            customer7.LastName = "";
+            this.ucAddCustomer.Customer = customer7;
             this.ucAddCustomer.Location = new System.Drawing.Point(12, 257);
             this.ucAddCustomer.Name = "ucAddCustomer";
             this.ucAddCustomer.Size = new System.Drawing.Size(150, 112);
@@ -759,10 +761,10 @@ namespace ShopFinal
             // 
             // ucEditCustomer
             // 
-            customer2.FirstName = "";
-            customer2.Id = -1;
-            customer2.LastName = "";
-            this.ucEditCustomer.Customer = customer2;
+            customer8.FirstName = "";
+            customer8.Id = -1;
+            customer8.LastName = "";
+            this.ucEditCustomer.Customer = customer8;
             this.ucEditCustomer.Location = new System.Drawing.Point(12, 63);
             this.ucEditCustomer.Name = "ucEditCustomer";
             this.ucEditCustomer.Size = new System.Drawing.Size(150, 112);
@@ -770,6 +772,18 @@ namespace ShopFinal
             this.ucEditCustomer.OnSaveButtonClickEvent += new ShopFinal.CustomerForm.SaveButtonClickEvent(this.ucEditCustomer_OnSaveButtonClickEvent);
             this.ucEditCustomer.OnClearButtonClickEvent += new ShopFinal.CustomerForm.ClearButtonClickEvent(this.btnRemoveCustomerChange);
             this.ucEditCustomer.OnSaveButtonChangedEvent += new ShopFinal.CustomerForm.SaveButtonDisabledEvent(this.btnRemoveCustomerChange);
+            // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linkLabel1.LinkColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.linkLabel1.Location = new System.Drawing.Point(262, 142);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(125, 18);
+            this.linkLabel1.TabIndex = 4;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "Manage Products";
             // 
             // frmGeneral
             // 
@@ -861,6 +875,7 @@ namespace ShopFinal
         private System.Windows.Forms.Label lblSelectOrderMsg;
         private System.Windows.Forms.Button btnExportOrder;
         private System.Windows.Forms.Button btnExport;
+        private System.Windows.Forms.LinkLabel linkLabel1;
     }
 }
 
