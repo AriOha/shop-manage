@@ -29,13 +29,18 @@ namespace ShopFinal
         /// </summary>
         private void InitializeComponent()
         {
-            ShopFinal.Supplier supplier7 = new ShopFinal.Supplier();
-            ShopFinal.Supplier supplier8 = new ShopFinal.Supplier();
-            ShopFinal.Customer customer7 = new ShopFinal.Customer();
-            ShopFinal.Customer customer8 = new ShopFinal.Customer();
+            ShopFinal.Supplier supplier1 = new ShopFinal.Supplier();
+            ShopFinal.Supplier supplier2 = new ShopFinal.Supplier();
+            ShopFinal.Customer customer1 = new ShopFinal.Customer();
+            ShopFinal.Customer customer2 = new ShopFinal.Customer();
             this.lstProducts = new System.Windows.Forms.ListBox();
             this.tabMain = new System.Windows.Forms.TabControl();
             this.tabIntro = new System.Windows.Forms.TabPage();
+            this.linkLabel5 = new System.Windows.Forms.LinkLabel();
+            this.linkLabel4 = new System.Windows.Forms.LinkLabel();
+            this.linkLabel3 = new System.Windows.Forms.LinkLabel();
+            this.linkLabel2 = new System.Windows.Forms.LinkLabel();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.lblName2 = new System.Windows.Forms.Label();
             this.lblName1 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -58,13 +63,18 @@ namespace ShopFinal
             this.tabSuppliers = new System.Windows.Forms.TabPage();
             this.btnRemoveSupplier = new System.Windows.Forms.Button();
             this.lblAddSupp = new System.Windows.Forms.Label();
+            this.ucEditSupplier = new ShopFinal.SupplierForm();
+            this.ucAddSupplier = new ShopFinal.SupplierForm();
             this.lstvProducts = new System.Windows.Forms.ListView();
             this.txtSuppliers = new System.Windows.Forms.Label();
             this.lstSuppliers = new System.Windows.Forms.ListBox();
             this.tabCustomers = new System.Windows.Forms.TabPage();
             this.btnRemoveCustomer = new System.Windows.Forms.Button();
             this.lblTitleAddCustomer = new System.Windows.Forms.Label();
+            this.btnExport = new System.Windows.Forms.Button();
             this.lblTitleEditCustomer = new System.Windows.Forms.Label();
+            this.ucAddCustomer = new ShopFinal.CustomerForm();
+            this.ucEditCustomer = new ShopFinal.CustomerForm();
             this.lstvCustomers = new System.Windows.Forms.ListView();
             this.idCol = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.firstName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -89,12 +99,7 @@ namespace ShopFinal
             this.lblSelectOrderMsg = new System.Windows.Forms.Label();
             this.lblOrdersNotFound = new System.Windows.Forms.Label();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
-            this.btnExport = new System.Windows.Forms.Button();
-            this.ucEditSupplier = new ShopFinal.SupplierForm();
-            this.ucAddSupplier = new ShopFinal.SupplierForm();
-            this.ucAddCustomer = new ShopFinal.CustomerForm();
-            this.ucEditCustomer = new ShopFinal.CustomerForm();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.label2 = new System.Windows.Forms.Label();
             this.tabMain.SuspendLayout();
             this.tabIntro.SuspendLayout();
             this.tabProducts.SuspendLayout();
@@ -130,6 +135,11 @@ namespace ShopFinal
             // 
             // tabIntro
             // 
+            this.tabIntro.Controls.Add(this.label2);
+            this.tabIntro.Controls.Add(this.linkLabel5);
+            this.tabIntro.Controls.Add(this.linkLabel4);
+            this.tabIntro.Controls.Add(this.linkLabel3);
+            this.tabIntro.Controls.Add(this.linkLabel2);
             this.tabIntro.Controls.Add(this.linkLabel1);
             this.tabIntro.Controls.Add(this.lblName2);
             this.tabIntro.Controls.Add(this.lblName1);
@@ -143,6 +153,86 @@ namespace ShopFinal
             this.tabIntro.Text = "Intro";
             this.tabIntro.ToolTipText = "Autor";
             this.tabIntro.UseVisualStyleBackColor = true;
+            // 
+            // linkLabel5
+            // 
+            this.linkLabel5.ActiveLinkColor = System.Drawing.SystemColors.ActiveCaption;
+            this.linkLabel5.AutoSize = true;
+            this.linkLabel5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linkLabel5.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.linkLabel5.LinkColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.linkLabel5.Location = new System.Drawing.Point(226, 242);
+            this.linkLabel5.Name = "linkLabel5";
+            this.linkLabel5.Size = new System.Drawing.Size(122, 18);
+            this.linkLabel5.TabIndex = 9;
+            this.linkLabel5.TabStop = true;
+            this.linkLabel5.Tag = "5";
+            this.linkLabel5.Text = "5. Display Orders";
+            this.linkLabel5.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelClicked);
+            // 
+            // linkLabel4
+            // 
+            this.linkLabel4.ActiveLinkColor = System.Drawing.SystemColors.ActiveCaption;
+            this.linkLabel4.AutoSize = true;
+            this.linkLabel4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linkLabel4.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.linkLabel4.LinkColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.linkLabel4.Location = new System.Drawing.Point(226, 215);
+            this.linkLabel4.Name = "linkLabel4";
+            this.linkLabel4.Size = new System.Drawing.Size(144, 18);
+            this.linkLabel4.TabIndex = 8;
+            this.linkLabel4.TabStop = true;
+            this.linkLabel4.Tag = "4";
+            this.linkLabel4.Text = "4. Create New Order";
+            this.linkLabel4.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelClicked);
+            // 
+            // linkLabel3
+            // 
+            this.linkLabel3.ActiveLinkColor = System.Drawing.SystemColors.ActiveCaption;
+            this.linkLabel3.AutoSize = true;
+            this.linkLabel3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linkLabel3.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.linkLabel3.LinkColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.linkLabel3.Location = new System.Drawing.Point(226, 186);
+            this.linkLabel3.Name = "linkLabel3";
+            this.linkLabel3.Size = new System.Drawing.Size(155, 18);
+            this.linkLabel3.TabIndex = 7;
+            this.linkLabel3.TabStop = true;
+            this.linkLabel3.Tag = "3";
+            this.linkLabel3.Text = "3. Manage Customers";
+            this.linkLabel3.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelClicked);
+            // 
+            // linkLabel2
+            // 
+            this.linkLabel2.ActiveLinkColor = System.Drawing.SystemColors.ActiveCaption;
+            this.linkLabel2.AutoSize = true;
+            this.linkLabel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linkLabel2.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.linkLabel2.LinkColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.linkLabel2.Location = new System.Drawing.Point(226, 159);
+            this.linkLabel2.Name = "linkLabel2";
+            this.linkLabel2.Size = new System.Drawing.Size(142, 18);
+            this.linkLabel2.TabIndex = 6;
+            this.linkLabel2.TabStop = true;
+            this.linkLabel2.Tag = "2";
+            this.linkLabel2.Text = "2. Manage Suppliers";
+            this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelClicked);
+            // 
+            // linkLabel1
+            // 
+            this.linkLabel1.ActiveLinkColor = System.Drawing.SystemColors.ActiveCaption;
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linkLabel1.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.linkLabel1.LinkColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.linkLabel1.Location = new System.Drawing.Point(226, 132);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(141, 18);
+            this.linkLabel1.TabIndex = 5;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Tag = "1";
+            this.linkLabel1.Text = "1. Manage Products";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelClicked);
             // 
             // lblName2
             // 
@@ -383,6 +473,36 @@ namespace ShopFinal
             this.lblAddSupp.TabIndex = 21;
             this.lblAddSupp.Text = "Add new";
             // 
+            // ucEditSupplier
+            // 
+            this.ucEditSupplier.Enabled = false;
+            this.ucEditSupplier.Location = new System.Drawing.Point(6, 186);
+            this.ucEditSupplier.Name = "ucEditSupplier";
+            this.ucEditSupplier.Size = new System.Drawing.Size(153, 189);
+            supplier1.Address = "";
+            supplier1.Email = "";
+            supplier1.Id = -1;
+            supplier1.Name = "";
+            supplier1.Phone = "";
+            this.ucEditSupplier.Supplier = supplier1;
+            this.ucEditSupplier.TabIndex = 24;
+            this.ucEditSupplier.OnSaveButtonClickEvent += new ShopFinal.SupplierForm.SaveButtonClickEvent(this.ucEditSupplier_OnSaveButtonClickEvent);
+            this.ucEditSupplier.OnClearButtonClickEvent += new ShopFinal.SupplierForm.ClearButtonClickEvent(this.ucEditSupplier_OnClearButtonClickEvent);
+            // 
+            // ucAddSupplier
+            // 
+            this.ucAddSupplier.Location = new System.Drawing.Point(495, 75);
+            this.ucAddSupplier.Name = "ucAddSupplier";
+            this.ucAddSupplier.Size = new System.Drawing.Size(153, 189);
+            supplier2.Address = "";
+            supplier2.Email = "";
+            supplier2.Id = -1;
+            supplier2.Name = "";
+            supplier2.Phone = "";
+            this.ucAddSupplier.Supplier = supplier2;
+            this.ucAddSupplier.TabIndex = 23;
+            this.ucAddSupplier.OnSaveButtonClickEvent += new ShopFinal.SupplierForm.SaveButtonClickEvent(this.ucAddSupplier_onSaveButtonClickEvent);
+            // 
             // lstvProducts
             // 
             this.lstvProducts.HideSelection = false;
@@ -448,6 +568,16 @@ namespace ShopFinal
             this.lblTitleAddCustomer.TabIndex = 7;
             this.lblTitleAddCustomer.Text = "Add New:";
             // 
+            // btnExport
+            // 
+            this.btnExport.Location = new System.Drawing.Point(505, 34);
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Size = new System.Drawing.Size(97, 23);
+            this.btnExport.TabIndex = 0;
+            this.btnExport.Text = "Export Customers";
+            this.btnExport.UseVisualStyleBackColor = true;
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
+            // 
             // lblTitleEditCustomer
             // 
             this.lblTitleEditCustomer.AutoSize = true;
@@ -457,6 +587,32 @@ namespace ShopFinal
             this.lblTitleEditCustomer.Size = new System.Drawing.Size(52, 24);
             this.lblTitleEditCustomer.TabIndex = 6;
             this.lblTitleEditCustomer.Text = "Edit:";
+            // 
+            // ucAddCustomer
+            // 
+            customer1.FirstName = "";
+            customer1.Id = -1;
+            customer1.LastName = "";
+            this.ucAddCustomer.Customer = customer1;
+            this.ucAddCustomer.Location = new System.Drawing.Point(12, 257);
+            this.ucAddCustomer.Name = "ucAddCustomer";
+            this.ucAddCustomer.Size = new System.Drawing.Size(150, 112);
+            this.ucAddCustomer.TabIndex = 5;
+            this.ucAddCustomer.OnSaveButtonClickEvent += new ShopFinal.CustomerForm.SaveButtonClickEvent(this.ucAddCustomer_OnSaveButtonClickEvent);
+            // 
+            // ucEditCustomer
+            // 
+            customer2.FirstName = "";
+            customer2.Id = -1;
+            customer2.LastName = "";
+            this.ucEditCustomer.Customer = customer2;
+            this.ucEditCustomer.Location = new System.Drawing.Point(12, 63);
+            this.ucEditCustomer.Name = "ucEditCustomer";
+            this.ucEditCustomer.Size = new System.Drawing.Size(150, 112);
+            this.ucEditCustomer.TabIndex = 4;
+            this.ucEditCustomer.OnSaveButtonClickEvent += new ShopFinal.CustomerForm.SaveButtonClickEvent(this.ucEditCustomer_OnSaveButtonClickEvent);
+            this.ucEditCustomer.OnClearButtonClickEvent += new ShopFinal.CustomerForm.ClearButtonClickEvent(this.btnRemoveCustomerChange);
+            this.ucEditCustomer.OnSaveButtonChangedEvent += new ShopFinal.CustomerForm.SaveButtonDisabledEvent(this.btnRemoveCustomerChange);
             // 
             // lstvCustomers
             // 
@@ -707,83 +863,15 @@ namespace ShopFinal
             this.saveFileDialog.Filter = "pdf files (*.pdf)|*.pdf|All files (*.*)|*.*";
             this.saveFileDialog.Title = "Save to PDF";
             // 
-            // btnExport
+            // label2
             // 
-            this.btnExport.Location = new System.Drawing.Point(505, 34);
-            this.btnExport.Name = "btnExport";
-            this.btnExport.Size = new System.Drawing.Size(97, 23);
-            this.btnExport.TabIndex = 0;
-            this.btnExport.Text = "Export Customers";
-            this.btnExport.UseVisualStyleBackColor = true;
-            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
-            // 
-            // ucEditSupplier
-            // 
-            this.ucEditSupplier.Enabled = false;
-            this.ucEditSupplier.Location = new System.Drawing.Point(6, 186);
-            this.ucEditSupplier.Name = "ucEditSupplier";
-            this.ucEditSupplier.Size = new System.Drawing.Size(153, 189);
-            supplier7.Address = "";
-            supplier7.Email = "";
-            supplier7.Id = -1;
-            supplier7.Name = "";
-            supplier7.Phone = "";
-            this.ucEditSupplier.Supplier = supplier7;
-            this.ucEditSupplier.TabIndex = 24;
-            this.ucEditSupplier.OnSaveButtonClickEvent += new ShopFinal.SupplierForm.SaveButtonClickEvent(this.ucEditSupplier_OnSaveButtonClickEvent);
-            this.ucEditSupplier.OnClearButtonClickEvent += new ShopFinal.SupplierForm.ClearButtonClickEvent(this.ucEditSupplier_OnClearButtonClickEvent);
-            // 
-            // ucAddSupplier
-            // 
-            this.ucAddSupplier.Location = new System.Drawing.Point(495, 75);
-            this.ucAddSupplier.Name = "ucAddSupplier";
-            this.ucAddSupplier.Size = new System.Drawing.Size(153, 189);
-            supplier8.Address = "";
-            supplier8.Email = "";
-            supplier8.Id = -1;
-            supplier8.Name = "";
-            supplier8.Phone = "";
-            this.ucAddSupplier.Supplier = supplier8;
-            this.ucAddSupplier.TabIndex = 23;
-            this.ucAddSupplier.OnSaveButtonClickEvent += new ShopFinal.SupplierForm.SaveButtonClickEvent(this.ucAddSupplier_onSaveButtonClickEvent);
-            // 
-            // ucAddCustomer
-            // 
-            customer7.FirstName = "";
-            customer7.Id = -1;
-            customer7.LastName = "";
-            this.ucAddCustomer.Customer = customer7;
-            this.ucAddCustomer.Location = new System.Drawing.Point(12, 257);
-            this.ucAddCustomer.Name = "ucAddCustomer";
-            this.ucAddCustomer.Size = new System.Drawing.Size(150, 112);
-            this.ucAddCustomer.TabIndex = 5;
-            this.ucAddCustomer.OnSaveButtonClickEvent += new ShopFinal.CustomerForm.SaveButtonClickEvent(this.ucAddCustomer_OnSaveButtonClickEvent);
-            // 
-            // ucEditCustomer
-            // 
-            customer8.FirstName = "";
-            customer8.Id = -1;
-            customer8.LastName = "";
-            this.ucEditCustomer.Customer = customer8;
-            this.ucEditCustomer.Location = new System.Drawing.Point(12, 63);
-            this.ucEditCustomer.Name = "ucEditCustomer";
-            this.ucEditCustomer.Size = new System.Drawing.Size(150, 112);
-            this.ucEditCustomer.TabIndex = 4;
-            this.ucEditCustomer.OnSaveButtonClickEvent += new ShopFinal.CustomerForm.SaveButtonClickEvent(this.ucEditCustomer_OnSaveButtonClickEvent);
-            this.ucEditCustomer.OnClearButtonClickEvent += new ShopFinal.CustomerForm.ClearButtonClickEvent(this.btnRemoveCustomerChange);
-            this.ucEditCustomer.OnSaveButtonChangedEvent += new ShopFinal.CustomerForm.SaveButtonDisabledEvent(this.btnRemoveCustomerChange);
-            // 
-            // linkLabel1
-            // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkLabel1.LinkColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.linkLabel1.Location = new System.Drawing.Point(262, 142);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(125, 18);
-            this.linkLabel1.TabIndex = 4;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Manage Products";
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(225, 108);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(126, 22);
+            this.label2.TabIndex = 10;
+            this.label2.Text = "Context Menu:";
             // 
             // frmGeneral
             // 
@@ -875,7 +963,12 @@ namespace ShopFinal
         private System.Windows.Forms.Label lblSelectOrderMsg;
         private System.Windows.Forms.Button btnExportOrder;
         private System.Windows.Forms.Button btnExport;
+        private System.Windows.Forms.LinkLabel linkLabel5;
+        private System.Windows.Forms.LinkLabel linkLabel4;
+        private System.Windows.Forms.LinkLabel linkLabel3;
+        private System.Windows.Forms.LinkLabel linkLabel2;
         private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.Label label2;
     }
 }
 

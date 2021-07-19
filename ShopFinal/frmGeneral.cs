@@ -307,16 +307,19 @@ namespace ShopFinal
 
         private void btnEditProd_Click(object sender, EventArgs e)
         {
-            Product edtPrd = new Product();
-            edtPrd.Name = txtEditProd.Text;
-            edtPrd.SupplierId = ((Supplier)cboEditProd.SelectedItem).Id;
-            edtPrd.Id = ((Product)lstProducts.SelectedItem).Id;
-            if (mySQL.UpdateProduct(edtPrd))
+            if (lstProducts.SelectedItem != null)
             {
-                LoadProductsToList(lstProducts);
-                clearEditProduct();
+                Product edtPrd = new Product();
+                edtPrd.Name = txtEditProd.Text;
+                edtPrd.SupplierId = ((Supplier)cboEditProd.SelectedItem).Id;
+                edtPrd.Id = ((Product)lstProducts.SelectedItem).Id;
+                if (mySQL.UpdateProduct(edtPrd))
+                {
+                    LoadProductsToList(lstProducts);
+                    clearEditProduct();
+                    cboEditProd.Enabled = txtEditProd.Enabled = false;
+                }
             }
-
         }
 
         private void btnRemoveProd_Click(object sender, EventArgs e)
@@ -644,7 +647,7 @@ namespace ShopFinal
 
             saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             saveFileDialog.CheckPathExists = true;
-            saveFileDialog.FileName = "Order No."+ lstvOrders.FocusedItem.Text;
+            saveFileDialog.FileName = "Order No." + lstvOrders.FocusedItem.Text;
             saveFileDialog.RestoreDirectory = true;
             if (saveFileDialog.ShowDialog() == DialogResult.OK) // if selected valid path & name
             {
@@ -655,6 +658,12 @@ namespace ShopFinal
                 pdfFile.addTable(lstvOrderProducts);
                 pdfFile.CloseReport();
             }
+        }
+
+        private void linkLabelClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            int selectedTab = Convert.ToInt32(((LinkLabel)sender).Tag);
+            tabMain.SelectedTab = tabMain.TabPages[selectedTab];
         }
     }
 }
