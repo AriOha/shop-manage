@@ -60,6 +60,7 @@ namespace ShopFinal
             // txtLastName
             // 
             this.txtLastName.Location = new System.Drawing.Point(3, 58);
+            this.txtLastName.MaxLength = 15;
             this.txtLastName.Name = "txtLastName";
             this.txtLastName.Size = new System.Drawing.Size(145, 20);
             this.txtLastName.TabIndex = 37;
@@ -77,6 +78,7 @@ namespace ShopFinal
             // txtFirstName
             // 
             this.txtFirstName.Location = new System.Drawing.Point(3, 19);
+            this.txtFirstName.MaxLength = 15;
             this.txtFirstName.Name = "txtFirstName";
             this.txtFirstName.Size = new System.Drawing.Size(145, 20);
             this.txtFirstName.TabIndex = 35;

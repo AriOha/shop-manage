@@ -66,6 +66,7 @@ namespace ShopFinal
             // txtEmail
             // 
             this.txtEmail.Location = new System.Drawing.Point(3, 136);
+            this.txtEmail.MaxLength = 40;
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(145, 20);
             this.txtEmail.TabIndex = 31;
@@ -83,6 +84,7 @@ namespace ShopFinal
             // txtPhone
             // 
             this.txtPhone.Location = new System.Drawing.Point(3, 97);
+            this.txtPhone.MaxLength = 12;
             this.txtPhone.Name = "txtPhone";
             this.txtPhone.Size = new System.Drawing.Size(145, 20);
             this.txtPhone.TabIndex = 29;
@@ -100,6 +102,7 @@ namespace ShopFinal
             // txtAddress
             // 
             this.txtAddress.Location = new System.Drawing.Point(3, 58);
+            this.txtAddress.MaxLength = 60;
             this.txtAddress.Name = "txtAddress";
             this.txtAddress.Size = new System.Drawing.Size(145, 20);
             this.txtAddress.TabIndex = 27;
@@ -117,6 +120,7 @@ namespace ShopFinal
             // txtName
             // 
             this.txtName.Location = new System.Drawing.Point(3, 19);
+            this.txtName.MaxLength = 50;
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(145, 20);
             this.txtName.TabIndex = 25;

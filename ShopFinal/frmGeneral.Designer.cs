@@ -29,6 +29,7 @@ namespace ShopFinal
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             ShopFinal.Supplier supplier1 = new ShopFinal.Supplier();
             ShopFinal.Supplier supplier2 = new ShopFinal.Supplier();
             ShopFinal.Customer customer1 = new ShopFinal.Customer();
@@ -36,6 +37,7 @@ namespace ShopFinal
             this.lstProducts = new System.Windows.Forms.ListBox();
             this.tabMain = new System.Windows.Forms.TabControl();
             this.tabIntro = new System.Windows.Forms.TabPage();
+            this.label2 = new System.Windows.Forms.Label();
             this.linkLabel5 = new System.Windows.Forms.LinkLabel();
             this.linkLabel4 = new System.Windows.Forms.LinkLabel();
             this.linkLabel3 = new System.Windows.Forms.LinkLabel();
@@ -46,6 +48,8 @@ namespace ShopFinal
             this.label1 = new System.Windows.Forms.Label();
             this.lblTitleIntro = new System.Windows.Forms.Label();
             this.tabProducts = new System.Windows.Forms.TabPage();
+            this.btnClearAddProd = new System.Windows.Forms.Button();
+            this.btnClearEditProd = new System.Windows.Forms.Button();
             this.btnAddProd = new System.Windows.Forms.Button();
             this.btnRemoveProd = new System.Windows.Forms.Button();
             this.btnEditProd = new System.Windows.Forms.Button();
@@ -99,7 +103,7 @@ namespace ShopFinal
             this.lblSelectOrderMsg = new System.Windows.Forms.Label();
             this.lblOrdersNotFound = new System.Windows.Forms.Label();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
-            this.label2 = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.tabMain.SuspendLayout();
             this.tabIntro.SuspendLayout();
             this.tabProducts.SuspendLayout();
@@ -154,6 +158,16 @@ namespace ShopFinal
             this.tabIntro.ToolTipText = "Autor";
             this.tabIntro.UseVisualStyleBackColor = true;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(225, 108);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(126, 22);
+            this.label2.TabIndex = 10;
+            this.label2.Text = "Context Menu:";
+            // 
             // linkLabel5
             // 
             this.linkLabel5.ActiveLinkColor = System.Drawing.SystemColors.ActiveCaption;
@@ -168,7 +182,7 @@ namespace ShopFinal
             this.linkLabel5.TabStop = true;
             this.linkLabel5.Tag = "5";
             this.linkLabel5.Text = "5. Display Orders";
-            this.linkLabel5.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelClicked);
+            this.linkLabel5.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabelClicked);
             // 
             // linkLabel4
             // 
@@ -184,7 +198,7 @@ namespace ShopFinal
             this.linkLabel4.TabStop = true;
             this.linkLabel4.Tag = "4";
             this.linkLabel4.Text = "4. Create New Order";
-            this.linkLabel4.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelClicked);
+            this.linkLabel4.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabelClicked);
             // 
             // linkLabel3
             // 
@@ -200,7 +214,7 @@ namespace ShopFinal
             this.linkLabel3.TabStop = true;
             this.linkLabel3.Tag = "3";
             this.linkLabel3.Text = "3. Manage Customers";
-            this.linkLabel3.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelClicked);
+            this.linkLabel3.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabelClicked);
             // 
             // linkLabel2
             // 
@@ -216,7 +230,7 @@ namespace ShopFinal
             this.linkLabel2.TabStop = true;
             this.linkLabel2.Tag = "2";
             this.linkLabel2.Text = "2. Manage Suppliers";
-            this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelClicked);
+            this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabelClicked);
             // 
             // linkLabel1
             // 
@@ -232,7 +246,7 @@ namespace ShopFinal
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Tag = "1";
             this.linkLabel1.Text = "1. Manage Products";
-            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelClicked);
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabelClicked);
             // 
             // lblName2
             // 
@@ -276,6 +290,8 @@ namespace ShopFinal
             // 
             // tabProducts
             // 
+            this.tabProducts.Controls.Add(this.btnClearAddProd);
+            this.tabProducts.Controls.Add(this.btnClearEditProd);
             this.tabProducts.Controls.Add(this.btnAddProd);
             this.tabProducts.Controls.Add(this.btnRemoveProd);
             this.tabProducts.Controls.Add(this.btnEditProd);
@@ -299,12 +315,34 @@ namespace ShopFinal
             this.tabProducts.Text = "Products";
             this.tabProducts.UseVisualStyleBackColor = true;
             // 
+            // btnClearAddProd
+            // 
+            this.btnClearAddProd.Enabled = false;
+            this.btnClearAddProd.Location = new System.Drawing.Point(384, 149);
+            this.btnClearAddProd.Name = "btnClearAddProd";
+            this.btnClearAddProd.Size = new System.Drawing.Size(67, 23);
+            this.btnClearAddProd.TabIndex = 17;
+            this.btnClearAddProd.Text = "Clear";
+            this.btnClearAddProd.UseVisualStyleBackColor = true;
+            this.btnClearAddProd.Click += new System.EventHandler(this.btnClearAddProd_Click);
+            // 
+            // btnClearEditProd
+            // 
+            this.btnClearEditProd.Enabled = false;
+            this.btnClearEditProd.Location = new System.Drawing.Point(184, 149);
+            this.btnClearEditProd.Name = "btnClearEditProd";
+            this.btnClearEditProd.Size = new System.Drawing.Size(67, 23);
+            this.btnClearEditProd.TabIndex = 16;
+            this.btnClearEditProd.Text = "Clear";
+            this.btnClearEditProd.UseVisualStyleBackColor = true;
+            this.btnClearEditProd.Click += new System.EventHandler(this.btnClearEditProd_Click);
+            // 
             // btnAddProd
             // 
             this.btnAddProd.Enabled = false;
-            this.btnAddProd.Location = new System.Drawing.Point(318, 224);
+            this.btnAddProd.Location = new System.Drawing.Point(452, 149);
             this.btnAddProd.Name = "btnAddProd";
-            this.btnAddProd.Size = new System.Drawing.Size(75, 21);
+            this.btnAddProd.Size = new System.Drawing.Size(67, 23);
             this.btnAddProd.TabIndex = 15;
             this.btnAddProd.Text = "Add";
             this.btnAddProd.UseVisualStyleBackColor = true;
@@ -313,9 +351,9 @@ namespace ShopFinal
             // btnRemoveProd
             // 
             this.btnRemoveProd.Enabled = false;
-            this.btnRemoveProd.Location = new System.Drawing.Point(318, 122);
+            this.btnRemoveProd.Location = new System.Drawing.Point(184, 186);
             this.btnRemoveProd.Name = "btnRemoveProd";
-            this.btnRemoveProd.Size = new System.Drawing.Size(75, 20);
+            this.btnRemoveProd.Size = new System.Drawing.Size(135, 23);
             this.btnRemoveProd.TabIndex = 14;
             this.btnRemoveProd.Text = "Remove";
             this.btnRemoveProd.UseVisualStyleBackColor = true;
@@ -324,9 +362,9 @@ namespace ShopFinal
             // btnEditProd
             // 
             this.btnEditProd.Enabled = false;
-            this.btnEditProd.Location = new System.Drawing.Point(318, 82);
+            this.btnEditProd.Location = new System.Drawing.Point(252, 149);
             this.btnEditProd.Name = "btnEditProd";
-            this.btnEditProd.Size = new System.Drawing.Size(75, 20);
+            this.btnEditProd.Size = new System.Drawing.Size(67, 23);
             this.btnEditProd.TabIndex = 13;
             this.btnEditProd.Text = "Save";
             this.btnEditProd.UseVisualStyleBackColor = true;
@@ -346,7 +384,7 @@ namespace ShopFinal
             // 
             this.lblAdd1.AutoSize = true;
             this.lblAdd1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAdd1.Location = new System.Drawing.Point(179, 183);
+            this.lblAdd1.Location = new System.Drawing.Point(379, 37);
             this.lblAdd1.Name = "lblAdd1";
             this.lblAdd1.Size = new System.Drawing.Size(95, 25);
             this.lblAdd1.TabIndex = 11;
@@ -355,7 +393,7 @@ namespace ShopFinal
             // lblAddProd
             // 
             this.lblAddProd.AutoSize = true;
-            this.lblAddProd.Location = new System.Drawing.Point(181, 249);
+            this.lblAddProd.Location = new System.Drawing.Point(381, 106);
             this.lblAddProd.Name = "lblAddProd";
             this.lblAddProd.Size = new System.Drawing.Size(76, 13);
             this.lblAddProd.TabIndex = 10;
@@ -364,7 +402,7 @@ namespace ShopFinal
             // lblSuppName2
             // 
             this.lblSuppName2.AutoSize = true;
-            this.lblSuppName2.Location = new System.Drawing.Point(181, 208);
+            this.lblSuppName2.Location = new System.Drawing.Point(381, 65);
             this.lblSuppName2.Name = "lblSuppName2";
             this.lblSuppName2.Size = new System.Drawing.Size(77, 13);
             this.lblSuppName2.TabIndex = 9;
@@ -374,17 +412,21 @@ namespace ShopFinal
             // 
             this.cboAddProd.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboAddProd.FormattingEnabled = true;
-            this.cboAddProd.Location = new System.Drawing.Point(184, 224);
+            this.cboAddProd.Location = new System.Drawing.Point(384, 81);
             this.cboAddProd.Name = "cboAddProd";
-            this.cboAddProd.Size = new System.Drawing.Size(96, 21);
+            this.cboAddProd.Size = new System.Drawing.Size(135, 21);
             this.cboAddProd.TabIndex = 8;
             this.cboAddProd.SelectedIndexChanged += new System.EventHandler(this.btnAddProduct_Lock);
             // 
             // txtAddProd
             // 
-            this.txtAddProd.Location = new System.Drawing.Point(184, 266);
+            this.txtAddProd.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.txtAddProd.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.txtAddProd.Location = new System.Drawing.Point(384, 123);
+            this.txtAddProd.MaxLength = 40;
+            this.txtAddProd.Multiline = true;
             this.txtAddProd.Name = "txtAddProd";
-            this.txtAddProd.Size = new System.Drawing.Size(100, 20);
+            this.txtAddProd.Size = new System.Drawing.Size(135, 20);
             this.txtAddProd.TabIndex = 7;
             this.txtAddProd.TextChanged += new System.EventHandler(this.btnAddProduct_Lock);
             // 
@@ -413,17 +455,20 @@ namespace ShopFinal
             this.cboEditProd.FormattingEnabled = true;
             this.cboEditProd.Location = new System.Drawing.Point(184, 81);
             this.cboEditProd.Name = "cboEditProd";
-            this.cboEditProd.Size = new System.Drawing.Size(96, 21);
+            this.cboEditProd.Size = new System.Drawing.Size(135, 21);
             this.cboEditProd.TabIndex = 4;
             // 
             // txtEditProd
             // 
+            this.txtEditProd.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.txtEditProd.Enabled = false;
             this.txtEditProd.Location = new System.Drawing.Point(184, 123);
+            this.txtEditProd.MaxLength = 40;
+            this.txtEditProd.Multiline = true;
             this.txtEditProd.Name = "txtEditProd";
-            this.txtEditProd.Size = new System.Drawing.Size(100, 20);
+            this.txtEditProd.Size = new System.Drawing.Size(135, 20);
             this.txtEditProd.TabIndex = 3;
-            this.txtEditProd.TextChanged += new System.EventHandler(this.btnAddProductLock);
+            this.txtEditProd.TextChanged += new System.EventHandler(this.AddProductLock);
             // 
             // lblProdTitle
             // 
@@ -606,6 +651,7 @@ namespace ShopFinal
             customer2.Id = -1;
             customer2.LastName = "";
             this.ucEditCustomer.Customer = customer2;
+            this.ucEditCustomer.Enabled = false;
             this.ucEditCustomer.Location = new System.Drawing.Point(12, 63);
             this.ucEditCustomer.Name = "ucEditCustomer";
             this.ucEditCustomer.Size = new System.Drawing.Size(150, 112);
@@ -863,16 +909,6 @@ namespace ShopFinal
             this.saveFileDialog.Filter = "pdf files (*.pdf)|*.pdf|All files (*.*)|*.*";
             this.saveFileDialog.Title = "Save to PDF";
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(225, 108);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(126, 22);
-            this.label2.TabIndex = 10;
-            this.label2.Text = "Context Menu:";
-            // 
             // frmGeneral
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -969,6 +1005,9 @@ namespace ShopFinal
         private System.Windows.Forms.LinkLabel linkLabel2;
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button btnClearEditProd;
+        private System.Windows.Forms.Button btnClearAddProd;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
+using System.Linq;
 
 namespace ShopFinal
 {
@@ -102,6 +103,8 @@ namespace ShopFinal
         private void refreshProducts()
         {
             products = mySQL.GetProductsData();
+            //updating the autocomplete for insert product
+            txtAddProd.AutoCompleteCustomSource.AddRange(products.Select(prod => prod.Name).ToArray()); //Getting each name prop and convert them into sting array
         }
 
         /// <summary>
@@ -398,6 +401,8 @@ namespace ShopFinal
             btnRemoveSupplierChange(sender, e);
         }
 
+
+        //removes the supplier when this button click
         private void btnRemove_Click(object sender, EventArgs e)
         {
             if (lstSuppliers.SelectedItem != null)
@@ -520,6 +525,11 @@ namespace ShopFinal
             }
         }
 
+        /// <summary>
+        /// Removing the selected item from the cart and returns it to the list of products
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnFromCartAll_Click(object sender, EventArgs e)
         {
             for (int i = lstOrderSelected.Items.Count - 1; i >= 0; i--)
@@ -530,20 +540,27 @@ namespace ShopFinal
             }
         }
 
+        /// <summary>
+        /// updating the list of orders according the selected customer
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void lstDisplayOrderCustomers_SelectedIndexChanged(object sender, EventArgs e)
         {
             Customer selectedCust = lstDisplayOrderCustomers.SelectedItem as Customer;
             refreshOrders();
             lstvOrders.Items.Clear();
             lstvOrderProducts.Items.Clear();
-            if (selectedCust != null)
+
+
+            if (selectedCust != null) //if customer selected
             {
                 foreach (Order ord in orders)
                 {
                     if (ord.CustomerId == selectedCust.Id)
                     {
-                        string[] dt = ord.DateTime.Split(' ');
-                        string[] row = { ord.Id.ToString(), dt[0], dt[1] };
+                        string[] date = ord.DateTime.Split(' '); //splitting the date & time to insert separately
+                        string[] row = { ord.Id.ToString(), date[0], date[1] };
                         ListViewItem itm = new ListViewItem(row);
                         lstvOrders.Items.Add(itm);
                     }
@@ -555,6 +572,11 @@ namespace ShopFinal
             }
         }
 
+        /// <summary>
+        /// Updating the listView of products according the selected order
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void lstvOrders_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -579,13 +601,7 @@ namespace ShopFinal
         }
 
 
-        //Enable/Disable the Add Product button according the related inputs
-        private void btnAddProduct_Lock(object sender, EventArgs e)
-        {
 
-            btnAddProd.Enabled = !(cboAddProd.SelectedIndex == -1 || txtAddProd.Text.Length == 0);
-
-        }
 
         //Enable/Disable the Delete button according the UC form
         private void btnRemoveSupplierChange(object sender, EventArgs e)
@@ -598,31 +614,49 @@ namespace ShopFinal
             btnRemoveCustomer.Enabled = ucEditCustomer.Enabled = ((CustomerForm)sender).isBtnEnabled;
         }
 
-        private void btnAddProductLock(object sender, EventArgs e)
+        /// <summary>
+        /// Enable/disable the relevant fields according the selected/inserted inputs
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AddProductLock(object sender, EventArgs e)
         {
-            btnEditProd.Enabled = btnRemoveProd.Enabled = !(lstProducts.SelectedIndex == -1 || cboEditProd.SelectedIndex == -1);
-            btnEditProd.Enabled = !string.IsNullOrEmpty(txtEditProd.Text);// unable to save if there is no text
+            btnEditProd.Enabled = btnClearEditProd.Enabled = btnRemoveProd.Enabled = !(lstProducts.SelectedIndex == -1 || cboEditProd.SelectedIndex == -1);
+            btnEditProd.Enabled = !Validation.ValidateIfEmptyOrWhiteSpace(txtEditProd.Text);// unable to save if there is no text
+            btnClearEditProd.Enabled = !string.IsNullOrEmpty(txtEditProd.Text); //enables/disables the clear button according the input
         }
 
+        /// <summary>
+        /// Updating the visibility according the selected customer
+        /// </summary>
+        /// <param name="sender">the customers list to check if orders exists</param>
+        /// <param name="e"></param>
         private void lstvOrders_VisibleChanged(object sender, EventArgs e)
         {
             ListView list = sender as ListView;
             lblOrdersDO.Visible = list.Visible;
             lblOrdersNotFound.Visible = !list.Visible;
-            Console.WriteLine("orders Visible changed is visible? " + list.Visible);
-            //lstvOrderProducts_VisibleChanged(sender, e);
         }
+
+        /// <summary>
+        /// Updating the visibility according the previous selection
+        /// </summary>
+        /// <param name="sender">The list to find products of the order</param>
+        /// <param name="e"></param>
         private void lstvOrderProducts_VisibleChanged(object sender, EventArgs e)
         {
             ListView list = sender as ListView;
             lblDetailsDO.Visible = list.Visible;
             lblSelectOrderMsg.Visible = !list.Visible && lstvOrders.Visible;
             btnExportOrder.Visible = list.Visible;
-            Console.WriteLine("Details Visible changed is visible? " + list.Visible);
         }
 
 
-        // Saving customers list to pdf file using save file dialog
+        /// <summary>
+        /// Saving customers list to pdf file using save file dialog
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnExport_Click(object sender, EventArgs e)
         {
             saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
@@ -641,6 +675,11 @@ namespace ShopFinal
             }
         }
 
+        /// <summary>
+        /// Exporting the current order to pdf file
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnExportOrder_Click(object sender, EventArgs e)
         {
             // Saving customers list to pdf file using save file dialog
@@ -660,10 +699,46 @@ namespace ShopFinal
             }
         }
 
-        private void linkLabelClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        /// <summary>
+        /// redirects to the relevant tab using Tag
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LinkLabelClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             int selectedTab = Convert.ToInt32(((LinkLabel)sender).Tag);
             tabMain.SelectedTab = tabMain.TabPages[selectedTab];
+        }
+
+        /// <summary>
+        /// event when clear button clicked, clears the form
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnClearEditProd_Click(object sender, EventArgs e)
+        {
+            LoadProductsToList(lstProducts);
+            clearEditProduct();
+            cboEditProd.Enabled = txtEditProd.Enabled = false;
+        }
+
+        /// <summary>
+        /// event when clear button clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnClearAddProd_Click(object sender, EventArgs e)
+        {
+            clearAddProduct();
+        }
+
+        //Enable/Disable the Add Product button according the related inputs
+        private void btnAddProduct_Lock(object sender, EventArgs e)
+        {
+
+            btnAddProd.Enabled = !(cboAddProd.SelectedIndex == -1 || Validation.ValidateIfEmptyOrWhiteSpace(txtAddProd.Text));
+            btnClearAddProd.Enabled = !string.IsNullOrEmpty(txtAddProd.Text) || cboAddProd.SelectedIndex != -1;
+
         }
     }
 }

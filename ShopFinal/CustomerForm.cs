@@ -81,12 +81,11 @@ namespace ShopFinal
 
         private void isCustomerFormEmpty(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtFirstName.Text) || string.IsNullOrEmpty(txtLastName.Text))
-                btnSave.Enabled = btnClear.Enabled = false;
-            else
-                btnSave.Enabled = btnClear.Enabled = true;
-            if (!string.IsNullOrEmpty(txtFirstName.Text) || !string.IsNullOrEmpty(txtLastName.Text))
-                btnClear.Enabled = true;
+            //Enable/Disable the clear & save button if no input or whitespace inserted
+            btnSave.Enabled = btnClear.Enabled = !(Validation.ValidateIfEmptyOrWhiteSpace(txtFirstName.Text) || Validation.ValidateIfEmptyOrWhiteSpace(txtLastName.Text));
+            
+            //enables the clear button to let the user clear the form if entered whitespace
+            btnClear.Enabled = (!string.IsNullOrEmpty(txtFirstName.Text) || !string.IsNullOrEmpty(txtLastName.Text));
         }
 
         public bool isBtnEnabled

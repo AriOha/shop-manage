@@ -100,23 +100,17 @@ namespace ShopFinal
         /// <param name="e"></param>
         private void isFormEmpty(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtName.Text) ||
-                string.IsNullOrEmpty(txtAddress.Text) ||
-                string.IsNullOrEmpty(txtPhone.Text) ||
-                string.IsNullOrEmpty(txtEmail.Text))
-            {
-                btnSave.Enabled = btnClear.Enabled = false;
-            }
-            else
-                btnSave.Enabled = btnClear.Enabled = true;
+            btnSave.Enabled = btnClear.Enabled =
+                !(Validation.ValidateIfEmptyOrWhiteSpace(txtName.Text) ||
+                Validation.ValidateIfEmptyOrWhiteSpace(txtAddress.Text) ||
+                Validation.ValidateIfEmptyOrWhiteSpace(txtPhone.Text) ||
+                Validation.ValidateIfEmptyOrWhiteSpace(txtEmail.Text));
             //validating at least 1 input to enable the clear button
-            if ((!string.IsNullOrEmpty(txtName.Text) ||
+            btnClear.Enabled = (
+                !string.IsNullOrEmpty(txtName.Text) ||
                 !string.IsNullOrEmpty(txtAddress.Text) ||
                 !string.IsNullOrEmpty(txtPhone.Text) ||
-                !string.IsNullOrEmpty(txtEmail.Text)))
-            {
-                btnClear.Enabled = true;
-            }
+                !string.IsNullOrEmpty(txtEmail.Text));
         }
 
         /// <summary>
